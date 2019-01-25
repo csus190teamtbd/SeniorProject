@@ -1,7 +1,7 @@
 # SeniorProject
 ### how to install??
 
-1. install nodejs -> google
+1. install nodejs yourself
 2. clone this respository
 3. npm install
 
