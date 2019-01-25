@@ -1,38 +1,37 @@
-import $ from 'jquery';
+// import $ from 'jquery';
 import 'popper.js';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Chart from 'chart.js'
+
+/**
+ *  d3 test code
+ */
+// import * as d3 from 'd3';
+// const square = d3.selectAll("rect");
+// square.style("fill", "orange");
 
 import {home} from './home.js';
 
-home.loadMainMenu();
+document.querySelector('#navbarBtn').addEventListener('click', (e)=>{
+    switch (e.target.id) {
+      case 'homeBtn':
+        home.loadUI();
+        home.loadActionListioner();
+        break;
+      case 'aboutBtn':
+        console.log('aboutBtn')
+        break;
+      case 'contactBtn':
+        console.log('contactBtn')
+        break;
+      default:
+        break;
+    }
+})
 
+function init(){
+  home.loadUI();
+  home.loadActionListioner();
+}
 
-/**
- *    Below is for testing canvas.js
- */
-
-// document.querySelector('#main-content').innerHTML =`<div class="col-9 bg-dark w-200">
-//                                                   <canvas id="myChart" class="bg-light"></canvas>
-//                                                   </div>`
-
-// var ctx = document.getElementById('myChart').getContext('2d');
-// var chart = new Chart(ctx, {
-//     // The type of chart we want to create
-//     type: 'bar',
-
-//     // The data for our dataset
-//     data: {
-//         labels: ["January", "February", "March", "April", "May", "June", "July"],
-//         datasets: [{
-//             label: "My First dataset",
-//             backgroundColor: 'rgb(255, 99, 132)',
-//             borderColor: 'rgb(255, 99, 132)',
-//             data: [0, 10, 5, 2, 20, 30, 45],
-//         }]
-//     },
-
-//     // Configuration options go here
-//     options: {}
-// });
+init();

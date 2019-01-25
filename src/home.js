@@ -1,9 +1,16 @@
+import {oneProportion} from './oneProportion/oneProportion'
+
 class homeModule{
   constructor(){
     this.mainContent = document.querySelector('#main-content');
-    this.classList = ['One Proportion', 'Two Proportion', 'One Mean', 'Two Mean']
+    this.classList = ['one Proportion', 'two Proportion', 'One Mean', 'two Mean']
   }
-  loadMainMenu(){
+
+  capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  loadUI(){
     while (this.mainContent.firstChild)
       this.mainContent.firstChild.remove();
     
@@ -11,13 +18,18 @@ class homeModule{
     div.classList.add('bg-light', 'container', 'mt-10', 'col-8');
     
     let html = this.classList.reduce(
-      (acc, x) => acc+`<button class="btn btn-primary mb-5 btn-lg btn-block" type="button">${x}</button>`, '');
+      (acc, x) => acc+`<button class="btn btn-primary mb-5 btn-lg btn-block" type="button" id="${x.replace(/\s/g, '')}">${this.capitalizeFirstLetter(x)}</button>`, '');
     
-    console.log(this.mainContent);
     div.innerHTML = html;
     this.mainContent.append(div);
-
   }
+
+  loadActionListioner(){
+    this.mainContent.addEventListener('click', (e)=>{
+      if (e.target.textContent === 'One Proportion')
+        oneProportion.loadUI();
+    });
+  } 
 }
 
 export const home = new homeModule();
