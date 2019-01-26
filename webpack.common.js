@@ -5,7 +5,7 @@ const htmlWebPackPlugin = require('html-webpack-plugin')
 module.exports = {
   entry: {
     index: './src/app.js',
-    // oneProportion: './src/oneProportion/oneProportion.js'
+    oneProportion: './src/oneProportion/oneProportion.js'
   },
   output:{
     filename:'[name].bundle.js',
@@ -20,11 +20,11 @@ module.exports = {
       }
     ]
   },
-  // optimization:{
-  //   splitChunks:{
-  //     chunks:'all'
-  //   }
-  // },
+  optimization:{
+    splitChunks:{
+      chunks:'all'
+    }
+  },
   plugins:[
     new cleanWebpackPlugin(['./dist']),
     new htmlWebPackPlugin({

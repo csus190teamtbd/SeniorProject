@@ -1,16 +1,16 @@
 {
   "name": "senior-project",
   "version": "1.0.0",
-  "description": "",
+  "description": "senior-project",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config webpack.dev.js",
     "build:prod": "webpack --config webpack.prod.js",
-    "start:dev": "webpack-dev-server --output-public-path=/dist/"
+    "start:dev": "webpack-dev-server --config webpack.dev.js --output-public-path=/dist/"
   },
   "keywords": [],
-  "author": "",
+  "author": "CSUSTBD",
   "license": "ISC",
   "dependencies": {
     "bootstrap": "^4.2.1",

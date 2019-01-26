@@ -1,4 +1,3 @@
-import {oneProportion} from './oneProportion/oneProportion'
 
 class homeModule{
   constructor(){
@@ -26,8 +25,10 @@ class homeModule{
 
   loadActionListioner(){
     this.mainContent.addEventListener('click', (e)=>{
-      if (e.target.textContent === 'One Proportion')
-        oneProportion.loadUI();
+      if (e.target.textContent === 'One Proportion'){
+        import('./oneProportion/oneProportion')
+          .then(x=>x.oneProportion.loadUI());
+      }
     });
   } 
 }
