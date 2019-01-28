@@ -14,20 +14,28 @@ class homeModule{
       this.mainContent.firstChild.remove();
     
     let div = document.createElement('div');
-    div.classList.add('bg-light', 'container', 'mt-10', 'col-8');
-    
-    let html = this.classList.reduce(
-      (acc, x) => acc+`<button class="btn btn-primary mb-5 btn-lg btn-block" type="button" id="${x.replace(/\s/g, '')}">${this.capitalizeFirstLetter(x)}</button>`, '');
+    div.classList.add('bg-light', 'container');
+    div.setAttribute('id', 'main-menu');
+
+    let html = `<ul>`
+    this.classList.forEach(x => {
+      html += `<li><a href='#' class="btn" id="${x.replace(/\s/g, '')}">${this.capitalizeFirstLetter(x)}</a></li>`;
+    })
+    html += '</ul>'
+    // let html = this.classList.reduce(
+    //   (acc, x) => acc+`<button class="btn" type="button" id="${x.replace(/\s/g, '')}">${this.capitalizeFirstLetter(x)}</button>`, '');
     
     div.innerHTML = html;
     this.mainContent.append(div);
   }
 
   loadActionListioner(){
-    this.mainContent.addEventListener('click', (e)=>{
+    document.querySelector('#main-menu').addEventListener('click', (e)=>{
+      console.log(e.target.textContent);
       if (e.target.textContent === 'One Proportion'){
+        
         import('./oneProportion/oneProportion')
-          .then(x=>x.oneProportion.loadUI());
+          .then(x=>x.oneProportion.init());
       }
     });
   } 
