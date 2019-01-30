@@ -1,4 +1,5 @@
 import Chart from 'chart.js';
+import { runInThisContext } from 'vm';
 
 
 class OneProportionModule{
@@ -31,8 +32,9 @@ class OneProportionModule{
       }
     };
     this.chart;
-    // caching binomail data
-    this.coeff=[];
+
+    // caching binomail probabilty
+    this.theroyProbability=[];
   }
   loadUI(){
     while (this.mainContent.firstChild)
@@ -58,7 +60,7 @@ class OneProportionModule{
       </div>
       <div class='form-group'>
         <label for='coins'>Number of Coins</label>
-        <input type='number' min=1 id='coins' value='1'>
+        <input type='number' min=1 id='coins' value='5'>
       </div>
       <div class='form-group'>
         <label for='draws'>No of Draws</label>
@@ -126,67 +128,86 @@ class OneProportionModule{
     });
 
     document.querySelector('#resetBtn').addEventListener('click', (e)=>{
-      
-      coinsInput.removeAttribute('disabled');
-      coinsInput.value = 1;
-      drawInput.value = 1;
-      probabilityInput.removeAttribute('disabled');
-      probabilityInput.value = 0.5;
-      probDisplay.textContent = 0.5;
-      this.totalFlips = 0;
-      this.chartObject.data.datasets[0].data = [];
-      this.chartObject.data.datasets[1].data = [];
-      this.chartObject.data.labels = [];
+      this.reset();
       this.chart.update();
       e.preventDefault();
     });
   }
 
+  reset(){
+    const probabilityInput = document.querySelector('#probability');
+    const coinsInput = document.querySelector('#coins');
+    const probDisplay = document.querySelector('#probDisplay');
+    const drawInput = document.querySelector('#draws');
+    coinsInput.removeAttribute('disabled');
+    coinsInput.value = 5;
+    drawInput.value = 1;
+    probabilityInput.removeAttribute('disabled');
+    probabilityInput.value = 0.5;
+    probDisplay.textContent = 0.5;
+    this.totalFlips = 0;
+    this.chartObject.data.datasets[0].data = [];
+    this.chartObject.data.datasets[1].data = [];
+    this.chartObject.data.labels = [];
+    this.theroyProbability=[];
+  }
+
   flipcoins(noOfCoin, probability, drawInput){
-    let sampleData = this.chartObject.data.datasets[0].data;
-    let theoryData = this.chartObject.data.datasets[1].data;
-    if (sampleData.length === 0){
-      sampleData = Array(noOfCoin+1).fill(0);
-      theoryData = Array(noOfCoin+1).fill(0);
-      this.chartObject.data.datasets[0].data = sampleData;
-      this.chartObject.data.datasets[1].data = theoryData;
-      const label = Array(noOfCoin+1);     
-      for (let i = 0; i < noOfCoin+1; i++)
-        label[i] = i;
-      this.chartObject.data.labels = label;
-    }
+    const samples = Array(noOfCoin+1).fill(0);
     for (let i = 0; i < drawInput; i++ ){
       let res = 0;
       for (let j = 0 ; j < noOfCoin; j++)
         res += Math.random() < probability ? 1 : 0;
-      sampleData[res]++;
+      samples[res]++;
       this.totalFlips++;
     }
-    this.updateBinomailData(theoryData, probability, noOfCoin, drawInput);
+    this.updatelabel(noOfCoin);
+    this.updateSampleData(samples);
+    this.updateBinomailData(probability, noOfCoin, drawInput);
   }
 
-  updateBinomailData(arr, probability, noOfCoin, drawInput){
-    if (this.coeff.length === 0){
-      const coeff = Array(noOfCoin+1);
+
+  updatelabel(noOfCoin){
+    if (this.chartObject.data.labels.length === 0){
+      this.chartObject.data.labels = Array(noOfCoin+1);
+      for (let i = 0; i < noOfCoin+1; i++)
+        this.chartObject.data.labels[i] = i;
+    }
+  }
+
+  updateSampleData(samples){
+    if (this.chartObject.data.datasets[0].data.length === 0){
+      this.chartObject.data.datasets[0].data = Array(samples.length).fill(0);
+    }
+    for (let i = 0; i < samples.length; i++)
+      this.chartObject.data.datasets[0].data[i] += samples[i];
+  }
+
+  updateBinomailData(probability, noOfCoin){
+    if (this.theroyProbability.length === 0){
+      this.theroyProbability = Array(noOfCoin+1).fill(0);
+      const coeff = Array(noOfCoin+1).fill(0);
       coeff[0] = 1;
-      arr[0] = Math.pow(probability, noOfCoin)*this.totalFlips;
+      this.theroyProbability[0] = Math.pow(1-probability, noOfCoin);
+      console.log(this.theroyProbability);
       for (let i = 1; i < noOfCoin+1; i++){
         coeff[i] = coeff[i-1]*(noOfCoin+1-i)/(i);
-        arr[i] = coeff[i]
-          *Math.pow(probability, noOfCoin-i)
-          *Math.pow(1-probability, i)
-          *this.totalFlips; 
+        this.theroyProbability[i] = coeff[i]
+          *Math.pow(1-probability, noOfCoin-i)
+          *Math.pow(probability, i);
       }
-    } else {
-      arr.forEach(x => {
-        x += probability*(1-probability)*drawInput; 
-      });
-    }
+      this.chartObject.data.datasets[1].data = Array(noOfCoin+1);
+    } 
+    for (let i = 0; i < this.theroyProbability.length; i++)
+      this.chartObject.data.datasets[1].data[i] = this.theroyProbability[i]*this.totalFlips;
+
   }
 
   init(){
+
     this.loadUI();
     this.loadEventListeners();
+    this.reset();
     this.initChart();
   }
 

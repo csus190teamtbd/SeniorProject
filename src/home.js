@@ -31,7 +31,6 @@ class homeModule{
 
   loadActionListioner(){
     document.querySelector('#main-menu').addEventListener('click', (e)=>{
-      console.log(e.target.textContent);
       if (e.target.textContent === 'One Proportion'){
         
         import('./oneProportion/oneProportion')
