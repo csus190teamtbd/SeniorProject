@@ -204,7 +204,6 @@ class OneProportionModule{
   }
 
   init(){
-
     this.loadUI();
     this.loadEventListeners();
     this.reset();
