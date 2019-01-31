@@ -10,13 +10,11 @@ export default class Calculation{
     coeff[0] = 1;
 
     this.dataSet = {
-      label : Array(noOfCoin+1),
-      binomail: null,
+      label : Array(noOfCoin+1).fill(0),
+      binomail: Array(noOfCoin+1).fill(0),
       sample : Array(noOfCoin+1).fill(0),
       totalFlips : 0
     }
-
-    this.dataSet.label[0] = 0;
     this.binomailBase[0] = Math.pow(1-probability, noOfCoin);
     for (let i = 1; i < noOfCoin+1; i++){
       this.dataSet.label[i] = i;
@@ -29,15 +27,16 @@ export default class Calculation{
   addSampleDatas(drawInput){
     for (let i = 0; i < drawInput; i++ ){
       let res = 0;
-      for (let j = 0 ; j < this.noOfCoin; j++)
+      for (let j = 0 ; j < this.noOfCoin; j++){
         res += Math.random() < this.probability ? 1 : 0;
+      }
       this.dataSet.sample[res]++;
     }
     this.dataSet.totalFlips += drawInput;
-    
-    console.log(this.dataSet.totalFlips);
-    this.dataSet.binomail = this.binomailBase.map(x => x*this.dataSet.totalFlips);
-    console.log(this.dataSet.binomail);
+
+    //update binomial
+    for (let i = 0; i < this.noOfCoin+1; i++)
+      this.dataSet.binomail[i] = this.binomailBase[i]*this.dataSet.totalFlips;
   }
 
   getDataSet(){
