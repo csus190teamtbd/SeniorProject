@@ -1,34 +1,28 @@
 
-class Data{
-  constructor(){
-    this.label = 0;
-    this.sample = 0;
-    this.binomail = 0;
-    this.normal = 0;
-  }
-}
-
-
 export default class Calculation{
 
   constructor(noOfCoin, probability, firstInput){
-    this.dataSet = [];
+    // this.dataSet = [];
     this.noOfCoin = noOfCoin;
     this.probability = probability;
-    this.dataSet = Array(noOfCoin+1);
-
+    this.binomailBase = Array(noOfCoin+1);
     const coeff = Array(noOfCoin+1).fill(0);
     coeff[0] = 1;
-    this.dataSet[0] = new Data();
-    this.dataSet[0].label = 0;
-    this.dataSet[0].binomail = Math.pow(1-probability, noOfCoin);
+
+    this.dataSet = {
+      label : Array(noOfCoin+1),
+      binomail: null,
+      sample : Array(noOfCoin+1).fill(0),
+      totalFlips : 0
+    }
+
+    this.dataSet.label[0] = 0;
+    this.binomailBase[0] = Math.pow(1-probability, noOfCoin);
     for (let i = 1; i < noOfCoin+1; i++){
-      this.dataSet[i] = new Data();
-      this.dataSet[i].label = i;
+      this.dataSet.label[i] = i;
       coeff[i] = coeff[i-1]*(noOfCoin+1-i)/(i);
-      this.dataSet[i].binomail = coeff[i]*Math.pow(1-probability, noOfCoin-i)*Math.pow(probability, i);
+      this.binomailBase[i] = coeff[i]*Math.pow(1-probability, noOfCoin-i)*Math.pow(probability, i);
     };
-    this.totalFlips = 0;
     this.addSampleDatas(firstInput);
   }
 
@@ -37,9 +31,13 @@ export default class Calculation{
       let res = 0;
       for (let j = 0 ; j < this.noOfCoin; j++)
         res += Math.random() < this.probability ? 1 : 0;
-      this.dataSet[res].sample++;
+      this.dataSet.sample[res]++;
     }
-    this.totalFlips += drawInput;
+    this.dataSet.totalFlips += drawInput;
+    
+    console.log(this.dataSet.totalFlips);
+    this.dataSet.binomail = this.binomailBase.map(x => x*this.dataSet.totalFlips);
+    console.log(this.dataSet.binomail);
   }
 
   getDataSet(){
