@@ -17,6 +17,10 @@ require('./css/style.css')
 
 import {home} from './home.js';
 
+document.addEventListener("DOMContentLoaded", ()=>{
+  document.querySelector('#thisYear').textContent = new Date().getFullYear();
+});
+
 document.querySelector('#navbar').addEventListener('click', (e)=>{
   console.log(e.target.id)
   switch (e.target.id) {

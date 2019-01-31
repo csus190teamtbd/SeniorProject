@@ -1,6 +1,6 @@
 import Chart from 'chart.js';
-import { runInThisContext } from 'vm';
 
+import Calculation from './calculation';
 
 class OneProportionModule{
   constructor(){
@@ -14,10 +14,13 @@ class OneProportionModule{
                 label: '# of heads in each draw (samples)',
                 data: [],
                 borderWidth: 1,
+                backgroundColor: "rgba(255,0,0,0.4)"
               },{
                 label: '# of heads in each draw (binomail)',
                 data: [],
-                type: 'line'
+                type: 'line',
+                backgroundColor: "rgba(0,0,255,0.4)",
+                hidden: true,
               },
           ]
       },
@@ -28,11 +31,13 @@ class OneProportionModule{
                       beginAtZero:true
                   }
               }]
-          }
+          },
+          responsive: true,
+          maintainAspectRatio: true
       }
     };
     this.chart;
-
+    this.cal;
     // caching binomail probabilty
     this.theroyProbability=[];
   }
@@ -116,13 +121,21 @@ class OneProportionModule{
     });
 
     document.querySelector('#sampleBtn').addEventListener('click', (e)=>{
-      
       coinsInput.setAttribute('disabled', true);
       probabilityInput.setAttribute('disabled', true);
-      this.flipcoins(
-        parseInt(coinsInput.value), 
-        parseFloat(probabilityInput.value),
-        parseInt(drawInput.value));
+
+      if (!this.cal)
+        this.cal = new Calculation(
+                        parseInt(coinsInput.value),
+                        parseFloat(probabilityInput.value),
+                        parseInt(drawInput.value));
+      else{
+        this.cal.addSampleDatas(parseInt(drawInput.value));
+      }
+      // console.log(this.cal.getDataSet().map(x => x.sample));
+
+      this.chartObject.data.datasets[0].data = this.cal.getDataSet().map(x => x.sample);
+      this.chartObject.data.labels = this.cal.getDataSet().map(x => x.labe);
       this.chart.update();
       e.preventDefault();
     });
@@ -150,6 +163,7 @@ class OneProportionModule{
     this.chartObject.data.datasets[1].data = [];
     this.chartObject.data.labels = [];
     this.theroyProbability=[];
+    this.cal = null;
   }
 
   flipcoins(noOfCoin, probability, drawInput){
