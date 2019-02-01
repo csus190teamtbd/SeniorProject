@@ -2,11 +2,7 @@
 class homeModule{
   constructor(){
     this.mainContent = document.querySelector('#main-content');
-    this.classList = ['one Proportion', 'two Proportion', 'One Mean', 'two Mean']
-  }
-
-  capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
+    this.methods = ['One Proportion', 'Two Proportion', 'One Mean', 'Two Mean']
   }
 
   loadUI(){
@@ -18,12 +14,10 @@ class homeModule{
     div.setAttribute('id', 'main-menu');
 
     let html = `<ul>`
-    this.classList.forEach(x => {
-      html += `<li><a href='#' class="btn" id="${x.replace(/\s/g, '')}">${this.capitalizeFirstLetter(x)}</a></li>`;
+    this.methods.forEach(x => {
+      html += `<li><a href='#' class="btn">${x}</a></li>`;
     })
     html += '</ul>'
-    // let html = this.classList.reduce(
-    //   (acc, x) => acc+`<button class="btn" type="button" id="${x.replace(/\s/g, '')}">${this.capitalizeFirstLetter(x)}</button>`, '');
     
     div.innerHTML = html;
     this.mainContent.append(div);
