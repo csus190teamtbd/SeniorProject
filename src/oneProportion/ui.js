@@ -1,6 +1,7 @@
 class UI{
 
   constructor(){
+
     this.generateControlMenu = function(){
       const div = document.createElement('div');
       div.setAttribute('id', 'control');
@@ -13,20 +14,33 @@ class UI{
           <p id='selectedProb'></p>
         </div>
         <div class='form-group'>
-          <label for='coins'>Number of Coins</label>
+          <label for='coins'>Number of Tosses</label>
           <input type='number' min=1 id='coins' value='5'>
         </div>
+        <button type="reset" value="reset" class='btn' id='resetBtn'>Reset</button>
+        <hr>
         <div class='form-group'>
           <label for='draws'>Add Samples</label>
           <input type='number' min=1 id='draws' value='1'>
         </div>
+      
+        <button type="submit" value="sample" class='btn' id ='sampleBtn'>Draw Samples</button>
+        <hr>
         <div class='form-group'>
           <label>Total Samples: <span id='totalFlips'>0</span></label>
+          <label>mean: <span id='meanDisplay'>0</span></label>
+          <label>Stand Dev: <span id='stdDisplay'>0</span></label>
+          <br>
+          <label for='lowerBound'>Range: </label>
+          <input type='number' class='smallInput' min=0 id='lowerBound' placeholder='Lower Bound of Heads' value = '3'>
+          <input type='number' class='smallInput' min=0 id='upperBound' placeholder='Upper Bound of Heads' value='5'>
+          <label>Heads Within Range: <span id='sampleInRangeDisplay'>0</span></label>
+          <label>proportion: <span id='proportionDisplay'>0</span></label>
         </div>
-        <button type="submit" value="sample" class='btn' id ='sampleBtn'>Draw Samples</button>
-        <button type="reset" value="reset" class='btn' id='resetBtn'>Reset</button>
+        <hr>
       </div>
       </form>`
+      
       return div;
     }
 
@@ -76,6 +90,14 @@ class UI{
       drawInput : document.getElementById('draws'),
       chart: document.getElementById("chart"),
       totalFlips: document.getElementById("totalFlips"),
+      lowerBound: document.getElementById("lowerBound"),
+      upperBound: document.getElementById("upperBound"),
+      sampleInRangeDisplay: document.getElementById("sampleInRangeDisplay"),
+      resetBtn : document.getElementById("resetBtn"),
+      sampleBtn : document.getElementById("sampleBtn"),
+      proportionDisplay : document.getElementById("proportionDisplay"),
+      meanDisplay : document.getElementById("meanDisplay"),
+      stdDisplay : document.getElementById("stdDisplay"),
     }
   }
 

@@ -36,11 +36,24 @@ export default class Calculation{
 
     //update binomial
     for (let i = 0; i < this.noOfCoin+1; i++)
-      this.dataSet.binomail[i] = this.binomailBase[i]*this.dataSet.totalFlips;
+      this.dataSet.binomail[i] = (this.binomailBase[i]*this.dataSet.totalFlips).toFixed(2);
   }
 
   getDataSet(){
     return this.dataSet;
   }
-
+  getNumberOfSamplesInRange(lower, upper){
+    lower = lower >= 0 ? lower : 0;
+    upper = upper <= this.noOfCoin ? upper :this.noOfCoin;
+    let res = 0;
+    for (let i = lower; i <= upper; i++)
+      res += this.dataSet.sample[i]
+    return res;
+  }
+  getMean(){
+    return this.noOfCoin * this.probability;
+  }
+  getSTD(){
+    return Math.sqrt(this.noOfCoin * this.probability * (1-this.probability));
+  }
 }
