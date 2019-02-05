@@ -180,12 +180,28 @@ p{
   border-radius: 5px;
 }
 
+#control .form-group input[type=range]{
+  cursor: pointer;
+}
+
+#control .form-group input:disabled{
+  cursor: default
+}
+
 #control .btn{
   margin: 0.5rem;
+  cursor: pointer;
 }
 
 #view{
   flex:3;
   display: flex;
   flex-direction: column;
+}
+
+.smallInput{
+  width: 40%;
+  padding: 0.5rem;
+  border-radius: 5px;
+  display: inline;
 }
