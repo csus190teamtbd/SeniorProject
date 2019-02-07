@@ -1,57 +1,18 @@
-import Chart from 'chart.js';
+import ChartModule from './oneProportionChart';
 
 import Calculation from './calculation';
 import {ui} from './ui';
 class OneProportionModule{
   constructor(){
-    this.chartObject = {
-      type: 'bar',
-      data: {
-          labels: [],
-          datasets: [{
-                label: '# of heads in each draw (samples)',
-                data: [],
-                borderWidth: 1,
-                id: 'x-axis-1',
-                backgroundColor: "rgba(255,0,0,0.6)",
-                hidden: false,
-              },{
-                label: '# of heads in each draw (binomail)',
-                data: [],
-                borderWidth: 1,
-                id: 'x-axis-2',
-                backgroundColor: "rgba(0,0,255,0.4)",
-                hidden: false,
-              },
-          ]
-      },
-      options: {
-          scales: {
-              yAxes: [{
-                  ticks: {
-                      beginAtZero:true
-                  }
-              }],
-              xAxes: [
-                { 
-                  barPercentage: 1.0
-                }, 
-
-                ]
-          },
-          responsive: true,
-          maintainAspectRatio: true
-      }
-    };
-    this.chart;
     this.cal;
-    
   }
 
-
-  initChart(){
-    var ctx = ui.getUISelectors().chart;
-    this.chart = new Chart(ctx, this.chartObject);
+  init(){
+    ui.loadUI();
+    this.loadEventListeners();
+    this.chart = new ChartModule(ui.getUISelectors().chart);
+    this.cal = null;
+    this.reset();
   }
 
   loadEventListeners(){
@@ -61,23 +22,36 @@ class OneProportionModule{
     const totalFlips = ui.getUISelectors().totalFlips;
     
 
+    // probabilty display
     probabilityInput.addEventListener('input', (e)=>{
       probDisplay.textContent = e.target.value;
     });
 
+    // draw sample button
     ui.getUISelectors().sampleBtn.addEventListener('click', (e)=>{
       coinsInput.setAttribute('disabled', true);
       probabilityInput.setAttribute('disabled', true);
       this.updateCalculation();
       totalFlips.textContent = this.cal.getDataSet().totalFlips;
       this.updateStatNumbersDisplay();
-      this.chart.update();
+      if (this.cal.dataSet.label.length <=50)
+        this.chart.UpdateChartData(this.cal.dataSet.label, this.cal.dataSet.sample, this.cal.dataSet.binomail);
+      else{
+        const std = this.cal.getSTD();
+        const mean = this.cal.getMean();
+        const lowerRange = mean-3*std > 0 ? Math.floor(mean-3*std) : 0
+        const upperRange = mean+3*std;
+        this.chart.UpdateChartData(
+          this.cal.dataSet.label.slice(lowerRange, upperRange), 
+          this.cal.dataSet.sample.slice(lowerRange, upperRange), 
+          this.cal.dataSet.binomail.slice(lowerRange, upperRange));
+      }
       e.preventDefault();
     });
 
+    // reset button
     ui.getUISelectors().resetBtn.addEventListener('click', (e)=>{
       this.reset();
-      this.chart.update();
       e.preventDefault();
     });
 
@@ -91,27 +65,21 @@ class OneProportionModule{
   }
 
   updateCalculation(){
-    const probabilityInput = ui.getUISelectors().probabilityInput;
-    const coinsInput = ui.getUISelectors().coinsInput;
-    const drawInput = ui.getUISelectors().drawInput;
+    const probabilityValue = parseFloat(ui.getUISelectors().probabilityInput.value);
+    const coinsValue = parseInt(ui.getUISelectors().coinsInput.value);
+    const drawValue = parseInt(ui.getUISelectors().drawInput.value);
     if (!this.cal){
-      this.cal = new Calculation(
-                      parseInt(coinsInput.value),
-                      parseFloat(probabilityInput.value),
-                      parseInt(drawInput.value));
-      this.chartObject.data.datasets[0].data = this.cal.getDataSet().sample;
-      this.chartObject.data.datasets[1].data = this.cal.getDataSet().binomail;
-      this.chartObject.data.labels = this.cal.getDataSet().label;
+      this.cal = new Calculation(coinsValue, probabilityValue, drawValue);
     }else{
-        this.cal.addSampleDatas(parseInt(drawInput.value));
+        this.cal.addSampleDatas(drawValue);
     }
   }
 
   updateStatNumbersDisplay(){
-    if (this.cal && ui.getUISelectors().lowerBound.value != '' && ui.getUISelectors().upperBound.value != ''){
-      const noOfsamplesinRange = this.cal.getNumberOfSamplesInRange(
-        parseInt(ui.getUISelectors().lowerBound.value),
-        parseInt(ui.getUISelectors().upperBound.value));
+    const lowerBoundValue = parseInt(ui.getUISelectors().lowerBound.value);
+    const upperBoundValue = parseInt(ui.getUISelectors().upperBound.value);
+    if (!(isNaN(lowerBoundValue) || isNaN(upperBoundValue))){
+      const noOfsamplesinRange = this.cal.getNumberOfSamplesInRange(lowerBoundValue, upperBoundValue);
       ui.getUISelectors().sampleInRangeDisplay.textContent = noOfsamplesinRange;
 
       const total = this.cal.getDataSet().totalFlips;
@@ -138,17 +106,8 @@ class OneProportionModule{
     ui.getUISelectors().meanDisplay.textContent = 0;
     ui.getUISelectors().stdDisplay.textContent = 0;
     ui.getUISelectors().proportionDisplay.textContent = 0;
-    this.chartObject.data.datasets[0].data = [];
-    this.chartObject.data.datasets[1].data = [];
-    this.chartObject.data.labels = [];
+    this.chart.UpdateChartData([],[],[]);
     this.cal = null;
-  }
-
-  init(){
-    ui.loadUI();
-    this.loadEventListeners();
-    this.reset();
-    this.initChart();
   }
 }
 
