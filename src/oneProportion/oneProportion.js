@@ -78,7 +78,7 @@ class OneProportionModule{
   updateStatNumbersDisplay(){
     const lowerBoundValue = parseInt(ui.getUISelectors().lowerBound.value);
     const upperBoundValue = parseInt(ui.getUISelectors().upperBound.value);
-    if (!(isNaN(lowerBoundValue) || isNaN(upperBoundValue))){
+    if (!(isNaN(lowerBoundValue) || isNaN(upperBoundValue)) && this.cal){
       const noOfsamplesinRange = this.cal.getNumberOfSamplesInRange(lowerBoundValue, upperBoundValue);
       ui.getUISelectors().sampleInRangeDisplay.textContent = noOfsamplesinRange;
 
@@ -88,6 +88,8 @@ class OneProportionModule{
 
       ui.getUISelectors().meanDisplay.textContent = this.cal.getMean();
       ui.getUISelectors().stdDisplay.textContent = this.cal.getSTD().toFixed(3);
+
+      this.chart.updateAnnotation(lowerBoundValue, upperBoundValue);
     }
   }
 
@@ -107,6 +109,7 @@ class OneProportionModule{
     ui.getUISelectors().stdDisplay.textContent = 0;
     ui.getUISelectors().proportionDisplay.textContent = 0;
     this.chart.UpdateChartData([],[],[]);
+    this.chart.updateAnnotation(0,0);
     this.cal = null;
   }
 }
