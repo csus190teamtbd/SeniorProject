@@ -199,9 +199,9 @@ p{
   flex-direction: column;
 }
 
-.smallInput{
-  width: 40%;
+#control .form-group .smallTextInput{
+  width: 30%;
   padding: 0.5rem;
   border-radius: 5px;
-  display: inline;
+  display: inline-block;
 }

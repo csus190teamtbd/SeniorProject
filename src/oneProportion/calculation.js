@@ -21,6 +21,7 @@ export default class Calculation{
       coeff[i] = coeff[i-1]*(noOfCoin+1-i)/(i);
       this.binomailBase[i] = coeff[i]*Math.pow(1-probability, noOfCoin-i)*Math.pow(probability, i);
     };
+    console.log(this.binomailBase);
     this.addSampleDatas(firstInput);
   }
 

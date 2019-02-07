@@ -10,18 +10,18 @@ class UI{
       `<form>
         <div class='form-group'>
           <label for='probability'>Head Probability: <span id='probDisplay'>0.5</span></label>
-          <input type='range' min=0 max=1 step=0.01 value='0.5' id='probability'>
+          <input type='range' min=0 max=1 step=0.01 id='probability'>
           <p id='selectedProb'></p>
         </div>
         <div class='form-group'>
           <label for='coins'>Number of Tosses</label>
-          <input type='number' min=1 id='coins' value='5'>
+          <input type='number' min=1 id='coins'>
         </div>
         <button type="reset" value="reset" class='btn' id='resetBtn'>Reset</button>
         <hr>
         <div class='form-group'>
           <label for='draws'>Add Samples</label>
-          <input type='number' min=1 id='draws' value='1'>
+          <input type='number' min=1 id='draws'>
         </div>
       
         <button type="submit" value="sample" class='btn' id ='sampleBtn'>Draw Samples</button>
@@ -31,10 +31,11 @@ class UI{
           <label>mean: <span id='meanDisplay'>0</span></label>
           <label>Stand Dev: <span id='stdDisplay'>0</span></label>
           <br>
-          <label for='lowerBound'>Range: </label>
-          <input type='number' class='smallInput' min=0 id='lowerBound' placeholder='Lower Bound of Heads' value = '3'>
-          <input type='number' class='smallInput' min=0 id='upperBound' placeholder='Upper Bound of Heads' value='5'>
-          <label>Heads Within Range: <span id='sampleInRangeDisplay'>0</span></label>
+          <label for='lowerBound'># of samples in range: </label>
+          <input type='number' class='smallTextInput' min=0 id='lowerBound'>
+          <span> to </span>
+          <input type='number' class='smallTextInput' min=0 id='upperBound'>
+          <label><span id='sampleInRangeDisplay'>0</span>&nbsp;&nbsp;samples</label>
           <label>proportion: <span id='proportionDisplay'>0</span></label>
         </div>
         <hr>
