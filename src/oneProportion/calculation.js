@@ -13,6 +13,7 @@ export default class Calculation{
       label : Array(noOfCoin+1).fill(0),
       binomail: Array(noOfCoin+1).fill(0),
       sample : Array(noOfCoin+1).fill(0),
+      selected: Array(noOfCoin+1).fill(NaN),
       totalFlips : 0
     }
     this.binomailBase[0] = Math.pow(1-probability, noOfCoin);
@@ -47,8 +48,14 @@ export default class Calculation{
     lower = lower >= 0 ? lower : 0;
     upper = upper <= this.noOfCoin ? upper :this.noOfCoin;
     let res = 0;
-    for (let i = lower; i <= upper; i++)
-      res += this.dataSet.sample[i]
+    this.dataSet.selected.fill(NaN);
+    for (let i = lower; i <= upper; i++){
+      res += this.dataSet.sample[i];
+      this.dataSet.selected[i] = 0;
+    }
+    
+      this.dataSet.selected[upper+1] = 0;
+    
     return res;
   }
   getMean(){

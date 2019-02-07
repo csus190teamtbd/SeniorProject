@@ -34,8 +34,10 @@ class OneProportionModule{
       this.updateCalculation();
       totalFlips.textContent = this.cal.getDataSet().totalFlips;
       this.updateStatNumbersDisplay();
-      if (this.cal.dataSet.label.length <=50)
-        this.chart.UpdateChartData(this.cal.dataSet.label, this.cal.dataSet.sample, this.cal.dataSet.binomail);
+      if (this.cal.dataSet.label.length <=50){
+        this.chart.UpdateChartData(this.cal.dataSet.label, this.cal.dataSet.sample, 
+          this.cal.dataSet.binomail, this.cal.dataSet.selected);
+        }
       else{
         const std = this.cal.getSTD();
         const mean = this.cal.getMean();
@@ -44,7 +46,8 @@ class OneProportionModule{
         this.chart.UpdateChartData(
           this.cal.dataSet.label.slice(lowerRange, upperRange), 
           this.cal.dataSet.sample.slice(lowerRange, upperRange), 
-          this.cal.dataSet.binomail.slice(lowerRange, upperRange));
+          this.cal.dataSet.binomail.slice(lowerRange, upperRange),
+          this.cal.dataSet.selected.slice(lowerRange, upperRange));
       }
       e.preventDefault();
     });
@@ -89,7 +92,8 @@ class OneProportionModule{
       ui.getUISelectors().meanDisplay.textContent = this.cal.getMean();
       ui.getUISelectors().stdDisplay.textContent = this.cal.getSTD().toFixed(3);
 
-      this.chart.updateAnnotation(lowerBoundValue, upperBoundValue);
+      this.chart.UpdateChartData(this.cal.dataSet.label, this.cal.dataSet.sample, 
+        this.cal.dataSet.binomail, this.cal.dataSet.selected);
     }
   }
 
@@ -108,8 +112,7 @@ class OneProportionModule{
     ui.getUISelectors().meanDisplay.textContent = 0;
     ui.getUISelectors().stdDisplay.textContent = 0;
     ui.getUISelectors().proportionDisplay.textContent = 0;
-    this.chart.UpdateChartData([],[],[]);
-    this.chart.updateAnnotation(0,0);
+    this.chart.UpdateChartData([],[],[],[]);
     this.cal = null;
   }
 }
