@@ -2,6 +2,7 @@ import Chart from "chart.js";
 
 export default class ChartModule {
   constructor(canvasEle) {
+    this.zoomIn = false;
     this.color = {
       sample: "rgba(255,0,0,0.6)",
       binomial: "rgba(0,0,255,0.6)",
@@ -100,13 +101,31 @@ export default class ChartModule {
       sample,
       binomail,
       selected,
-      mean,
-      sampleSelected
+      probability,
+      noOfCoin,
+      sampleSelected,
+      mean
     } = dataSet;
-    this.chart.data.labels = labels;
-    this.chart.data.datasets[0].data = sample;
-    this.chart.data.datasets[1].data = binomail;
-    this.chart.data.datasets[2].data = selected;
+    let lowerRange, upperRange;
+    if (!this.zoomIn) {
+      this.chart.data.labels = labels;
+      this.chart.data.datasets[0].data = sample;
+      this.chart.data.datasets[1].data = binomail;
+      this.chart.data.datasets[2].data = selected;
+    } else {
+      //use theory mean and std so that the label does not change frequently
+      const theroyMean = probability * noOfCoin;
+      const theoryStd = Math.sqrt(noOfCoin * probability * (1 - probability));
+      lowerRange =
+        theroyMean - 3 * theoryStd > 0
+          ? Math.floor(theroyMean - 3 * theoryStd)
+          : 0;
+      upperRange = theroyMean + 3 * theoryStd;
+      this.chart.data.labels = labels.slice(lowerRange, upperRange);
+      this.chart.data.datasets[0].data = sample.slice(lowerRange, upperRange);
+      this.chart.data.datasets[1].data = binomail.slice(lowerRange, upperRange);
+      this.chart.data.datasets[2].data = selected.slice(lowerRange, upperRange);
+    }
     this.dataFromCalculation.theoryMean = mean;
     this.dataFromCalculation.sampleSelected = sampleSelected;
     this.chart.update();
@@ -118,6 +137,7 @@ export default class ChartModule {
     this.chart.data.datasets[2].data = [];
     this.dataFromCalculation.theoryMean = 0;
     this.dataFromCalculation.sampleSelected = 0;
+    this.zoomIn = false;
     this.chart.update();
   }
 }
