@@ -133,7 +133,7 @@ p{
   align-items: center;
   width:100%;
   margin-top:3rem;
-  
+
 }
 
 #main-menu ul li{
@@ -211,4 +211,42 @@ p{
   padding: 0.5rem;
   border-radius: 5px;
   display: inline-block;
+}
+/*range siider*/
+#probability{
+  -webkit-appearance: none;
+  width:15%;
+  height:5px;
+  background:#aaaaaa;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: 0.2s;
+  transition: opacity .2s;
+}
+#probability::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #329932;
+  cursor: pointer;
+  border-radius: 20px;
+}
+#probability::-moz-range-thumb{
+  width: 20px;
+  height: 20px;
+  background: #329932;
+  cursor: pointer;
+  border-radius: 20px;
+}
+#probability::-ms-thumb{
+  width: 20px;
+  height: 20px;
+  background: #329932;
+  cursor: pointer;
+  border-radius: 20px;
+}
+
+#slider:hover{
+  opacity:10;
 }
