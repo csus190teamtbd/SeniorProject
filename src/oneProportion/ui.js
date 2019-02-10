@@ -1,13 +1,10 @@
-class UI{
-
-  constructor(){
-
-    this.generateControlMenu = function(){
-      const div = document.createElement('div');
-      div.setAttribute('id', 'control');
-      div.classList.add('container');
-      div.innerHTML = 
-      `<form>
+class UI {
+  constructor() {
+    this.generateControlMenu = function() {
+      const div = document.createElement("div");
+      div.setAttribute("id", "control");
+      div.classList.add("container");
+      div.innerHTML = `<form>
         <div class='form-group'>
           <label for='probability'>Head Probability: <span id='probDisplay'>0.5</span></label>
           <input type='range' min=0 max=1 step=0.01 id='probability'>
@@ -40,69 +37,66 @@ class UI{
         </div>
         <hr>
       </div>
-      </form>`
-      
+      </form>`;
+
       return div;
-    }
+    };
 
     this.generateView = () => {
-      const div = document.createElement('div');
-      div.setAttribute('id', 'view');
+      const div = document.createElement("div");
+      div.setAttribute("id", "view");
       div.appendChild(this.generateAnimation());
       div.appendChild(this.generateChart());
       return div;
-    }
+    };
 
-    this.generateAnimation = () =>{
-      const div = document.createElement('div');
-      div.setAttribute('id', 'animation');
-      div.classList.add('container');
+    this.generateAnimation = () => {
+      const div = document.createElement("div");
+      div.setAttribute("id", "animation");
+      div.classList.add("container");
       div.textContent = "ANIMATION , COMING SOON";
       return div;
-    }
-  
+    };
+
     this.generateChart = () => {
-      const canvas = document.createElement('canvas');
-      canvas.setAttribute('id', 'chart');
-      canvas.classList.add('container');
-  
+      const canvas = document.createElement("canvas");
+      canvas.setAttribute("id", "chart");
+      canvas.classList.add("container");
+
       return canvas;
-    }
+    };
   }
 
+  loadUI() {
+    const mainContent = document.getElementById("main-content");
+    while (mainContent.firstChild) mainContent.firstChild.remove();
 
-  loadUI(){
-    const mainContent = document.getElementById('main-content');
-    while (mainContent.firstChild)
-      mainContent.firstChild.remove();
-    
-    const div = document.createElement('div');
-    div.setAttribute('id', 'mainpanel');
+    const div = document.createElement("div");
+    div.setAttribute("id", "mainpanel");
     div.appendChild(this.generateControlMenu());
     div.appendChild(this.generateView());
     mainContent.appendChild(div);
   }
 
-  getUISelectors(){
+  getUISelectors() {
     return {
-      probabilityInput : document.getElementById('probability'),
-      coinsInput : document.getElementById('coins'),
-      probDisplay : document.getElementById('probDisplay'),
-      drawInput : document.getElementById('draws'),
+      probabilityInput: document.getElementById("probability"),
+      coinsInput: document.getElementById("coins"),
+      probDisplay: document.getElementById("probDisplay"),
+      drawInput: document.getElementById("draws"),
       chart: document.getElementById("chart"),
       totalFlips: document.getElementById("totalFlips"),
       lowerBound: document.getElementById("lowerBound"),
       upperBound: document.getElementById("upperBound"),
       sampleInRangeDisplay: document.getElementById("sampleInRangeDisplay"),
-      resetBtn : document.getElementById("resetBtn"),
-      sampleBtn : document.getElementById("sampleBtn"),
-      proportionDisplay : document.getElementById("proportionDisplay"),
-      meanDisplay : document.getElementById("meanDisplay"),
-      stdDisplay : document.getElementById("stdDisplay"),
-    }
+      resetBtn: document.getElementById("resetBtn"),
+      sampleBtn: document.getElementById("sampleBtn"),
+      proportionDisplay: document.getElementById("proportionDisplay"),
+      meanDisplay: document.getElementById("meanDisplay"),
+      stdDisplay: document.getElementById("stdDisplay"),
+      view: document.getElementById("view")
+    };
   }
-
-
 }
 
 export const ui = new UI();
