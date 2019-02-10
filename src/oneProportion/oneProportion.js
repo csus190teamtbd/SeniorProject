@@ -3,11 +3,6 @@ import ChartModule from "./oneProportionChart";
 import Calculation from "./calculation";
 import { ui } from "./ui";
 class OneProportionModule {
-  constructor() {
-    this.cal;
-    this.chart === null;
-  }
-
   init() {
     ui.loadUI();
     this.loadEventListeners();
@@ -32,22 +27,9 @@ class OneProportionModule {
       coinsInput.setAttribute("disabled", true);
       probabilityInput.setAttribute("disabled", true);
       this.updateCalculation();
-      totalFlips.textContent = this.cal.getDataSet().totalFlips;
-      this.updateStatNumbersDisplay();
-      if (this.cal.dataSet.labels.length <= 50) {
-        this.chart.updateChartData(this.cal.dataSet);
-      } else {
-        const std = this.cal.getSTD();
-        const mean = this.cal.getMean();
-        const lowerRange = mean - 3 * std > 0 ? Math.floor(mean - 3 * std) : 0;
-        const upperRange = mean + 3 * std;
-        this.chart.updateChartData(
-          this.cal.dataSet.labels.slice(lowerRange, upperRange),
-          this.cal.dataSet.sample.slice(lowerRange, upperRange),
-          this.cal.dataSet.binomail.slice(lowerRange, upperRange),
-          this.cal.dataSet.selected.slice(lowerRange, upperRange)
-        );
-      }
+      totalFlips.textContent = this.cal.dataSet.totalFlips;
+      this.updateStatNumbers();
+      this.chart.updateChartData(this.cal.dataSet);
       e.preventDefault();
     });
 
@@ -58,11 +40,25 @@ class OneProportionModule {
     });
 
     ui.getUISelectors().lowerBound.addEventListener("input", () => {
-      this.updateStatNumbersDisplay();
+      this.updateStatNumbers();
     });
 
     ui.getUISelectors().upperBound.addEventListener("input", () => {
-      this.updateStatNumbersDisplay();
+      this.updateStatNumbers();
+    });
+
+    /**
+     * Double Click to Zoom in if no of toss > 50;
+     */
+    ui.getUISelectors().chart.addEventListener("dblclick", () => {
+      console.log("XXX");
+      if (this.cal && this.cal.dataSet.noOfCoin >= 50 && !this.chart.zoomIn) {
+        this.chart.zoomIn = true;
+        this.chart.updateChartData(this.cal.dataSet);
+      } else if (this.cal) {
+        this.chart.zoomIn = false;
+        this.chart.updateChartData(this.cal.dataSet);
+      }
     });
   }
 
@@ -79,23 +75,24 @@ class OneProportionModule {
     }
   }
 
-  updateStatNumbersDisplay() {
+  updateStatNumbers() {
     const lowerBoundValue = parseInt(ui.getUISelectors().lowerBound.value);
     const upperBoundValue = parseInt(ui.getUISelectors().upperBound.value);
     if (!(isNaN(lowerBoundValue) || isNaN(upperBoundValue)) && this.cal) {
-      const noOfsamplesinRange = this.cal.getNumberOfSamplesInRange(
-        lowerBoundValue,
-        upperBoundValue
+      this.cal.upDateNumberOfSamplesInRange(lowerBoundValue, upperBoundValue);
+      ui.getUISelectors().sampleInRangeDisplay.textContent = this.cal.dataSet.sampleSelected;
+
+      const total = this.cal.dataSet.totalFlips;
+      ui.getUISelectors().proportionDisplay.textContent = `${
+        this.cal.dataSet.sampleSelected
+      } / ${total} = ${(this.cal.dataSet.sampleSelected / total).toFixed(2)}`;
+
+      ui.getUISelectors().meanDisplay.textContent = this.cal.dataSet.mean.toFixed(
+        3
       );
-      ui.getUISelectors().sampleInRangeDisplay.textContent = noOfsamplesinRange;
-
-      const total = this.cal.getDataSet().totalFlips;
-      ui.getUISelectors().proportionDisplay.textContent = `${noOfsamplesinRange} / ${total} = ${(
-        noOfsamplesinRange / total
-      ).toFixed(2)}`;
-
-      ui.getUISelectors().meanDisplay.textContent = this.cal.dataSet.mean;
-      ui.getUISelectors().stdDisplay.textContent = this.cal.getSTD().toFixed(3);
+      ui.getUISelectors().stdDisplay.textContent = this.cal.dataSet.std.toFixed(
+        3
+      );
 
       this.chart.updateChartData(this.cal.dataSet);
     }

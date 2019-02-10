@@ -47,6 +47,7 @@ class UI {
       div.setAttribute("id", "view");
       div.appendChild(this.generateAnimation());
       div.appendChild(this.generateChart());
+      div.appendChild(this.generateRemarks());
       return div;
     };
 
@@ -63,6 +64,25 @@ class UI {
       canvas.setAttribute("id", "chart");
       canvas.classList.add("container");
       return canvas;
+    };
+
+    this.generateRemarks = () => {
+      const div = document.createElement("div");
+      div.setAttribute("id", "remarks");
+      div.classList.add("container");
+      div.innerHTML = `
+      <table>
+        <tr>
+          <td>Remarks:</td>
+          <td>1. Double click the graph to zoom in if number of toss >= 50 </td> 
+        </tr>
+        <tr>
+        <td></td>
+        <td>2. Click the legend to hide/show data in Graph </td> 
+      </tr>
+      </table>
+      `;
+      return div;
     };
   }
 
