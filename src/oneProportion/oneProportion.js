@@ -34,20 +34,15 @@ class OneProportionModule {
       this.updateCalculation();
       totalFlips.textContent = this.cal.getDataSet().totalFlips;
       this.updateStatNumbersDisplay();
-      if (this.cal.dataSet.label.length <= 50) {
-        this.chart.updateChartData(
-          this.cal.dataSet.label,
-          this.cal.dataSet.sample,
-          this.cal.dataSet.binomail,
-          this.cal.dataSet.selected
-        );
+      if (this.cal.dataSet.labels.length <= 50) {
+        this.chart.updateChartData(this.cal.dataSet);
       } else {
         const std = this.cal.getSTD();
         const mean = this.cal.getMean();
         const lowerRange = mean - 3 * std > 0 ? Math.floor(mean - 3 * std) : 0;
         const upperRange = mean + 3 * std;
         this.chart.updateChartData(
-          this.cal.dataSet.label.slice(lowerRange, upperRange),
+          this.cal.dataSet.labels.slice(lowerRange, upperRange),
           this.cal.dataSet.sample.slice(lowerRange, upperRange),
           this.cal.dataSet.binomail.slice(lowerRange, upperRange),
           this.cal.dataSet.selected.slice(lowerRange, upperRange)
@@ -99,15 +94,10 @@ class OneProportionModule {
         noOfsamplesinRange / total
       ).toFixed(2)}`;
 
-      ui.getUISelectors().meanDisplay.textContent = this.cal.getMean();
+      ui.getUISelectors().meanDisplay.textContent = this.cal.dataSet.mean;
       ui.getUISelectors().stdDisplay.textContent = this.cal.getSTD().toFixed(3);
 
-      this.chart.updateChartData(
-        this.cal.dataSet.label,
-        this.cal.dataSet.sample,
-        this.cal.dataSet.binomail,
-        this.cal.dataSet.selected
-      );
+      this.chart.updateChartData(this.cal.dataSet);
     }
   }
 
@@ -125,16 +115,9 @@ class OneProportionModule {
     ui.getUISelectors().meanDisplay.textContent = 0;
     ui.getUISelectors().stdDisplay.textContent = 0;
     ui.getUISelectors().proportionDisplay.textContent = 0;
-    this.chart.updateChartData([], [], [], []);
+    this.chart.resetChartData();
     this.cal = null;
-  }
-
-  destroyedChart() {
-    if (this.chart) {
-      console.log(this.chart);
-      this.chart.destroyed();
-    }
   }
 }
 
-export default OneProportionModule;
+export const oneProportion = new OneProportionModule();

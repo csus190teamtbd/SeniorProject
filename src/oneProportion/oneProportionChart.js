@@ -11,6 +11,11 @@ export default class ChartModule {
       invisible: "rgba(0,255,0,0.0)"
     };
 
+    this.dataFromCalculation = {
+      theoryMean: 0,
+      sampleSelected: 0
+    };
+
     var ctx = canvasEle.getContext("2d");
     this.chart = new Chart(ctx, {
       type: "bar",
@@ -72,49 +77,67 @@ export default class ChartModule {
               title += " heads";
               return title;
             },
-            label: function(tooltipItem, data) {
-              return (
-                data.datasets[tooltipItem.datasetIndex].label +
-                tooltipItem.yLabel
-              );
+            label: (tooltipItem, data) => {
+              if (tooltipItem.datasetIndex !== 2) {
+                return `${data.datasets[tooltipItem.datasetIndex].label} : ${
+                  tooltipItem.yLabel
+                }`;
+              } else {
+                return `${data.datasets[tooltipItem.datasetIndex].label} : ${
+                  this.dataFromCalculation.sampleSelected
+                }`;
+              }
             }
           }
         }
-      },
-      plugins: [
-        {
-          afterUpdate: this.offsetSelectedBar
-        }
-      ]
+      }
     });
   }
 
-  updateChartData(labels, data1, data2, data3) {
+  updateChartData(dataSet) {
+    const {
+      labels,
+      sample,
+      binomail,
+      selected,
+      mean,
+      sampleSelected
+    } = dataSet;
     this.chart.data.labels = labels;
-    this.chart.data.datasets[0].data = data1;
-    this.chart.data.datasets[1].data = data2;
-    this.chart.data.datasets[2].data = data3;
-    // console.log(this.chart.data.datasets[1].data);
+    this.chart.data.datasets[0].data = sample;
+    this.chart.data.datasets[1].data = binomail;
+    this.chart.data.datasets[2].data = selected;
+    this.dataFromCalculation.theoryMean = mean;
+    this.dataFromCalculation.sampleSelected = sampleSelected;
     this.chart.update();
-    console.log(this.chart);
   }
 
-  offsetSelectedBar(chart) {
+  resetChartData() {
+    this.chart.data.datasets[0].data = [];
+    this.chart.data.datasets[1].data = [];
+    this.chart.data.datasets[2].data = [];
+    this.dataFromCalculation.theoryMean = 0;
+    this.dataFromCalculation.sampleSelected = 0;
+    this.chart.update();
+  }
+}
+
+Chart.plugins.register({
+  id: "offsetBar",
+  afterUpdate: function(chart) {
     // We get the dataset and set the offset here
     const dataset = chart.config.data.datasets[2];
     // const width = dataset._meta[0].data[1]._model.x - dataset._meta[0].data[0]._model.x;
     let offset;
-    if (dataset._meta[0].data.length > 0) {
-      offset =
-        -(
-          dataset._meta[0].data[1]._model.x - dataset._meta[0].data[0]._model.x
-        ) / 2;
+    const meta = Object.values(dataset._meta)[0];
+    if (meta.data.length > 0) {
+      offset = -(meta.data[1]._model.x - meta.data[0]._model.x) / 2;
     }
 
     // For every data in the dataset ...
-    for (var i = 0; i < dataset._meta[0].data.length; i++) {
+    for (var i = 0; i < meta.data.length; i++) {
       // We get the model linked to this data
-      var model = dataset._meta[0].data[i]._model;
+      var model = meta.data[i]._model;
       // And add the offset to the `x` property
       model.x += offset;
 
@@ -124,8 +147,4 @@ export default class ChartModule {
       model.controlPointPreviousX += offset;
     }
   }
-  destroyed() {
-    console.log(this.chart);
-    this.chart.destroy();
-  }
-}
+});

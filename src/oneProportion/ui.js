@@ -62,7 +62,6 @@ class UI {
       const canvas = document.createElement("canvas");
       canvas.setAttribute("id", "chart");
       canvas.classList.add("container");
-
       return canvas;
     };
   }

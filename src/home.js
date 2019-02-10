@@ -4,14 +4,9 @@ class homeModule {
   constructor() {
     this.mainContent = document.querySelector("#main-content");
     this.methods = ["One Proportion", "Two Proportion", "One Mean", "Two Mean"];
-    this.oneProportion = null;
   }
 
   loadUI() {
-    if (this.oneProportion !== null) {
-      console.log("destroy");
-      this.oneProportion.destroyedChart();
-    }
     while (this.mainContent.firstChild) this.mainContent.firstChild.remove();
 
     let div = document.createElement("div");
@@ -31,8 +26,9 @@ class homeModule {
   loadActionListioner() {
     document.querySelector("#main-menu").addEventListener("click", e => {
       if (e.target.textContent === "One Proportion") {
-        this.oneProportion = new OneProportionModule();
-        this.oneProportion.init();
+        import("./oneProportion/oneProportion").then(x =>
+          x.oneProportion.init()
+        );
       }
     });
   }
