@@ -38,6 +38,7 @@ export default class ChartModule {
             borderWidth: 0.1,
             id: "x-axis-2",
             backgroundColor: this.color.binomial,
+            radius: 10,
             hidden: false
           },
           {
@@ -45,7 +46,7 @@ export default class ChartModule {
             label: "Selected",
             data: [],
             borderWidth: 0.1,
-            id: "x-axis-2",
+            id: "x-axis-3",
             backgroundColor: this.color.selected,
             hidden: true,
             fill: "end"
@@ -128,6 +129,7 @@ export default class ChartModule {
     }
     this.dataFromCalculation.theoryMean = mean;
     this.dataFromCalculation.sampleSelected = sampleSelected;
+    this.chart.mean = mean;
     this.chart.update();
   }
 
@@ -142,7 +144,7 @@ export default class ChartModule {
   }
 }
 
-Chart.plugins.register({
+Chart.pluginService.register({
   id: "offsetBar",
   afterUpdate: function(chart) {
     // We get the dataset and set the offset here
@@ -165,6 +167,41 @@ Chart.plugins.register({
       // to make the bezier curve fits the new graph
       model.controlPointNextX += offset;
       model.controlPointPreviousX += offset;
+    }
+  }
+});
+
+Chart.pluginService.register({
+  id: "sampleBarColor",
+  beforeUpdate: function(chart) {
+    if (chart.mean) {
+      const chartData = chart.config.data; // sample dataset
+      chartData.datasets[0].backgroundColor = chartData.labels.map(
+        x =>
+          `rgba(255,0,0,${1 -
+            (Math.abs(x - chart.mean) * 1.5) / chartData.labels.length})`
+      );
+    }
+  }
+});
+
+Chart.pluginService.register({
+  id: "fixedSamplelegendColor",
+  afterUpdate: function(chart) {
+    chart.legend.legendItems[0].fillStyle = "rgba(255,0,0,0.8)";
+  }
+});
+
+Chart.pluginService.register({
+  id: "dynamicBubbleSize",
+  beforeUpdate: function(chart) {
+    if (chart.mean) {
+      const chartData = chart.config.data; // sample dataset
+      console.log(chart);
+      const dyanamicSize = 50 / chartData.labels.length;
+      const minSize = 2;
+      chartData.datasets[1].radius =
+        dyanamicSize > minSize ? dyanamicSize : minSize;
     }
   }
 });
