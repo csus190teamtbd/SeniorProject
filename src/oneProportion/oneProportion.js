@@ -1,21 +1,20 @@
 import ChartModule from "./oneProportionChart";
-
+import { generateCoins } from "./animation";
 import Calculation from "./calculation";
 import { ui } from "./ui";
 class OneProportionModule {
   init() {
     ui.loadUI();
+    this.reset();
     this.loadEventListeners();
     this.chart = new ChartModule(ui.getUISelectors().chart);
     this.cal = null;
-    this.reset();
   }
 
   loadEventListeners() {
     const probabilityInput = ui.getUISelectors().probabilityInput;
     const coinsInput = ui.getUISelectors().coinsInput;
     const probDisplay = ui.getUISelectors().probDisplay;
-    const totalFlips = ui.getUISelectors().totalFlips;
 
     // probabilty display
     probabilityInput.addEventListener("input", e => {
@@ -26,9 +25,27 @@ class OneProportionModule {
     ui.getUISelectors().sampleBtn.addEventListener("click", e => {
       coinsInput.setAttribute("disabled", true);
       probabilityInput.setAttribute("disabled", true);
-      this.updateCalculation();
-      totalFlips.textContent = this.cal.dataSet.totalFlips;
-      this.updateStatNumbers();
+      const coinsValue = Number(coinsInput.value);
+      const probabilityValue = Number(probabilityInput.value);
+      const drawValue = Number(ui.getUISelectors().drawInput.value);
+
+      if (!this.cal) this.cal = new Calculation(coinsValue, probabilityValue);
+
+      // calcaute the results of draw samples
+      const drawResults = this.cal.drawSamples(drawValue);
+
+      // clear animations and generate new one
+      while (ui.getUISelectors().animation.firstChild)
+        ui.getUISelectors().animation.firstChild.remove();
+
+      generateCoins(drawResults).forEach(x =>
+        ui.getUISelectors().animation.appendChild(x)
+      );
+
+      //update and calculate
+      this.cal.updateCalculation(drawResults, drawValue);
+
+      this.updateContolPanelStats();
       this.chart.updateChartData(this.cal.dataSet);
       e.preventDefault();
     });
@@ -40,18 +57,17 @@ class OneProportionModule {
     });
 
     ui.getUISelectors().lowerBound.addEventListener("input", () => {
-      this.updateStatNumbers();
+      this.updateContolPanelStats();
     });
 
     ui.getUISelectors().upperBound.addEventListener("input", () => {
-      this.updateStatNumbers();
+      this.updateContolPanelStats();
     });
 
     /**
      * Double Click to Zoom in if no of toss > 50;
      */
     ui.getUISelectors().chart.addEventListener("dblclick", () => {
-      console.log("XXX");
       if (this.cal && this.cal.dataSet.noOfCoin >= 50 && !this.chart.zoomIn) {
         this.chart.zoomIn = true;
         this.chart.updateChartData(this.cal.dataSet);
@@ -62,20 +78,8 @@ class OneProportionModule {
     });
   }
 
-  updateCalculation() {
-    const probabilityValue = parseFloat(
-      ui.getUISelectors().probabilityInput.value
-    );
-    const coinsValue = parseInt(ui.getUISelectors().coinsInput.value);
-    const drawValue = parseInt(ui.getUISelectors().drawInput.value);
-    if (!this.cal) {
-      this.cal = new Calculation(coinsValue, probabilityValue, drawValue);
-    } else {
-      this.cal.addSampleDatas(drawValue);
-    }
-  }
-
-  updateStatNumbers() {
+  updateContolPanelStats() {
+    totalFlips.textContent = this.cal.dataSet.totalFlips;
     const lowerBoundValue = parseInt(ui.getUISelectors().lowerBound.value);
     const upperBoundValue = parseInt(ui.getUISelectors().upperBound.value);
     if (!(isNaN(lowerBoundValue) || isNaN(upperBoundValue)) && this.cal) {
@@ -112,7 +116,7 @@ class OneProportionModule {
     ui.getUISelectors().meanDisplay.textContent = 0;
     ui.getUISelectors().stdDisplay.textContent = 0;
     ui.getUISelectors().proportionDisplay.textContent = 0;
-    this.chart.resetChartData();
+    if (this.chart) this.chart.resetChartData();
     this.cal = null;
   }
 }

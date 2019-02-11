@@ -1,14 +1,11 @@
 export default class Calculation {
-  constructor(noOfCoin, probability, firstInput) {
-    this.binomailBase = Array(noOfCoin + 1);
-    const coeff = Array(noOfCoin + 1).fill(0);
-    coeff[0] = 1;
-
+  constructor(noOfCoin, probability) {
+    this.binomailBase = this.calculateBinonimalBase(noOfCoin, probability);
     this.dataSet = {
       noOfCoin: noOfCoin,
       probability: probability,
-      labels: Array(noOfCoin + 1).fill(0),
-      binomail: Array(noOfCoin + 1).fill(0),
+      labels: this.generateLabels(noOfCoin),
+      binomail: Array(noOfCoin + 1).fill(0), //caching the binomail base
       sample: Array(noOfCoin + 1).fill(0),
       selected: Array(noOfCoin + 1).fill(NaN),
       mean: 0,
@@ -20,32 +17,58 @@ export default class Calculation {
       lowerSelected: 0,
       upperSelected: 0
     };
-    this.binomailBase[0] = Math.pow(1 - probability, noOfCoin);
+  }
+  generateLabels(noOfCoin) {
+    const labels = Array(noOfCoin + 1);
+    for (let i = 0; i < noOfCoin + 1; i++) {
+      labels[i] = i;
+    }
+    return labels;
+  }
+
+  calculateBinonimalBase(noOfCoin, probability) {
+    const coeff = Array(noOfCoin + 1).fill(0);
+    coeff[0] = 1;
+    const binomailBase = Array(noOfCoin + 1);
+    binomailBase[0] = Math.pow(1 - probability, noOfCoin);
     for (let i = 1; i < noOfCoin + 1; i++) {
-      this.dataSet.labels[i] = i;
       coeff[i] = (coeff[i - 1] * (noOfCoin + 1 - i)) / i;
-      this.binomailBase[i] =
+      binomailBase[i] =
         coeff[i] *
         Math.pow(1 - probability, noOfCoin - i) *
         Math.pow(probability, i);
     }
-    console.log(this.binomailBase);
-    this.addSampleDatas(firstInput);
+    return binomailBase;
   }
 
-  addSampleDatas(drawInput) {
-    for (let i = 0; i < drawInput; i++) {
-      let res = 0;
-      for (let j = 0; j < this.dataSet.noOfCoin; j++) {
-        res += Math.random() < this.dataSet.probability ? 1 : 0;
-      }
-      this.dataSet.sample[res]++;
+  drawSamples(noOfDraw) {
+    const drawResults = Array(noOfDraw);
+    for (let i = 0; i < noOfDraw; i++) {
+      const singleDraw = Array(this.dataSet.noOfCoin).fill(NaN);
+      drawResults[i] = singleDraw.map(x => {
+        return Math.random() < this.dataSet.probability ? 1 : 0;
+      });
     }
-    this.dataSet.totalFlips += drawInput;
+    console.log(drawResults);
+    return drawResults;
+  }
+
+  updateCalculation(drawResults, noOfDraw) {
+    //update samples array
+    for (let i = 0; i < drawResults.length; i++) {
+      const heads = drawResults[i].reduce((acc, x) => acc + x, 0);
+      this.dataSet.sample[heads]++;
+    }
+
+    //update totalFlips
+    this.dataSet.totalFlips += noOfDraw;
+
+    //update mean
     this.dataSet.mean =
       this.dataSet.sample.reduce((acc, x, i) => acc + x * i, 0) /
       this.dataSet.totalFlips;
 
+    //update std
     this.dataSet.std = Math.sqrt(
       this.dataSet.sample.reduce(
         (acc, x, i) =>
@@ -55,10 +78,9 @@ export default class Calculation {
     );
 
     //update binomial
-    for (let i = 0; i < this.dataSet.noOfCoin + 1; i++)
-      this.dataSet.binomail[i] = (
-        this.binomailBase[i] * this.dataSet.totalFlips
-      ).toFixed(2);
+    this.dataSet.binomail = this.binomailBase.map(
+      x => x * this.dataSet.totalFlips
+    );
   }
 
   upDateNumberOfSamplesInRange(lower, upper) {
