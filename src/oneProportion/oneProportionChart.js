@@ -197,7 +197,6 @@ Chart.pluginService.register({
   beforeUpdate: function(chart) {
     if (chart.mean) {
       const chartData = chart.config.data; // sample dataset
-      console.log(chart);
       const dyanamicSize = 50 / chartData.labels.length;
       const minSize = 2;
       chartData.datasets[1].radius =

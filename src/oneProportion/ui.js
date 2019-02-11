@@ -55,7 +55,6 @@ class UI {
       const div = document.createElement("div");
       div.setAttribute("id", "animation");
       div.classList.add("container");
-      div.textContent = "ANIMATION , COMING SOON";
       return div;
     };
 
@@ -113,7 +112,8 @@ class UI {
       proportionDisplay: document.getElementById("proportionDisplay"),
       meanDisplay: document.getElementById("meanDisplay"),
       stdDisplay: document.getElementById("stdDisplay"),
-      view: document.getElementById("view")
+      view: document.getElementById("view"),
+      animation: document.getElementById("animation")
     };
   }
 }
