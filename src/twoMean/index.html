@@ -1,0 +1,37 @@
+---
+layout: default
+title: Two Means
+---
+<link rel="stylesheet" href="twoMean.css">
+<div id="two-mean">
+  <h2>Step One: Enter Data</h2>
+  <div id="two-mean-data">
+    <div id="control">
+      <!--<form>-->
+      <p>Enter CSV (first column 0 or 1):</P>
+      <textarea id="csvInput" disabled="true"></textarea>
+      <a onclick="twoMean.loadData()" onclick="" class="btn">Load Data</a>
+      <!--</form>-->
+    </div>
+    <div id="view">
+      <canvas id="dataChart" width="300", height="100"></canvas>
+    </div>
+  </div>
+  <h2>Step Two: Run Simulations</h2>
+  <div id="two-mean-analyze">
+    <div id="control">
+      <a onclick="twoMean.runSim()" onclick="" class="btn">Run Simulation</a>
+    </div>
+    <div id="view">
+      <canvas id="diffChart" width="300", height="100"></canvas>
+    </div>
+  </div>
+</div>
+<!-- TODO(matthewmerrill): don't CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js" integrity="sha256-rjYnB0Bull7k2XkbJ03UNGqMuMieR769uQVGSSlsi6A=" crossorigin="anonymous"></script>
+<script type="module" src="./twoMean.js"></script>
+<script type="module">
+  import {TwoMean} from './twoMean.js';
+  window.twoMean = new TwoMean(document.getElementById('two-mean'));
+</script>
+

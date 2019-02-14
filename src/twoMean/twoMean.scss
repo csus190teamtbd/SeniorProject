@@ -1,0 +1,19 @@
+---
+---
+#two-mean-data, #two-mean-analyze {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: stretch;
+  //max-height: 15em;
+
+  #control {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    position: relative;
+  }
+}
+
