@@ -1,5 +1,6 @@
 ---
 ---
+
 $headerFooterBkgd: #333;
 $contentBkgd: #f4f4f4;
 
@@ -12,7 +13,9 @@ $contentBkgd: #f4f4f4;
 html {
   width: 100%;
 }
-html, #navbar, #main-footer { 
+html,
+#navbar,
+#main-footer {
   background-color: $headerFooterBkgd;
 }
 
@@ -25,7 +28,7 @@ body {
 
 #main-content {
   background-color: $contentBkgd;
-  margin: 3rem .5rem;
+  margin: 3rem 0.5rem;
 }
 
 a {
@@ -221,4 +224,3 @@ p {
 #slider:hover {
   opacity: 10;
 }
-
