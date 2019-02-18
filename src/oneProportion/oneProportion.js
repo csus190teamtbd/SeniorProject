@@ -13,8 +13,8 @@ export class OneProportion {
         binomail: [],
         samples: [],
         selected: [],
-        mean: 0,
-        std: 0,
+        mean: NaN,
+        std: NaN,
         noOfSelected: 0,
         totalSamples: 0,
         lowerSelectedRange: 0,
@@ -168,7 +168,7 @@ export class OneProportion {
       state.totalSamples = state.totalSamples += drawInput;
       state.samples = cal.addSamples(state.samples, newSamples);
       state.binomail = state.binomailForOne.map(x => x * state.totalSamples);
-      state.mean = cal.calculateMean(state.samples, state.totalSamples);
+      state.mean = cal.calculateMean(state.samples);
       state.std = cal.calucalteStd(
         state.samples,
         state.mean,

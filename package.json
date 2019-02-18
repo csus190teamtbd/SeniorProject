@@ -1,0 +1,27 @@
+{
+  "name": "seniorproject",
+  "version": "1.0.0",
+  "description": "1. setup jekyll",
+  "main": "index.js",
+  "dependencies": {
+    "chai": "^4.2.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-es2015": "^6.24.1",
+    "mocha": "^5.2.0"
+  },
+  "scripts": {
+    "test": "mocha --compilers js:babel-core/register"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/csus190teamtbd/SeniorProject.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/csus190teamtbd/SeniorProject/issues"
+  },
+  "homepage": "https://github.com/csus190teamtbd/SeniorProject#readme"
+}

@@ -33,8 +33,11 @@ const cal = {
     return drawResults;
   },
 
-  calculateMean: (sampleData, totalFlips) => {
-    return sampleData.reduce((acc, x, i) => acc + x * i, 0) / totalFlips;
+  calculateMean: sampleData => {
+    return (
+      sampleData.reduce((acc, x, i) => acc + x * i, 0) /
+      sampleData.reduce((acc, x) => acc + x, 0)
+    );
   },
 
   calucalteStd: (sampleData, mean, totalFlips) => {
