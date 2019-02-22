@@ -59,13 +59,14 @@ const cal = {
     return samples.reduce((acc, x, i) => {
       if (i >= lower && i <= upper) return acc + x;
       return acc;
-    });
+    }, 0);
   },
 
   /**
    * Useed for chartJS, selected heads will be zero,
    * 'fill end' method in chartJS will fill the whole area.
-   * , othereise will be NaN
+   * , othereise will be NaN. return array size = noOfCoin +2
+   *  so the the chart will extend to end.
    */
   generateSelectedArray: (lower, upper, noOfCoin) => {
     lower = lower >= 0 ? lower : 0;
@@ -78,19 +79,23 @@ const cal = {
   },
 
   /**
-   * drawResults is in format [[a,a...], [a,a...]]
-   *   where each subArray is a single draw, 0 is tail, 1 is head
-   *   where a is 0 or 1
+   * eg. originalSamples = [1, 2, 3, 4, 5, 6];
+  * eg.  const drawResults = [
+          [0, 0, 0, 1, 1], // total heads 2
+          [0, 1, 0, 1, 1], // total heads 3
+          [0, 0, 1, 1, 1], // total heads 3
+          [1, 0, 0, 1, 1] // total heads 3
+        ];
+        return [1, 2, 4, 7, 5, 6];
    */
   addSamples: (originalSamples, drawResults) => {
-    const summary = Array(originalSamples.length).fill(0);
-    for (let i = 0; i < drawResults.length; i++) {
-      const heads = drawResults[i].reduce((acc, x) => acc + x, 0);
-      summary[heads]++;
-    }
-    return originalSamples.map((x, i) => {
-      return x + summary[i];
-    }, 0);
+    const summary = drawResults.reduce((acc, eachDraw) => {
+      const noOfHead = eachDraw.reduce((accHeads, head) => accHeads + head, 0);
+      const headsCount = acc[noOfHead] + 1 || 1;
+      return { ...acc, [noOfHead]: headsCount };
+    }, {});
+
+    return originalSamples.map((x, i) => x + (summary[i] || 0));
   },
 
   calculateSelectedProportion: (selected, total) => {
