@@ -101,7 +101,6 @@ export class OneProportion {
         generateCoins(newSamples).forEach(x =>
           this.ele.animation.appendChild(x)
         );
-        console.log(this.state);
         e.preventDefault();
       });
 
@@ -143,7 +142,6 @@ export class OneProportion {
         upper,
         this.state.noOfCoin
       );
-      console.log(`${this.state.noOfSelected} :   ${this.state.selected}`);
     };
 
     this.updateSate = (
@@ -169,11 +167,7 @@ export class OneProportion {
       state.samples = cal.addSamples(state.samples, newSamples);
       state.binomail = state.binomailForOne.map(x => x * state.totalSamples);
       state.mean = cal.calculateMean(state.samples);
-      state.std = cal.calucalteStd(
-        state.samples,
-        state.mean,
-        state.totalSamples
-      );
+      state.std = cal.calucalteStd(state.samples);
     };
 
     this.updateView(this.state);

@@ -11,6 +11,9 @@ const cal = {
     const coeff = Array(noOfCoin + 1).fill(0);
     coeff[0] = 1;
     const binomailBase = Array(noOfCoin + 1);
+    /**
+     * dynamic programming
+     */
     binomailBase[0] = Math.pow(1 - probability, noOfCoin);
     for (let i = 1; i < noOfCoin + 1; i++) {
       coeff[i] = (coeff[i - 1] * (noOfCoin + 1 - i)) / i;
@@ -35,15 +38,18 @@ const cal = {
 
   calculateMean: sampleData => {
     return (
+      // i = no of heads
+      // x = frequency
       sampleData.reduce((acc, x, i) => acc + x * i, 0) /
       sampleData.reduce((acc, x) => acc + x, 0)
     );
   },
 
-  calucalteStd: (sampleData, mean, totalFlips) => {
+  calucalteStd: sampleData => {
+    const mean = cal.calculateMean(sampleData);
     return (
       sampleData.reduce((acc, x, i) => acc + (i - mean) * (i - mean) * x, 0) /
-      totalFlips
+      sampleData.reduce((acc, x) => acc + x, 0)
     );
   },
 
@@ -56,6 +62,11 @@ const cal = {
     });
   },
 
+  /**
+   * Useed for chartJS, selected heads will be zero,
+   * 'fill end' method in chartJS will fill the whole area.
+   * , othereise will be NaN
+   */
   generateSelectedArray: (lower, upper, noOfCoin) => {
     lower = lower >= 0 ? lower : 0;
     upper = upper <= noOfCoin + 2 ? upper : noOfCoin + 2;
@@ -66,14 +77,19 @@ const cal = {
     });
   },
 
-  addSamples: (originalSamples, newSamples) => {
-    const temp = Array(originalSamples.length).fill(0);
-    for (let i = 0; i < newSamples.length; i++) {
-      const heads = newSamples[i].reduce((acc, x) => acc + x, 0);
-      temp[heads]++;
+  /**
+   * drawResults is in format [[a,a...], [a,a...]]
+   *   where each subArray is a single draw, 0 is tail, 1 is head
+   *   where a is 0 or 1
+   */
+  addSamples: (originalSamples, drawResults) => {
+    const summary = Array(originalSamples.length).fill(0);
+    for (let i = 0; i < drawResults.length; i++) {
+      const heads = drawResults[i].reduce((acc, x) => acc + x, 0);
+      summary[heads]++;
     }
     return originalSamples.map((x, i) => {
-      return x + temp[i];
+      return x + summary[i];
     }, 0);
   },
 
