@@ -1,124 +1,182 @@
-import ChartModule from "./oneProportionChart";
-import { generateCoins } from "./animation";
-import Calculation from "./calculation";
-import { ui } from "./ui";
-class OneProportionModule {
-  init() {
-    ui.loadUI();
-    this.reset();
-    this.loadEventListeners();
-    this.chart = new ChartModule(ui.getUISelectors().chart);
-    this.cal = null;
-  }
+import ChartModule from "./chartModule.js";
+import { cal } from "./calculation.js";
+import { generateCoins } from "./animation.js";
 
-  loadEventListeners() {
-    const probabilityInput = ui.getUISelectors().probabilityInput;
-    const coinsInput = ui.getUISelectors().coinsInput;
-    const probDisplay = ui.getUISelectors().probDisplay;
+export class OneProportion {
+  constructor() {
+    this.initState = () => {
+      return {
+        noOfCoin: 5,
+        probability: 0.5,
+        labels: [],
+        binomailForOne: [],
+        binomail: [],
+        samples: [],
+        selected: [],
+        mean: NaN,
+        std: NaN,
+        noOfSelected: 0,
+        totalSamples: 0,
+        lowerSelectedRange: 0,
+        upperSelectedRange: 0,
+        thisSampleSizes: 1,
+        started: false,
+        zoomIn: false
+      };
+    };
 
-    // probabilty display
-    probabilityInput.addEventListener("input", e => {
-      probDisplay.textContent = e.target.value;
-    });
+    this.ele = {
+      probabilityInput: document.getElementById("probability"),
+      coinsInput: document.getElementById("coins"),
+      probDisplay: document.getElementById("probDisplay"),
+      drawInput: document.getElementById("draws"),
+      chart: document.getElementById("chart"),
+      totalSamples: document.getElementById("totalSamples"),
+      lowerSelectedRange: document.getElementById("lowerSelectedRange"),
+      upperSelectedRange: document.getElementById("upperSelectedRange"),
+      sampleInRangeDisplay: document.getElementById("sampleInRangeDisplay"),
+      resetBtn: document.getElementById("resetBtn"),
+      sampleBtn: document.getElementById("sampleBtn"),
+      proportionDisplay: document.getElementById("proportionDisplay"),
+      meanDisplay: document.getElementById("meanDisplay"),
+      stdDisplay: document.getElementById("stdDisplay"),
+      view: document.getElementById("view"),
+      animation: document.getElementById("animation")
+    };
+    this.state = this.initState();
+    this.updateView = state => {
+      this.ele.probDisplay.innerText = state.probability;
+      this.ele.totalSamples.innerText = state.totalSamples;
+      this.ele.meanDisplay.innerText = state.mean.toFixed(3);
+      this.ele.stdDisplay.innerText = state.std.toFixed(3);
+      this.ele.drawInput.value = state.thisSampleSizes;
+      this.ele.coinsInput.value = state.noOfCoin;
+      this.ele.probabilityInput.value = state.probability;
+      this.ele.sampleInRangeDisplay.innerText = this.state.noOfSelected;
+      this.ele.lowerSelectedRange.value = this.state.lowerSelectedRange;
+      this.ele.upperSelectedRange.value = this.state.upperSelectedRange;
+      this.ele.proportionDisplay.innerText = `${this.state.noOfSelected} / ${
+        this.state.totalSamples
+      } = ${(this.state.noOfSelected / this.state.totalSamples).toFixed(3)}`;
+    };
 
-    // draw sample button
-    ui.getUISelectors().sampleBtn.addEventListener("click", e => {
-      coinsInput.setAttribute("disabled", true);
-      probabilityInput.setAttribute("disabled", true);
-      const coinsValue = Number(coinsInput.value);
-      const probabilityValue = Number(probabilityInput.value);
-      const drawValue = Number(ui.getUISelectors().drawInput.value);
+    this.reset = e => {
+      this.state = this.initState();
+      this.updateView(this.state);
+      this.chart.updateChartData(this.state);
+      this.ele.coinsInput.removeAttribute("disabled");
+      this.ele.probabilityInput.removeAttribute("disabled");
+      e.preventDefault();
+    };
 
-      if (!this.cal) this.cal = new Calculation(coinsValue, probabilityValue);
+    this.chart = new ChartModule(this.ele.chart);
 
-      // calcaute the results of draw samples
-      const drawResults = this.cal.drawSamples(drawValue);
+    this.loadEventListener = () => {
+      this.ele.probabilityInput.addEventListener("input", e => {
+        probDisplay.innerText = e.target.value;
+      });
 
-      // clear animations and generate new one
-      while (ui.getUISelectors().animation.firstChild)
-        ui.getUISelectors().animation.firstChild.remove();
+      this.ele.resetBtn.addEventListener("click", this.reset);
 
-      generateCoins(drawResults).forEach(x =>
-        ui.getUISelectors().animation.appendChild(x)
+      this.ele.sampleBtn.addEventListener("click", e => {
+        const probability = Number(this.ele.probabilityInput.value);
+        const coinsInput = Number(this.ele.coinsInput.value);
+        const drawInput = Number(this.ele.drawInput.value);
+        const newSamples = cal.drawSamples(probability, coinsInput, drawInput);
+        this.updateSate(
+          this.state,
+          probability,
+          coinsInput,
+          drawInput,
+          newSamples
+        );
+        this.updatedSelected();
+        this.chart.updateChartData(this.state);
+        this.updateView(this.state);
+        this.ele.coinsInput.setAttribute("disabled", "");
+        this.ele.probabilityInput.setAttribute("disabled", "");
+
+        while (this.ele.animation.firstChild)
+          this.ele.animation.firstChild.remove();
+        generateCoins(newSamples).forEach(x =>
+          this.ele.animation.appendChild(x)
+        );
+        console.log(this.state);
+        e.preventDefault();
+      });
+
+      /**
+       * Double Click to Zoom in if no of toss > 50;
+       */
+      this.ele.chart.addEventListener("dblclick", () => {
+        if (!this.state.zoomIn && this.state.noOfCoin >= 50)
+          this.state.zoomIn = true;
+        else this.state.zoomIn = false;
+        this.chart.updateChartData(this.state);
+      });
+
+      this.ele.lowerSelectedRange.addEventListener("input", () => {
+        this.updatedSelected();
+        this.updateView(this.state);
+        this.chart.updateChartData(this.state);
+      });
+
+      this.ele.upperSelectedRange.addEventListener("input", () => {
+        this.updatedSelected();
+        this.updateView(this.state);
+        this.chart.updateChartData(this.state);
+      });
+    };
+
+    this.updatedSelected = () => {
+      const lower = Number(this.ele.lowerSelectedRange.value);
+      const upper = Number(this.ele.upperSelectedRange.value);
+      this.state.lowerSelectedRange = lower;
+      this.state.upperSelectedRange = upper;
+      this.state.noOfSelected = cal.calculateSamplesSelected(
+        lower,
+        upper,
+        this.state.samples
       );
+      this.state.selected = cal.generateSelectedArray(
+        lower,
+        upper,
+        this.state.noOfCoin
+      );
+      console.log(`${this.state.noOfSelected} :   ${this.state.selected}`);
+    };
 
-      //update and calculate
-      this.cal.updateCalculation(drawResults, drawValue);
-
-      this.updateContolPanelStats();
-      this.chart.updateChartData(this.cal.dataSet);
-      e.preventDefault();
-    });
-
-    // reset button
-    ui.getUISelectors().resetBtn.addEventListener("click", e => {
-      this.reset();
-      e.preventDefault();
-    });
-
-    ui.getUISelectors().lowerBound.addEventListener("input", () => {
-      this.updateContolPanelStats();
-    });
-
-    ui.getUISelectors().upperBound.addEventListener("input", () => {
-      this.updateContolPanelStats();
-    });
-
-    /**
-     * Double Click to Zoom in if no of toss > 50;
-     */
-    ui.getUISelectors().chart.addEventListener("dblclick", () => {
-      if (this.cal && this.cal.dataSet.noOfCoin >= 50 && !this.chart.zoomIn) {
-        this.chart.zoomIn = true;
-        this.chart.updateChartData(this.cal.dataSet);
-      } else if (this.cal) {
-        this.chart.zoomIn = false;
-        this.chart.updateChartData(this.cal.dataSet);
+    this.updateSate = (
+      state,
+      probability,
+      coinsInput,
+      drawInput,
+      newSamples
+    ) => {
+      if (!state.started) {
+        state.probability = probability;
+        state.noOfCoin = coinsInput;
+        state.labels = cal.generateLabels(coinsInput);
+        state.samples = Array(coinsInput + 1).fill(0);
+        state.binomailForOne = cal.calculateBinonimalForOne(
+          coinsInput,
+          probability
+        );
+        state.started = true;
       }
-    });
-  }
-
-  updateContolPanelStats() {
-    totalFlips.textContent = this.cal.dataSet.totalFlips;
-    const lowerBoundValue = parseInt(ui.getUISelectors().lowerBound.value);
-    const upperBoundValue = parseInt(ui.getUISelectors().upperBound.value);
-    if (!(isNaN(lowerBoundValue) || isNaN(upperBoundValue)) && this.cal) {
-      this.cal.upDateNumberOfSamplesInRange(lowerBoundValue, upperBoundValue);
-      ui.getUISelectors().sampleInRangeDisplay.textContent = this.cal.dataSet.sampleSelected;
-
-      const total = this.cal.dataSet.totalFlips;
-      ui.getUISelectors().proportionDisplay.textContent = `${
-        this.cal.dataSet.sampleSelected
-      } / ${total} = ${(this.cal.dataSet.sampleSelected / total).toFixed(2)}`;
-
-      ui.getUISelectors().meanDisplay.textContent = this.cal.dataSet.mean.toFixed(
-        3
+      state.thisSampleSizes = drawInput;
+      state.totalSamples = state.totalSamples += drawInput;
+      state.samples = cal.addSamples(state.samples, newSamples);
+      state.binomail = state.binomailForOne.map(x => x * state.totalSamples);
+      state.mean = cal.calculateMean(state.samples);
+      state.std = cal.calucalteStd(
+        state.samples,
+        state.mean,
+        state.totalSamples
       );
-      ui.getUISelectors().stdDisplay.textContent = this.cal.dataSet.std.toFixed(
-        3
-      );
+    };
 
-      this.chart.updateChartData(this.cal.dataSet);
-    }
-  }
-
-  reset() {
-    ui.getUISelectors().coinsInput.removeAttribute("disabled");
-    ui.getUISelectors().coinsInput.value = 5;
-    ui.getUISelectors().drawInput.value = 1;
-    ui.getUISelectors().probabilityInput.removeAttribute("disabled");
-    ui.getUISelectors().probabilityInput.value = 0.5;
-    ui.getUISelectors().probDisplay.textContent = 0.5;
-    ui.getUISelectors().totalFlips.textContent = 0;
-    ui.getUISelectors().lowerBound.value = 0;
-    ui.getUISelectors().upperBound.value = 0;
-    ui.getUISelectors().sampleInRangeDisplay.textContent = 0;
-    ui.getUISelectors().meanDisplay.textContent = 0;
-    ui.getUISelectors().stdDisplay.textContent = 0;
-    ui.getUISelectors().proportionDisplay.textContent = 0;
-    if (this.chart) this.chart.resetChartData();
-    this.cal = null;
+    this.updateView(this.state);
+    this.loadEventListener();
   }
 }
-
-export const oneProportion = new OneProportionModule();

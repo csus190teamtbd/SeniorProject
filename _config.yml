@@ -1,0 +1,6 @@
+title: Statistic Simulation
+source: src/
+
+sass:
+  sass_dir: _sass
+

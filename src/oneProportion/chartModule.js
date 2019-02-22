@@ -1,5 +1,3 @@
-import Chart from "chart.js";
-
 export default class ChartModule {
   constructor(canvasEle) {
     this.zoomIn = false;
@@ -14,7 +12,7 @@ export default class ChartModule {
 
     this.dataFromCalculation = {
       theoryMean: 0,
-      sampleSelected: 0
+      noOfSelected: 0
     };
 
     var ctx = canvasEle.getContext("2d");
@@ -48,7 +46,7 @@ export default class ChartModule {
             borderWidth: 0.1,
             id: "x-axis-3",
             backgroundColor: this.color.selected,
-            hidden: true,
+            hidden: false,
             fill: "end"
           }
         ]
@@ -86,7 +84,7 @@ export default class ChartModule {
                 }`;
               } else {
                 return `${data.datasets[tooltipItem.datasetIndex].label} : ${
-                  this.dataFromCalculation.sampleSelected
+                  this.dataFromCalculation.noOfSelected
                 }`;
               }
             }
@@ -99,18 +97,19 @@ export default class ChartModule {
   updateChartData(dataSet) {
     const {
       labels,
-      sample,
+      samples,
       binomail,
       selected,
       probability,
       noOfCoin,
-      sampleSelected,
-      mean
+      noOfSelected,
+      mean,
+      zoomIn
     } = dataSet;
     let lowerRange, upperRange;
-    if (!this.zoomIn) {
+    if (!zoomIn) {
       this.chart.data.labels = labels;
-      this.chart.data.datasets[0].data = sample;
+      this.chart.data.datasets[0].data = samples;
       this.chart.data.datasets[1].data = binomail;
       this.chart.data.datasets[2].data = selected;
     } else {
@@ -123,23 +122,13 @@ export default class ChartModule {
           : 0;
       upperRange = theroyMean + 3 * theoryStd;
       this.chart.data.labels = labels.slice(lowerRange, upperRange);
-      this.chart.data.datasets[0].data = sample.slice(lowerRange, upperRange);
+      this.chart.data.datasets[0].data = samples.slice(lowerRange, upperRange);
       this.chart.data.datasets[1].data = binomail.slice(lowerRange, upperRange);
       this.chart.data.datasets[2].data = selected.slice(lowerRange, upperRange);
     }
     this.dataFromCalculation.theoryMean = mean;
-    this.dataFromCalculation.sampleSelected = sampleSelected;
+    this.dataFromCalculation.noOfSelected = noOfSelected;
     this.chart.mean = mean;
-    this.chart.update();
-  }
-
-  resetChartData() {
-    this.chart.data.datasets[0].data = [];
-    this.chart.data.datasets[1].data = [];
-    this.chart.data.datasets[2].data = [];
-    this.dataFromCalculation.theoryMean = 0;
-    this.dataFromCalculation.sampleSelected = 0;
-    this.zoomIn = false;
     this.chart.update();
   }
 }
@@ -179,7 +168,7 @@ Chart.pluginService.register({
       chartData.datasets[0].backgroundColor = chartData.labels.map(
         x =>
           `rgba(255,0,0,${1 -
-            (Math.abs(x - chart.mean) * 1.5) / chartData.labels.length})`
+            (Math.abs(x - chart.mean) * 1.2) / chartData.labels.length})`
       );
     }
   }

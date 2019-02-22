@@ -1,14 +1,17 @@
-import HeadIcon from "../images/head.png";
-import TailIcon from "../images/tail.png";
-
+const images = {
+  1: "../images/head.png",
+  0: "../images/tail.png"
+};
 function generateCoins(drawResults) {
   const lastResult = drawResults[drawResults.length - 1];
   if (lastResult.length > 50) return [];
   return lastResult.map((x, i) => {
-    const head = new Image(50, 50);
-    head.src = x === 1 ? HeadIcon : TailIcon;
-    head.setAttribute("id", `coin-${i}`);
-    return head;
+    const img = document.createElement("img");
+    img.setAttribute("src", images[x]);
+    img.setAttribute("height", 42);
+    img.setAttribute("width", 42);
+    img.setAttribute("id", `coin-${i}`);
+    return img;
   });
 }
 
