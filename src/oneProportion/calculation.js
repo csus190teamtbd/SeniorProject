@@ -7,7 +7,7 @@ const cal = {
     return labels;
   },
 
-  calculateBinonimalForOne: (noOfCoin, probability) => {
+  calculateBinonimal: (noOfCoin, probability, totalSamples) => {
     const coeff = Array(noOfCoin + 1).fill(0);
     coeff[0] = 1;
     const binomailBase = Array(noOfCoin + 1);
@@ -22,7 +22,7 @@ const cal = {
         Math.pow(1 - probability, noOfCoin - i) *
         Math.pow(probability, i);
     }
-    return binomailBase;
+    return binomailBase.map(x => x * totalSamples);
   },
 
   drawSamples: (probability, noOfCoin, noOfDraw) => {

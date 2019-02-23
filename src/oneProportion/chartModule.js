@@ -106,21 +106,27 @@ export default class ChartModule {
       mean,
       zoomIn
     } = dataSet;
-    let lowerRange, upperRange;
+
     if (!zoomIn) {
       this.chart.data.labels = labels;
       this.chart.data.datasets[0].data = samples;
       this.chart.data.datasets[1].data = binomail;
       this.chart.data.datasets[2].data = selected;
     } else {
-      //use theory mean and std so that the label does not change frequently
-      const theroyMean = probability * noOfCoin;
-      const theoryStd = Math.sqrt(noOfCoin * probability * (1 - probability));
-      lowerRange =
-        theroyMean - 3 * theoryStd > 0
-          ? Math.floor(theroyMean - 3 * theoryStd)
-          : 0;
-      upperRange = theroyMean + 3 * theoryStd;
+      const roundedMean = Math.floor(probability * noOfCoin);
+      const HALF_WIDTH = 25;
+      let lowerRange, upperRange;
+      if (roundedMean - HALF_WIDTH <= 0) {
+        lowerRange = 0;
+        upperRange = lowerRange + HALF_WIDTH * 2;
+      } else if (roundedMean + HALF_WIDTH >= noOfCoin) {
+        upperRange = noOfCoin + 1;
+        lowerRange = upperRange - HALF_WIDTH * 2;
+      } else {
+        lowerRange = roundedMean - HALF_WIDTH;
+        upperRange = roundedMean + HALF_WIDTH;
+      }
+      upperRange = lowerRange + HALF_WIDTH * 2;
       this.chart.data.labels = labels.slice(lowerRange, upperRange);
       this.chart.data.datasets[0].data = samples.slice(lowerRange, upperRange);
       this.chart.data.datasets[1].data = binomail.slice(lowerRange, upperRange);
