@@ -128,13 +128,13 @@ export class OneProportion {
       this.ele.lowerSelectedRange.addEventListener("input", e => {
         this.state.lowerSelectedRange = Number(e.target.value);
         this.updateState(this.state);
-        this.updateView(this.state, this.ele);
+        this.updateView(this.state, this.ele, false);
       });
 
       this.ele.upperSelectedRange.addEventListener("input", e => {
         this.state.upperSelectedRange = Number(e.target.value);
         this.updateState(this.state);
-        this.updateView(this.state, this.ele);
+        this.updateView(this.state, this.ele, false);
       });
     };
 
@@ -170,7 +170,7 @@ export class OneProportion {
       generateCoins(lastDrawResults).forEach(x => animationEle.appendChild(x));
     };
 
-    this.updateView = (state, ele) => {
+    this.updateView = (state, ele, loadCoins = true) => {
       const {
         probability,
         noOfCoin,
@@ -205,7 +205,9 @@ export class OneProportion {
       ele.proportionDisplay.innerText = `${noOfSelected} / ${totalSamples} = ${(
         noOfSelected / totalSamples
       ).toFixed(3)}`;
-      if (noOfCoin <= 50) this.loadCoinsImage(ele.animation, lastDrawResults);
+      if (noOfCoin <= 50 && loadCoins)
+        this.loadCoinsImage(ele.animation, lastDrawResults);
+      else if (noOfCoin > 50) this.loadCoinsImage(ele.animation, []);
       this.chart.updateChartData(state);
     };
 
