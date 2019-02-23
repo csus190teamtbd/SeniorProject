@@ -29,6 +29,9 @@ export class OneProportion {
       probabilityInput: document.getElementById("probability"),
       coinsInput: document.getElementById("coins"),
       probDisplay: document.getElementById("probDisplay"),
+      tossesDisplay: document.getElementById("tossesDisplay"),
+      lowerDisplay: document.getElementById("lowerDisplay"),
+      upperDisplay: document.getElementById("upperDisplay"),
       drawInput: document.getElementById("draws"),
       chart: document.getElementById("chart"),
       totalSamples: document.getElementById("totalSamples"),
@@ -46,14 +49,19 @@ export class OneProportion {
     this.state = this.initState();
     this.updateView = state => {
       this.ele.probDisplay.innerText = state.probability;
+      this.ele.tossesDisplay.innerText = state.noOfCoin;
       this.ele.totalSamples.innerText = state.totalSamples;
       this.ele.meanDisplay.innerText = state.mean.toFixed(3);
       this.ele.stdDisplay.innerText = state.std.toFixed(3);
       this.ele.drawInput.value = state.thisSampleSizes;
       this.ele.coinsInput.value = state.noOfCoin;
+      this.ele.lowerSelectedRange.setAttribute("max", state.noOfCoin);
+      this.ele.upperSelectedRange.setAttribute("max", state.noOfCoin);
       this.ele.probabilityInput.value = state.probability;
       this.ele.sampleInRangeDisplay.innerText = this.state.noOfSelected;
       this.ele.lowerSelectedRange.value = this.state.lowerSelectedRange;
+      this.ele.lowerDisplay.innerText = this.state.lowerSelectedRange;
+      this.ele.upperDisplay.innerText = this.state.upperSelectedRange;
       this.ele.upperSelectedRange.value = this.state.upperSelectedRange;
       this.ele.proportionDisplay.innerText = `${this.state.noOfSelected} / ${
         this.state.totalSamples
@@ -74,6 +82,18 @@ export class OneProportion {
     this.loadEventListener = () => {
       this.ele.probabilityInput.addEventListener("input", e => {
         probDisplay.innerText = e.target.value;
+      });
+
+      this.ele.coinsInput.addEventListener("input", e => {
+        tossesDisplay.innerText = e.target.value;
+      });
+
+      this.ele.lowerSelectedRange.addEventListener("input", e => {
+        lowerDisplay.innerText = e.target.value;
+      });
+
+      this.ele.upperSelectedRange.addEventListener("input", e => {
+        upperDisplay.innerText = e.target.value;
       });
 
       this.ele.resetBtn.addEventListener("click", this.reset);
