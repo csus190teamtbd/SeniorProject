@@ -6,30 +6,39 @@ title: Two Means
 <div id="two-mean">
   <h2>Step One: Enter Data</h2>
   <div id="two-mean-data">
-    <div id="control">
-      <!--<form>-->
-      <p>Enter CSV (first column 0 or 1):</P>
-      <textarea id="csvInput" disabled="true"></textarea>
-      <a onclick="twoMean.loadData()" onclick="" class="btn">Load Data</a>
-      <!--</form>-->
+    <div id="two-mean-data-lhs">
+      <div class="control">
+        <!--<form>-->
+        <p>Enter CSV (first column 0 or 1):</P>
+        <textarea id="csvInput" disabled="true"></textarea>
+        <a onclick="twoMean.loadData()" onclick="" class="btn">Load Data</a>
+        <!--</form>-->
+      </div>
+      <hr>
+      <div id="data-summary">
+        <div>Mean of Group 1: <span id="data-mean-1"></span></div>
+        <div>Mean of Group 2: <span id="data-mean-2"></span></div>
+      </div>
     </div>
-    <div id="view">
-      <canvas id="dataChart" width="300", height="100"></canvas>
+    <div class="view">
+      <div class="chart-wrap"><canvas id="data-chart-1"></canvas></div>
+      <div class="chart-wrap"><canvas id="data-chart-2"></canvas></div>
     </div>
   </div>
   <h2>Step Two: Run Simulations</h2>
-  <div id="two-mean-analyze">
-    <div id="control">
+  <div id="two-mean-sample">
+    <div class="control">
       <a onclick="twoMean.runSim()" onclick="" class="btn">Run Simulation</a>
     </div>
-    <div id="view">
-      <canvas id="diffChart" width="300", height="100"></canvas>
+    <div class="view">
+      <div class="chart-wrap"><canvas id="sample-chart-1"></canvas></div>
+      <div class="chart-wrap"><canvas id="sample-chart-2"></canvas></div>
     </div>
   </div>
 </div>
+
 <!-- TODO(matthewmerrill): don't CDN -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js" integrity="sha256-rjYnB0Bull7k2XkbJ03UNGqMuMieR769uQVGSSlsi6A=" crossorigin="anonymous"></script>
-<script type="module" src="./twoMean.js"></script>
 <script type="module">
   import {TwoMean} from './twoMean.js';
   window.twoMean = new TwoMean(document.getElementById('two-mean'));
