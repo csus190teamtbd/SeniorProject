@@ -3,9 +3,8 @@ const images = {
   0: "../images/tail.png"
 };
 function generateCoins(drawResults) {
-  const lastResult = drawResults[drawResults.length - 1];
-  if (lastResult.length > 50) return [];
-  return lastResult.map((x, i) => {
+  if (drawResults.length > 50) return [];
+  return drawResults.map((x, i) => {
     const img = document.createElement("img");
     img.setAttribute("src", images[x]);
     img.setAttribute("height", 42);

@@ -14,12 +14,15 @@ describe("One Proportion Generate Labels", () => {
   });
 });
 
-describe("One Proportion Calcultae Binonimal For One", () => {
+describe("One Proportion Calcultae Binonimal", () => {
   it("Generate probability base for 5 toss", () => {
     const noOfCoin = 5;
     const probability = 0.5;
+    const totalSamples = 1;
     const res = [0.03125, 0.15625, 0.3125, 0.3125, 0.15625, 0.03125];
-    expect(cal.calculateBinonimalForOne(noOfCoin, probability)).to.eql(res);
+    expect(cal.calculateBinonimal(noOfCoin, probability, totalSamples)).to.eql(
+      res
+    );
   });
 });
 
