@@ -1,0 +1,97 @@
+---
+layout: default
+title: One Proportion
+---
+
+<div id="one-proportion">
+  <div id="mainpanel">
+    <div id="control" class="container">
+      <form>
+        <div class="form-group">
+          <label for="probability"
+            >Head Probability: <span id="probDisplay"></span
+          ></label>
+          <input type="range" min="0" max="1" step="0.01" class="slider" id="probability" />
+        </div>
+        <div class="form-group">
+          <label for="coins"
+            >Number of Tosses: <span id="tossesDisplay"></span
+          ></label>
+          <input type="range" min="1" max="500" step="1" id="coins" class="slider"/>
+        </div>
+        <button type="reset" value="reset" class="btn" id="resetBtn">
+          Reset
+        </button>
+        <hr />
+        <div class="form-group">
+          <label for="draws">Add Samples</label>
+          <input type="number" min="1" id="draws" />
+        </div>
+
+        <button type="submit" value="sample" class="btn" id="sampleBtn">
+          Draw Samples
+        </button>
+        <hr />
+        <div class="form-group">
+          <label>Total Samples: <span id="totalSamples"></span></label>
+          <label>mean: <span id="meanDisplay"></span></label>
+          <label>Stand Dev: <span id="stdDisplay"></span></label>
+          <br />
+          <label for="lowerBound"># of samples in range: </label>
+          <label for="probability"
+            >Min Heads: <span id="lowerDisplay"></span
+          ></label>
+          <input type="range" min="0" max="500" step="1" id="lowerSelectedRange" class="slider"/>
+          <label for="probability"
+            >Max Head: <span id="upperDisplay"></span
+          ></label>
+          <input type="range" min="0" max="500" step="1" id="upperSelectedRange" class="slider"/>
+          <label
+            ><span id="sampleInRangeDisplay">0</span>&nbsp;&nbsp;samples in range</label
+          >
+          <label>proportion: <span id="proportionDisplay">0</span></label>
+        </div>
+        <hr />
+      </form>
+    </div>
+    <div id="view">
+      <div id="animation" class="container"></div>
+      <div><canvas id="chart" class="container"></canvas></div>
+      <div id="remarks">
+        <table>
+          <tr>
+            <td>Remarks:</td>
+            <td>
+              1. Double click the graph to zoom out if number of toss >= 50
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>2. Click the legend to hide/show data in Graph</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>
+              3. Coins Imgaes only show the last sample with number of tosses <=
+              50
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>
+              4. Changing probability and Number of Tosses will resample based on the total sample sizes.
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.js"></script>
+<script type="module" src="./oneProportion.js"></script>
+<script type="module">
+  import { OneProportion } from "./oneProportion.js";
+  window.oneProportion = new OneProportion(
+    document.getElementById("one-proportion")
+  );
+</script>

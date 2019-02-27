@@ -1,35 +1,19 @@
-export default class Calculation {
-  constructor(noOfCoin, probability) {
-    this.binomailBase = this.calculateBinonimalBase(noOfCoin, probability);
-    this.dataSet = {
-      noOfCoin: noOfCoin,
-      probability: probability,
-      labels: this.generateLabels(noOfCoin),
-      binomail: Array(noOfCoin + 1).fill(0), //caching the binomail base
-      sample: Array(noOfCoin + 1).fill(0),
-      selected: Array(noOfCoin + 1).fill(NaN),
-      mean: 0,
-      std: 0,
-      sampleSelected: 0,
-      noOfSelected: 0,
-      totalFlips: 0,
-      zoomRange: 0,
-      lowerSelected: 0,
-      upperSelected: 0
-    };
-  }
-  generateLabels(noOfCoin) {
+const cal = {
+  generateLabels: noOfCoin => {
     const labels = Array(noOfCoin + 1);
     for (let i = 0; i < noOfCoin + 1; i++) {
       labels[i] = i;
     }
     return labels;
-  }
+  },
 
-  calculateBinonimalBase(noOfCoin, probability) {
+  calculateBinonimal: (noOfCoin, probability, totalSamples) => {
     const coeff = Array(noOfCoin + 1).fill(0);
     coeff[0] = 1;
     const binomailBase = Array(noOfCoin + 1);
+    /**
+     * dynamic programming
+     */
     binomailBase[0] = Math.pow(1 - probability, noOfCoin);
     for (let i = 1; i < noOfCoin + 1; i++) {
       coeff[i] = (coeff[i - 1] * (noOfCoin + 1 - i)) / i;
@@ -38,62 +22,85 @@ export default class Calculation {
         Math.pow(1 - probability, noOfCoin - i) *
         Math.pow(probability, i);
     }
-    return binomailBase;
-  }
+    return binomailBase.map(x => x * totalSamples);
+  },
 
-  drawSamples(noOfDraw) {
+  drawSamples: (probability, noOfCoin, noOfDraw) => {
     const drawResults = Array(noOfDraw);
     for (let i = 0; i < noOfDraw; i++) {
-      const singleDraw = Array(this.dataSet.noOfCoin).fill(NaN);
+      const singleDraw = Array(noOfCoin).fill(NaN);
       drawResults[i] = singleDraw.map(x => {
-        return Math.random() < this.dataSet.probability ? 1 : 0;
+        return Math.random() < probability ? 1 : 0;
       });
     }
-    console.log(drawResults);
     return drawResults;
-  }
+  },
 
-  updateCalculation(drawResults, noOfDraw) {
-    //update samples array
-    for (let i = 0; i < drawResults.length; i++) {
-      const heads = drawResults[i].reduce((acc, x) => acc + x, 0);
-      this.dataSet.sample[heads]++;
-    }
-
-    //update totalFlips
-    this.dataSet.totalFlips += noOfDraw;
-
-    //update mean
-    this.dataSet.mean =
-      this.dataSet.sample.reduce((acc, x, i) => acc + x * i, 0) /
-      this.dataSet.totalFlips;
-
-    //update std
-    this.dataSet.std = Math.sqrt(
-      this.dataSet.sample.reduce(
-        (acc, x, i) =>
-          acc + (i - this.dataSet.mean) * (i - this.dataSet.mean) * x,
-        0
-      ) / this.dataSet.totalFlips
+  calculateMean: sampleData => {
+    return (
+      // i = no of heads
+      // x = frequency
+      sampleData.reduce((acc, x, i) => acc + x * i, 0) /
+      sampleData.reduce((acc, x) => acc + x, 0)
     );
+  },
 
-    //update binomial
-    this.dataSet.binomail = this.binomailBase.map(
-      x => x * this.dataSet.totalFlips
+  calucalteStd: sampleData => {
+    const mean = cal.calculateMean(sampleData);
+    return (
+      sampleData.reduce((acc, x, i) => acc + (i - mean) * (i - mean) * x, 0) /
+      sampleData.reduce((acc, x) => acc + x, 0)
     );
-  }
+  },
 
-  upDateNumberOfSamplesInRange(lower, upper) {
+  calculateSamplesSelected: (lower, upper, samples) => {
     lower = lower >= 0 ? lower : 0;
-    upper = upper <= this.dataSet.noOfCoin ? upper : this.dataSet.noOfCoin;
-    let res = 0;
-    this.dataSet.selected.fill(NaN);
-    for (let i = lower; i <= upper; i++) {
-      res += this.dataSet.sample[i];
-      this.dataSet.selected[i] = 0;
-    }
-    this.dataSet.selected[upper + 1] = 0;
-    this.dataSet.sampleSelected = res;
-    return res;
+    upper = upper <= samples.length ? upper : samples.length;
+    return samples.reduce((acc, x, i) => {
+      if (i >= lower && i <= upper) return acc + x;
+      return acc;
+    }, 0);
+  },
+
+  /**
+   * Useed for chartJS, selected heads will be zero,
+   * 'fill end' method in chartJS will fill the whole area.
+   * , othereise will be NaN. return array size = noOfCoin +2
+   *  so the the chart will extend to end.
+   */
+  generateSelectedArray: (lower, upper, noOfCoin) => {
+    lower = lower >= 0 ? lower : 0;
+    upper = upper <= noOfCoin + 2 ? upper : noOfCoin + 2;
+    const selected = Array(noOfCoin + 2).fill(NaN);
+    return selected.map((x, i) => {
+      if (i >= lower && i <= upper + 1) return 0;
+      return x;
+    });
+  },
+
+  /**
+   * eg. originalSamples = [1, 2, 3, 4, 5, 6];
+  * eg.  const drawResults = [
+          [0, 0, 0, 1, 1], // total heads 2
+          [0, 1, 0, 1, 1], // total heads 3
+          [0, 0, 1, 1, 1], // total heads 3
+          [1, 0, 0, 1, 1] // total heads 3
+        ];
+        return [1, 2, 4, 7, 5, 6];
+   */
+  addSamples: (originalSamples, drawResults) => {
+    const summary = drawResults.reduce((acc, eachDraw) => {
+      const noOfHead = eachDraw.reduce((accHeads, head) => accHeads + head, 0);
+      const headsCount = acc[noOfHead] + 1 || 1;
+      return { ...acc, [noOfHead]: headsCount };
+    }, {});
+
+    return originalSamples.map((x, i) => x + (summary[i] || 0));
+  },
+
+  calculateSelectedProportion: (selected, total) => {
+    return selected / total;
   }
-}
+};
+
+export { cal };

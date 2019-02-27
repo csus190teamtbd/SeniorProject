@@ -1,5 +1,6 @@
 ---
 ---
+
 $headerFooterBkgd: #333;
 $contentBkgd: #f4f4f4;
 
@@ -12,7 +13,9 @@ $contentBkgd: #f4f4f4;
 html {
   width: 100%;
 }
-html, #navbar, #main-footer { 
+html,
+#navbar,
+#main-footer {
   background-color: $headerFooterBkgd;
 }
 
@@ -25,7 +28,7 @@ body {
 
 #main-content {
   background-color: $contentBkgd;
-  margin: 3rem .5rem;
+  margin: 3rem 0.5rem;
 }
 
 a {
@@ -184,7 +187,7 @@ p {
   display: inline-block;
 }
 /*range siider*/
-#probability {
+.slider {
   -webkit-appearance: none;
   width: 15%;
   height: 5px;
@@ -194,7 +197,7 @@ p {
   -webkit-transition: 0.2s;
   transition: opacity 0.2s;
 }
-#probability::-webkit-slider-thumb {
+.slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
   width: 20px;
@@ -203,14 +206,14 @@ p {
   cursor: pointer;
   border-radius: 20px;
 }
-#probability::-moz-range-thumb {
+.slider::-moz-range-thumb {
   width: 20px;
   height: 20px;
   background: #329932;
   cursor: pointer;
   border-radius: 20px;
 }
-#probability::-ms-thumb {
+.slider::-ms-thumb {
   width: 20px;
   height: 20px;
   background: #329932;
@@ -218,7 +221,6 @@ p {
   border-radius: 20px;
 }
 
-#slider:hover {
+.slider:hover {
   opacity: 10;
 }
-

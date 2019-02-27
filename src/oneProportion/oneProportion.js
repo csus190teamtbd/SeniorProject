@@ -1,124 +1,217 @@
-import ChartModule from "./oneProportionChart";
-import { generateCoins } from "./animation";
-import Calculation from "./calculation";
-import { ui } from "./ui";
-class OneProportionModule {
-  init() {
-    ui.loadUI();
-    this.reset();
-    this.loadEventListeners();
-    this.chart = new ChartModule(ui.getUISelectors().chart);
-    this.cal = null;
-  }
+import ChartModule from "./chartModule.js";
+import { cal } from "./calculation.js";
+import { generateCoins } from "./animation.js";
 
-  loadEventListeners() {
-    const probabilityInput = ui.getUISelectors().probabilityInput;
-    const coinsInput = ui.getUISelectors().coinsInput;
-    const probDisplay = ui.getUISelectors().probDisplay;
+export class OneProportion {
+  constructor() {
+    this.initState = () => {
+      return {
+        noOfCoin: 5,
+        probability: 0.5,
+        labels: [],
+        binomail: [],
+        samples: [],
+        selected: [],
+        mean: NaN,
+        std: NaN,
+        noOfSelected: 0,
+        totalSamples: 0,
+        lowerSelectedRange: 0,
+        upperSelectedRange: 0,
+        thisSampleSizes: 1,
+        lastDrawResults: [],
+        zoomIn: false
+      };
+    };
 
-    // probabilty display
-    probabilityInput.addEventListener("input", e => {
-      probDisplay.textContent = e.target.value;
-    });
+    this.ele = {
+      probabilityInput: document.getElementById("probability"),
+      coinsInput: document.getElementById("coins"),
+      probDisplay: document.getElementById("probDisplay"),
+      tossesDisplay: document.getElementById("tossesDisplay"),
+      lowerDisplay: document.getElementById("lowerDisplay"),
+      upperDisplay: document.getElementById("upperDisplay"),
+      drawInput: document.getElementById("draws"),
+      chart: document.getElementById("chart"),
+      totalSamples: document.getElementById("totalSamples"),
+      lowerSelectedRange: document.getElementById("lowerSelectedRange"),
+      upperSelectedRange: document.getElementById("upperSelectedRange"),
+      sampleInRangeDisplay: document.getElementById("sampleInRangeDisplay"),
+      resetBtn: document.getElementById("resetBtn"),
+      sampleBtn: document.getElementById("sampleBtn"),
+      proportionDisplay: document.getElementById("proportionDisplay"),
+      meanDisplay: document.getElementById("meanDisplay"),
+      stdDisplay: document.getElementById("stdDisplay"),
+      animation: document.getElementById("animation")
+    };
+    this.state = this.initState();
+    this.chart = new ChartModule(this.ele.chart);
 
-    // draw sample button
-    ui.getUISelectors().sampleBtn.addEventListener("click", e => {
-      coinsInput.setAttribute("disabled", true);
-      probabilityInput.setAttribute("disabled", true);
-      const coinsValue = Number(coinsInput.value);
-      const probabilityValue = Number(probabilityInput.value);
-      const drawValue = Number(ui.getUISelectors().drawInput.value);
-
-      if (!this.cal) this.cal = new Calculation(coinsValue, probabilityValue);
-
-      // calcaute the results of draw samples
-      const drawResults = this.cal.drawSamples(drawValue);
-
-      // clear animations and generate new one
-      while (ui.getUISelectors().animation.firstChild)
-        ui.getUISelectors().animation.firstChild.remove();
-
-      generateCoins(drawResults).forEach(x =>
-        ui.getUISelectors().animation.appendChild(x)
-      );
-
-      //update and calculate
-      this.cal.updateCalculation(drawResults, drawValue);
-
-      this.updateContolPanelStats();
-      this.chart.updateChartData(this.cal.dataSet);
+    this.reset = e => {
+      this.state = this.initState();
+      this.updateView(this.state, this.ele);
       e.preventDefault();
-    });
+    };
 
-    // reset button
-    ui.getUISelectors().resetBtn.addEventListener("click", e => {
-      this.reset();
-      e.preventDefault();
-    });
-
-    ui.getUISelectors().lowerBound.addEventListener("input", () => {
-      this.updateContolPanelStats();
-    });
-
-    ui.getUISelectors().upperBound.addEventListener("input", () => {
-      this.updateContolPanelStats();
-    });
-
-    /**
-     * Double Click to Zoom in if no of toss > 50;
-     */
-    ui.getUISelectors().chart.addEventListener("dblclick", () => {
-      if (this.cal && this.cal.dataSet.noOfCoin >= 50 && !this.chart.zoomIn) {
-        this.chart.zoomIn = true;
-        this.chart.updateChartData(this.cal.dataSet);
-      } else if (this.cal) {
-        this.chart.zoomIn = false;
-        this.chart.updateChartData(this.cal.dataSet);
-      }
-    });
-  }
-
-  updateContolPanelStats() {
-    totalFlips.textContent = this.cal.dataSet.totalFlips;
-    const lowerBoundValue = parseInt(ui.getUISelectors().lowerBound.value);
-    const upperBoundValue = parseInt(ui.getUISelectors().upperBound.value);
-    if (!(isNaN(lowerBoundValue) || isNaN(upperBoundValue)) && this.cal) {
-      this.cal.upDateNumberOfSamplesInRange(lowerBoundValue, upperBoundValue);
-      ui.getUISelectors().sampleInRangeDisplay.textContent = this.cal.dataSet.sampleSelected;
-
-      const total = this.cal.dataSet.totalFlips;
-      ui.getUISelectors().proportionDisplay.textContent = `${
-        this.cal.dataSet.sampleSelected
-      } / ${total} = ${(this.cal.dataSet.sampleSelected / total).toFixed(2)}`;
-
-      ui.getUISelectors().meanDisplay.textContent = this.cal.dataSet.mean.toFixed(
-        3
+    this.reSampleWithSameSampleSize = state => {
+      const reSamples = cal.drawSamples(
+        state.probability,
+        state.noOfCoin,
+        state.totalSamples
       );
-      ui.getUISelectors().stdDisplay.textContent = this.cal.dataSet.std.toFixed(
-        3
+      state.samples = cal.addSamples(
+        Array(state.noOfCoin + 1).fill(0),
+        reSamples
       );
+      state.lastDrawResults = reSamples[reSamples.length - 1];
+      this.updateState(state);
+      this.updateView(state, this.ele);
+    };
 
-      this.chart.updateChartData(this.cal.dataSet);
-    }
-  }
+    this.loadEventListener = () => {
+      this.ele.probabilityInput.addEventListener("input", e => {
+        this.state.probability = Number(e.target.value);
+        probDisplay.innerText = Number(e.target.value);
+      });
 
-  reset() {
-    ui.getUISelectors().coinsInput.removeAttribute("disabled");
-    ui.getUISelectors().coinsInput.value = 5;
-    ui.getUISelectors().drawInput.value = 1;
-    ui.getUISelectors().probabilityInput.removeAttribute("disabled");
-    ui.getUISelectors().probabilityInput.value = 0.5;
-    ui.getUISelectors().probDisplay.textContent = 0.5;
-    ui.getUISelectors().totalFlips.textContent = 0;
-    ui.getUISelectors().lowerBound.value = 0;
-    ui.getUISelectors().upperBound.value = 0;
-    ui.getUISelectors().sampleInRangeDisplay.textContent = 0;
-    ui.getUISelectors().meanDisplay.textContent = 0;
-    ui.getUISelectors().stdDisplay.textContent = 0;
-    ui.getUISelectors().proportionDisplay.textContent = 0;
-    if (this.chart) this.chart.resetChartData();
-    this.cal = null;
+      this.ele.probabilityInput.addEventListener("change", () => {
+        if (this.state.labels.length !== 0) {
+          this.reSampleWithSameSampleSize(this.state);
+        }
+      });
+
+      this.ele.coinsInput.addEventListener("input", e => {
+        this.ele.tossesDisplay.innerText = Number(e.target.value);
+        this.state.noOfCoin = Number(e.target.value);
+      });
+
+      this.ele.coinsInput.addEventListener("change", () => {
+        if (this.state.labels.length !== 0) {
+          this.reSampleWithSameSampleSize(this.state);
+        }
+      });
+
+      this.ele.drawInput.addEventListener("change", e => {
+        this.state.thisSampleSizes = Number(e.target.value);
+      });
+
+      this.ele.resetBtn.addEventListener("click", this.reset);
+
+      this.ele.sampleBtn.addEventListener("click", e => {
+        this.state.totalSamples += this.state.thisSampleSizes;
+        const { probability, noOfCoin, thisSampleSizes } = this.state;
+        const newSamples = cal.drawSamples(
+          probability,
+          noOfCoin,
+          thisSampleSizes
+        );
+        this.state.lastDrawResults = newSamples[newSamples.length - 1];
+        if (this.state.samples.length === 0)
+          this.state.samples = Array(this.state.noOfCoin + 1).fill(0);
+        this.state.samples = cal.addSamples(this.state.samples, newSamples);
+        this.updateState(this.state);
+        this.updateView(this.state, this.ele);
+
+        e.preventDefault();
+      });
+
+      /**
+       * Double Click to Zoom in if no of toss > 50;
+       */
+      this.ele.chart.addEventListener("dblclick", () => {
+        if (!this.state.zoomIn && this.state.noOfCoin >= 50)
+          this.state.zoomIn = true;
+        else this.state.zoomIn = false;
+        this.chart.updateChartData(this.state);
+      });
+
+      this.ele.lowerSelectedRange.addEventListener("input", e => {
+        this.state.lowerSelectedRange = Number(e.target.value);
+        this.updateState(this.state);
+        this.updateView(this.state, this.ele, false);
+      });
+
+      this.ele.upperSelectedRange.addEventListener("input", e => {
+        this.state.upperSelectedRange = Number(e.target.value);
+        this.updateState(this.state);
+        this.updateView(this.state, this.ele, false);
+      });
+    };
+
+    this.updatedSelectedSamples = state => {
+      const { lowerSelectedRange, upperSelectedRange } = state;
+      state.noOfSelected = cal.calculateSamplesSelected(
+        lowerSelectedRange,
+        upperSelectedRange,
+        state.samples
+      );
+      state.selected = cal.generateSelectedArray(
+        lowerSelectedRange,
+        upperSelectedRange,
+        state.noOfCoin
+      );
+    };
+
+    this.updateState = state => {
+      state.labels = cal.generateLabels(state.noOfCoin);
+      state.binomail = cal.calculateBinonimal(
+        state.noOfCoin,
+        state.probability,
+        state.totalSamples
+      );
+      state.mean = cal.calculateMean(state.samples);
+      state.std = cal.calucalteStd(state.samples);
+      this.state.zoomIn = state.noOfCoin >= 50 ? true : false;
+      this.updatedSelectedSamples(state);
+    };
+
+    this.loadCoinsImage = (animationEle, lastDrawResults) => {
+      while (animationEle.firstChild) animationEle.firstChild.remove();
+      generateCoins(lastDrawResults).forEach(x => animationEle.appendChild(x));
+    };
+
+    this.updateView = (state, ele, loadCoins = true) => {
+      const {
+        probability,
+        noOfCoin,
+        totalSamples,
+        mean,
+        std,
+        thisSampleSizes,
+        noOfSelected,
+        lowerSelectedRange,
+        upperSelectedRange,
+        lastDrawResults
+      } = state;
+      ele.probDisplay.innerText = probability;
+      ele.tossesDisplay.innerText = noOfCoin;
+      ele.totalSamples.innerText = totalSamples;
+      ele.meanDisplay.innerText = mean.toFixed(3);
+      ele.stdDisplay.innerText = std.toFixed(3);
+      ele.drawInput.value = thisSampleSizes;
+      ele.coinsInput.value = noOfCoin;
+      ele.lowerSelectedRange.setAttribute("max", noOfCoin);
+      ele.upperSelectedRange.setAttribute("max", noOfCoin);
+      ele.probabilityInput.value = probability;
+      ele.sampleInRangeDisplay.innerText = noOfSelected;
+      if (lowerSelectedRange > noOfCoin)
+        this.state.lowerSelectedRange = noOfCoin;
+      if (upperSelectedRange > noOfCoin)
+        this.state.upperSelectedRange = noOfCoin;
+      ele.lowerSelectedRange.value = lowerSelectedRange;
+      ele.upperSelectedRange.value = upperSelectedRange;
+      ele.lowerDisplay.innerText = lowerSelectedRange;
+      ele.upperDisplay.innerText = upperSelectedRange;
+      ele.proportionDisplay.innerText = `${noOfSelected} / ${totalSamples} = ${(
+        noOfSelected / totalSamples
+      ).toFixed(3)}`;
+      if (noOfCoin <= 50 && loadCoins)
+        this.loadCoinsImage(ele.animation, lastDrawResults);
+      else if (noOfCoin > 50) this.loadCoinsImage(ele.animation, []);
+      this.chart.updateChartData(state);
+    };
+
+    this.updateView(this.state, this.ele);
+    this.loadEventListener();
   }
 }
-
-export const oneProportion = new OneProportionModule();
