@@ -1,13 +1,13 @@
 ---
 ---
-#two-mean-data, #two-mean-sample {
+#two-mean-data, #two-mean-sample, #two-mean-diff {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: flex-start;
   align-items: stretch;
 
-  .control, #data-summary {
+  .control, .stats {
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -29,12 +29,16 @@
     }
   }
 
-  #data-summary div {
+  .stats div {
     margin: 0 .5em;
     display: flex;
     flex-direction: row;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     justify-content: space-between;
+
+    span[id] {
+      margin-left: auto;
+    }
   }
 
   .view {
@@ -53,5 +57,9 @@
 .chart-wrap {
   display: block;
   position: relative;
+}
+
+#how-many-stddev {
+  font-weight: bold;
 }
 
