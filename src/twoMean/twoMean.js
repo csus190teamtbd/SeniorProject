@@ -7,7 +7,7 @@ import { randomSubset } from '/util/sampling.js';
 export class TwoMean {
   constructor(twoMeanDiv) {
     this.twoMeanDiv = twoMeanDiv;
-    this.csvInput = twoMeanDiv.querySelector('#csvInput');
+    this.csvInput = twoMeanDiv.querySelector('#csv-input');
     this.diffChart = twoMeanDiv.querySelector('#diffChart');
     this.data = undefined;
     this.diffData = {};
@@ -24,7 +24,7 @@ export class TwoMean {
   }
 
   loadData() {
-    let rawData = this.parseData('1,1\n1,1\n1,2\n2,2\n2,3\n2,3');
+    let rawData = this.parseData(this.csvInput.value.trim());
     console.log(rawData);
     this.updateData(rawData);
   }
@@ -48,6 +48,8 @@ export class TwoMean {
 
   updateData(data) {
     this.data = data;
+    this.data[0] = this.data[0] || [];
+    this.data[1] = this.data[1] || [];
     this.dataChart1.setDataFromRaw([data[0]]);
     this.dataChart2.setDataFromRaw([data[1]]);
     this.sampleChart1.clear();

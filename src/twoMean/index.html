@@ -8,13 +8,15 @@ title: Two Means
   <div id="two-mean-data">
     <div id="two-mean-data-lhs">
       <div class="control">
-        <!--<form>-->
-        <p>Enter CSV (first column 0 or 1):</P>
-        <textarea id="csvInput" disabled="true"></textarea>
-        <a onclick="twoMean.loadData()" onclick="" class="btn">Load Data</a>
-        <!--</form>-->
+        <h3>Enter CSV:</h3>
+        <textarea id="csv-input">1,1
+1,1
+1,2
+2,2
+2,3
+2,3</textarea>
+        <button onclick="twoMean.loadData()" onclick="" class="btn">Load Data</button>
       </div>
-      <hr>
       <div id="data-summary">
         <div>Mean of Group 1: <span id="data-mean-1"></span></div>
         <div>Mean of Group 2: <span id="data-mean-2"></span></div>
