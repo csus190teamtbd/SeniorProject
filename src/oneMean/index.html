@@ -2,3 +2,47 @@
 layout: default
 title: One Means
 ---
+
+<link rel="stylesheet" href="oneMean.css">
+<div id="one-mean">
+  <h2>Step One: Enter Data</h2>
+  <div id="one-mean-data">
+    <div id="one-mean-data-lhs">
+      <div class="control">
+        <h3>Enter CSV:</h3>
+        <textarea id="csv-input">1,1
+1,1
+1,2
+2,2
+2,3
+2,3</textarea>
+        <button id="load-data-btn" class="btn">Load Data</button>
+      </div>
+      <div id="data-summary">
+        <div>Mean of Group 1: <span id="data-mean-1"></span></div>
+        <div>Mean of Group 2: <span id="data-mean-2"></span></div>
+      </div>
+    </div>
+    <div class="view">
+      <div class="chart-wrap"><canvas id="data-chart-1"></canvas></div>
+    </div>
+  </div>
+  <h2>Step Two: Run Simulations</h2>
+  <div id="one-mean-sample">
+    <div class="control">
+      <a onclick="twoMean.runSim()" onclick="" class="btn">Run Simulation</a>
+    </div>
+    <div class="view">
+      <div class="chart-wrap"><canvas id="sample-chart-1"></canvas></div>
+      <div class="chart-wrap"><canvas id="sample-chart-2"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<!-- TODO(matthewmerrill): don't CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js" integrity="sha256-rjYnB0Bull7k2XkbJ03UNGqMuMieR769uQVGSSlsi6A=" crossorigin="anonymous"></script>
+<script type="module">
+  import {OneMean} from './oneMean.js';
+  window.oneMean = new OneMean(document.getElementById('one-mean'));
+</script>
+

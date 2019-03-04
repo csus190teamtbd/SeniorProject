@@ -9,3 +9,37 @@ export function dropTextFileOnTextArea(textAreaElement) {
     e.preventDefault();
   });
 }
+
+/**
+ * rawData format:
+ * a,b,c
+ * 1,2,3
+ * 15.2,54.3,55.3
+ *
+ * return {
+ * a: [1, 15.2]
+ * b: [2, 54.3]
+ * c: [3, 55.3]
+ * }
+ *
+ * throw error if data not match
+ */
+
+export function parseCsvVariableByCol(rawData) {
+  console.log(rawData);
+  const [Header, ...data] = rawData.split(/[\r\n]+/);
+  const varName = Header.split(",").map(x => x.trim());
+
+  const res = varName.reduce((acc, x) => {
+    return { ...acc, [x]: [] };
+  }, {});
+
+  data.forEach(row => {
+    const nums = row.match(/(\d+(\.\d+)?)/g);
+    if (nums.length != varName.length) throw "data not match!!";
+    varName.forEach((x, index) => {
+      res[x].push(Number(nums[index]));
+    });
+  });
+  return res;
+}
