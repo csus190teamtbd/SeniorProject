@@ -72,13 +72,12 @@ export default class StackedDotChart {
   }
 
   changeDotAppearance(pointRadius, stepSize) {
-    for (let dataset of datasets) {
-      this.datasets.push(
-        Object.assign({}, dataset, {
-          pointRadius: pointRadius
-        })
-      );
-    }
-    this.chart.options.scales.ticks.stepSize = stepSize;
+    this.chart.data.datasets.forEach(x => {
+      x.pointRadius = pointRadius;
+    });
+    this.chart.options.scales.yAxes.forEach(x => {
+      x.ticks.stepSize = stepSize;
+    });
+    console.log(this.chart.data.datasets);
   }
 }
