@@ -1,5 +1,14 @@
 export function dropTextFileOnTextArea(textAreaElement) {
+  textAreaElement.addEventListener("dragover", () => {
+    textAreaElement.style.backgroundColor = "skyblue";
+  });
+
+  textAreaElement.addEventListener("dragleave", () => {
+    textAreaElement.style.backgroundColor = "white";
+  });
+
   textAreaElement.addEventListener("drop", e => {
+    textAreaElement.style.backgroundColor = "white";
     let file = e.dataTransfer.files[0];
     const reader = new FileReader();
     reader.onload = event => {
