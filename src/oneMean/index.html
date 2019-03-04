@@ -10,18 +10,13 @@ title: One Means
     <div id="one-mean-data-lhs">
       <div class="control">
         <h3>Enter CSV:</h3>
-        <textarea id="csv-input">1,1
-1,1
-1,2
-2,2
-2,3
-2,3</textarea>
+        <textarea id="csv-input">
+</textarea>
         <button id="load-data-btn" class="btn">Load Data</button>
       </div>
-      <div id="data-summary">
-        <div>Mean of Group 1: <span id="data-mean-1"></span></div>
-        <div>Mean of Group 2: <span id="data-mean-2"></span></div>
-      </div>
+      <select id="variable">
+        <option value="null">Please Select Variable</option>
+      </select>
     </div>
     <div class="view">
       <div class="chart-wrap"><canvas id="data-chart-1"></canvas></div>

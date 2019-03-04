@@ -24,21 +24,23 @@ export function dropTextFileOnTextArea(textAreaElement) {
  *
  * throw error if data not match
  */
-
 export function parseCsvVariableByCol(rawData) {
   console.log(rawData);
   const [Header, ...data] = rawData.split(/[\r\n]+/);
-  const varName = Header.split(",").map(x => x.trim());
+  const varNames = Header.split(/[\t,]/).map(x => x.trim());
 
-  const res = varName.reduce((acc, x) => {
+  const res = varNames.reduce((acc, x) => {
     return { ...acc, [x]: [] };
   }, {});
 
   data.forEach(row => {
     const nums = row.match(/(\d+(\.\d+)?)/g);
-    if (nums.length != varName.length) throw "data not match!!";
-    varName.forEach((x, index) => {
-      res[x].push(Number(nums[index]));
+    // if (!nums.length)
+    //   continue;
+    //
+    varNames.forEach((x, index) => {
+      if (nums && nums.length === varNames.length)
+        res[x].push(Number(nums[index]));
     });
   });
   return res;
