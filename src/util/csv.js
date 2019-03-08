@@ -44,13 +44,19 @@ export function parseCsvVariableByCol(rawData) {
 
   data.forEach(row => {
     const nums = row.match(/(\d+(\.\d+)?)/g);
-    // if (!nums.length)
-    //   continue;
-    //
     varNames.forEach((x, index) => {
       if (nums && nums.length === varNames.length)
         res[x].push(Number(nums[index]));
     });
   });
   return res;
+}
+
+export function parseCSVtoSingleArray(rawData) {
+  console.log(rawData);
+  const numRegex = /(\d+(\.\d+)?)/;
+  return rawData
+    .split(/[\r\n]+/)
+    .filter(x => numRegex.test(x))
+    .map(x => Number(x.match(numRegex)[0]));
 }

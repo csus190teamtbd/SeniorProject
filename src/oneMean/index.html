@@ -9,13 +9,16 @@ title: One Means
   <div id="one-mean-data">
     <div id="one-mean-data-lhs">
       <div class="control">
-        <h3>Enter CSV:</h3>
-        <textarea id="csv-input"></textarea>
-        <button id="load-data-btn" class="btn">Load Data</button>
+        <div>
+          <h3>Enter CSV:</h3>
+          <textarea rows="10" id="csv-input"></textarea>
+          <button id="load-data-btn" class="btn">Load Data</button>
+        </div>
+        <div>
+          <h3>Data with ID:</h3>
+          <textarea readonly rows="10" id="original-data-display"></textarea>
+        </div>
       </div>
-      <select id="variable">
-        <option value="null">Please Select Variable</option>
-      </select>
     </div>
     <div class="view">
       <p>original mean: <span id="original-mean"></span></p>
