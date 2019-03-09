@@ -28,5 +28,5 @@ export function variance(itr) {
 
 export function roundToPlaces(value, places) {
   let pow10 = Math.pow(10, places);
-  return Math.floor(value * pow10) / pow10;
+  return Math.round(value * pow10) / pow10;
 }
