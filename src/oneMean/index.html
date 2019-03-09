@@ -5,45 +5,62 @@ title: One Means
 
 <link rel="stylesheet" href="oneMean.css">
 <div id="one-mean">
-  <h2>Step One: Enter Data or Drop CSV</h2>
-  <div id="one-mean-data">
-    <div id="one-mean-data-lhs">
-      <div class="control">
-        <div>
-          <h3>Enter CSV:</h3>
-          <textarea rows="10" id="csv-input"></textarea>
-          <button id="load-data-btn" class="btn">Load Data</button>
-        </div>
-        <div>
-          <h3>Data with ID:</h3>
-          <textarea readonly rows="10" id="original-data-display"></textarea>
-        </div>
-      </div>
+  <h3>1. Enter Data or Drop CSV</h3>
+  <div class="chart-input-form">
+    <div class="data-form">
+      <textarea rows="10" id="csv-input" placeholder="please enter data or drop csv here"></textarea>
+      <button class="btn" id="load-data-btn">load data</button>
     </div>
-    <div class="view">
-      <p>original mean: <span id="original-mean"></span></p>
-      <p>new mean: <span id="new-mean"></span></p>
-      <div class="chart-wrap"><canvas id="data-chart-1"></canvas></div>
-      <div class="form-group">
-          <label for="shifted-mean"
-            >Shifted Mean: <span id="shifted-mean"></span
+    <div class="data-form">
+      <textarea rows="10" id="original-data-display" readonly></textarea>
+      <p>mean:<span id ="original-mean"></span></p>
+    </div>
+    <div class="chart-wrap"><canvas id="original-data-chart"></canvas></div>
+  </div> 
+
+  <h3>2. Generate Population</h3>
+  <div class="chart-input-form">
+    <div class="data-form">
+      <label for="shiftMeanInput"> shift mean</label>
+      <input type="number" step="0.1" id="shiftMeanInput" value="0"/>
+      <input type="range" min="-10" max="10" step="0.1" id="shiftMeanSlider"/>
+      <label for="mul-factor">sample multiplication <span id="mul-factor-display">1</span
           ></label>
-          <input type="range" min="-10" max="10" step="0.01" class="slider" id="shiftMeanSlider" value="0"/>
-          <input type="number" id="shiftMeanInput" value="0">
-                <div id="data-summary">
-      </div>
-      </div>
+      <input type="range" min="1" max="50" step="1" id="mul-factor" value="1"/>
+    </div>  
+    <div class="data-form">
+      <textarea rows="10" readonly id="population-data-display"></textarea>
+      <p>mean:<span id ="population-mean"></span></p>
     </div>
+    <div class="chart-wrap"><canvas id="population-data-chart"></canvas></div>
   </div>
-  <h2>Step Two: Run Simulations</h2>
-  <div id="one-mean-sample">
-    <div class="control">
-      <button id="runSim" class="btn">Run Simulation</button>
+
+  <h3>3. Draw Sample</h3>  
+  <div class="chart-input-form">
+    <div class="data-form">
+      <label for="sample-size"> Sample Size</label>
+      <input type="number" min="1" step="1" id="sample-size" value="10"/>
+      <label for="no-of-sample"> No of Sample</label>
+      <input type="number" min="1" step="1" id="no-of-sample" value="1"/>
+      <button class="btn" id="run-sim-btn">Run Simulation</button>
     </div>
-    <div class="view">
-      <div class="chart-wrap"><canvas id="sample-chart-1"></canvas></div>
-      <div class="chart-wrap"><canvas id="sample-chart-2"></canvas></div>
+    <div class="data-form">
+      <textarea rows="10" readonly id="most-recent-sample-display"></textarea>
+      <p>mean:<span id ="sample-mean"></span></p>
     </div>
+    <div class="chart-wrap"><canvas id="sample-data-chart"></canvas></div>
+  </div>
+
+  <h3>4. Statistic</h3>  
+  <div class="chart-input-form">
+    <div class="data-form">
+      <h3>XXXXXXXXXXXXX</h3>
+    </div>
+    <div class="data-form">
+      <textarea rows="10" readonly id="samples-mean-display"></textarea>
+      <p>mean of samples mean:<span id ="samples-mean"></span></p>
+    </div>
+    <div class="chart-wrap"><canvas id="statistic-data-chart"></canvas></div>
   </div>
 </div>
 

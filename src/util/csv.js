@@ -34,7 +34,6 @@ export function dropTextFileOnTextArea(textAreaElement) {
  * throw error if data not match
  */
 export function parseCsvVariableByCol(rawData) {
-  console.log(rawData);
   const [Header, ...data] = rawData.split(/[\r\n]+/);
   const varNames = Header.split(/[\t,]/).map(x => x.trim());
 
@@ -53,10 +52,9 @@ export function parseCsvVariableByCol(rawData) {
 }
 
 export function parseCSVtoSingleArray(rawData) {
-  console.log(rawData);
   const numRegex = /(\d+(\.\d+)?)/;
   return rawData
     .split(/[\r\n]+/)
     .filter(x => numRegex.test(x))
-    .map(x => Number(x.match(numRegex)[0]));
+    .map((x, index) => ({ id: index, value: Number(x.match(numRegex)[0]) }));
 }

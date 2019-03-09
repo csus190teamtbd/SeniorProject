@@ -78,6 +78,5 @@ export default class StackedDotChart {
     this.chart.options.scales.yAxes.forEach(x => {
       x.ticks.stepSize = stepSize;
     });
-    console.log(this.chart.data.datasets);
   }
 }
