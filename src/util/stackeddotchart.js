@@ -55,6 +55,13 @@ export default class StackedDotChart {
     for (let idx = 0; idx < rawDataArrays.length; idx++) {
       this.chart.data.datasets[idx].data = scatterArrays[idx];
     }
+    let max = 1;
+    for (let dataset of scatterArrays) {
+      for (let item of dataset) {
+        max = Math.max(max, item.y);
+      }
+    }
+    this.chart.options.scales.yAxes[0].ticks.stepSize = Math.pow(10, Math.floor(Math.log10(max)));
   }
 
   setScale(start, end) {
