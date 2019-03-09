@@ -4,7 +4,6 @@
   "description": "1. setup jekyll",
   "main": "index.js",
   "dependencies": {
-    "@babel/polyfill": "^7.2.5",
     "chai": "^4.2.0"
   },
   "devDependencies": {
