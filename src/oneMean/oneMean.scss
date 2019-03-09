@@ -1,0 +1,32 @@
+---
+---
+
+#one-mean {
+  label,
+  p {
+    font-size: 10px;
+  }
+  textarea[readonly] {
+    background-color: lightgray;
+  }
+
+  .chart-input-form {
+    display: flex;
+    border-bottom: 3px green solid;
+    .data-form {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      width: 20ch;
+      padding: 5px;
+      margin-bottom: 10px;
+    }
+    .chart-wrap {
+      flex: 8;
+    }
+    label,
+    input[type="number"] {
+      display: inline-block;
+    }
+  }
+}
