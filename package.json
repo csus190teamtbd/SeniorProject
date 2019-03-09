@@ -4,6 +4,7 @@
   "description": "1. setup jekyll",
   "main": "index.js",
   "dependencies": {
+    "@babel/polyfill": "^7.2.5",
     "chai": "^4.2.0"
   },
   "devDependencies": {
@@ -14,7 +15,8 @@
     "mocha": "^5.2.0"
   },
   "scripts": {
-    "test": "mocha --require babel-core/register"
+    "test": "mocha --require babel-core/register",
+    "test-all": "mocha --require babel-core/register test/**/*.test.js"
   },
   "repository": {
     "type": "git",
