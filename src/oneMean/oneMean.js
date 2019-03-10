@@ -1,5 +1,6 @@
 import { dropTextFileOnTextArea, parseCSVtoSingleArray } from "../util/csv.js";
 import StackedDotChart from "../util/stackeddotchart.js";
+import { randomSubset } from "../util/sampling.js";
 import * as MathUtil from "/util/math.js";
 
 export class OneMean {
@@ -91,19 +92,18 @@ export class OneMean {
 
   runSim(sampleSize, noOfSample) {
     const newMeanSamples = [];
-    let singleDraw;
     for (let i = 0; i < noOfSample; i++) {
-      singleDraw = MathUtil.drawSamplesNoRepitition(
+      const { chosen, unchoosen } = randomSubset(
         this.populationData,
         sampleSize
       );
       const roundedMean = MathUtil.roundToPlaces(
-        MathUtil.mean(singleDraw.map(x => x.value)),
+        MathUtil.mean(chosen.map(x => x.value)),
         3
       );
       newMeanSamples.push(roundedMean);
+      if (i === noOfSample - 1) this.mostRecentDraw = chosen;
     }
-    this.mostRecentDraw = singleDraw;
     if (this.sampleSize !== sampleSize) {
       this.sampleSize = sampleSize;
       this.sampleMeans = newMeanSamples;
