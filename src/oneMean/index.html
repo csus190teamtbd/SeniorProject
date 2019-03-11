@@ -4,6 +4,7 @@ title: One Means
 ---
 
 <link rel="stylesheet" href="oneMean.css">
+{% comment %} <h1 style="text-align:center"> One Mean</h1> {% endcomment %}
 <div id="one-mean">
   <h3>1. Enter Data or Drop CSV</h3>
   <div class="chart-input-form">
@@ -54,7 +55,17 @@ title: One Means
   <h3>4. Statistic</h3>  
   <div class="chart-input-form">
     <div class="data-form">
-      <h3>XXXXXXXXXXXXX</h3>
+      <select id="tailDirection">
+        <option value=null>Please Select</option>
+        <option value="oneTailRight">One Tail Right</option>
+        <option value="oneTailLeft">One Tail Left</option>
+        <option value="TwoTail">Two Tail</option>
+      </select>
+      <label for="tailValue"> Value</label>
+      <input type="number" id="tailValue"/>
+      <p>Selected Samples: <span id="total-selected-samples"></span></p>
+      <p>Total Samples:<span id="total-samples"></span></p>
+      <p>Proportion:<span id="proportion"></span></p>
     </div>
     <div class="data-form">
       <textarea rows="10" readonly id="samples-mean-display"></textarea>
