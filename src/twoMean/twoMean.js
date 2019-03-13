@@ -120,6 +120,9 @@ export class TwoMean {
       for (let item of this.data[1]) {
         allData.push({ datasetId: 1, value: item});
       }
+      if (allData.length === 0) {
+        return;
+      }
       let { chosen, unchosen } = randomSubset(allData, this.data[0].length);
       this.addSimulationSample(this.sampleChart1, chosen);
       this.addSimulationSample(this.sampleChart2, unchosen);
