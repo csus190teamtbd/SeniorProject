@@ -20,7 +20,9 @@ export class TwoMean {
     this.dataChart1 = new StackedDotChart(twoMeanDiv.querySelector('#data-chart-1'), [this.datasets[0]]);
     this.dataChart2 = new StackedDotChart(twoMeanDiv.querySelector('#data-chart-2'), [this.datasets[1]]);
     this.sampleChart1 = new StackedDotChart(twoMeanDiv.querySelector('#sample-chart-1'), this.datasets);
+    this.sampleChart1.chart.options.legend.display = false;
     this.sampleChart2 = new StackedDotChart(twoMeanDiv.querySelector('#sample-chart-2'), this.datasets);
+    this.sampleChart2.chart.options.legend.display = false;
     this.diffChart = new StackedDotChart(twoMeanDiv.querySelector('#diff-chart'), [
       { label: 'Diff of Means', backgroundColor: '#333333', data: [], },
     ]);
@@ -69,6 +71,10 @@ export class TwoMean {
       this.dataChart2.setScale(min, max);
       this.sampleChart1.setScale(min, max);
       this.sampleChart2.setScale(min, max);
+      this.dataChart1.scaleToStackDots();
+      this.dataChart2.scaleToStackDots();
+      this.sampleChart1.scaleToStackDots();
+      this.sampleChart2.scaleToStackDots();
     }
     this.dataChart1.chart.update();
     this.dataChart2.chart.update();
@@ -164,6 +170,7 @@ export class TwoMean {
         ? MathUtil.roundToPlaces((datasetDiffOfMeans - sampleDiffMean) / sampleDiffStdDev, 2)
         : '___';
     this.diffChart.setDataFromRaw([this.sampleDiffs]);
+    this.diffChart.scaleToStackDots();
     this.diffChart.chart.update();
   }
 }
