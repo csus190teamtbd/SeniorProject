@@ -86,4 +86,7 @@ export default class StackedDotChart {
       x.ticks.stepSize = stepSize;
     });
   }
+  setAnimationDuration(duration) {
+    this.chart.options.animation.duration = duration;
+  }
 }
