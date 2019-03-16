@@ -6,7 +6,7 @@ title: One Means
 <link rel="stylesheet" href="oneMean.css">
 {% comment %} <h1 style="text-align:center"> One Mean</h1> {% endcomment %}
 <div id="one-mean">
-  <h3>1. Enter Data or Drop CSV</h3>
+  <h3 class='toggle-btn'>1. Enter Data or Drop CSV</h3>
   <div class="chart-input-form">
     <div class="data-form">
       <textarea rows="10" id="csv-input" placeholder="please enter data or drop csv here"></textarea>
@@ -19,7 +19,7 @@ title: One Means
     <div class="chart-wrap"><canvas id="original-data-chart"></canvas></div>
   </div> 
 
-  <h3>2. Generate Population</h3>
+  <h3 class='toggle-btn'>2. Generate Population</h3>
   <div class="chart-input-form">
     <div class="data-form">
       <label for="shiftMeanInput"> shift mean</label>
@@ -36,7 +36,7 @@ title: One Means
     <div class="chart-wrap"><canvas id="population-data-chart"></canvas></div>
   </div>
 
-  <h3>3. Draw Sample</h3>  
+  <h3 class='toggle-btn'>3. Draw Sample</h3>  
   <div class="chart-input-form">
     <div class="data-form">
       <label for="sample-size"> Sample Size</label>
@@ -52,7 +52,7 @@ title: One Means
     <div class="chart-wrap"><canvas id="sample-data-chart"></canvas></div>
   </div>
 
-  <h3>4. Statistic</h3>  
+  <h3 class='toggle-btn'>4. Statistic</h3>  
   <div class="chart-input-form">
     <div class="data-form">
       <select id="tailDirection">

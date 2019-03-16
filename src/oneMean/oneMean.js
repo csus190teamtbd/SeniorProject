@@ -41,7 +41,8 @@ export class OneMean {
         "#total-selected-samples"
       ),
       totalSamplesDisplay: OneMeanDiv.querySelector("#total-samples"),
-      proportionDisplay: OneMeanDiv.querySelector("#proportion")
+      proportionDisplay: OneMeanDiv.querySelector("#proportion"),
+      oneMeanDiv: OneMeanDiv
     };
     this.datasets = [
       { label: "Original", backgroundColor: "#333333", data: [] },
@@ -104,6 +105,14 @@ export class OneMean {
 
       this.ele.tailValueInput.addEventListener("input", e => {
         if (this.sampleMeans.length) this.updateData(this.dataName.sampleMeans);
+      });
+
+      this.ele.oneMeanDiv.addEventListener("click", e => {
+        if (e.target.className === "toggle-btn") {
+          const div = e.target.nextElementSibling;
+          console.log(div);
+          div.style.display = div.style.display === "none" ? "flex" : "none";
+        }
       });
     };
     this.loadEventListener();

@@ -9,6 +9,9 @@
   textarea[readonly] {
     background-color: lightgray;
   }
+  .toggle-btn:hover {
+    cursor: pointer;
+  }
 
   .chart-input-form {
     display: flex;
