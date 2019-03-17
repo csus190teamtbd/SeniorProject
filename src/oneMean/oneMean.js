@@ -108,9 +108,8 @@ export class OneMean {
       });
 
       this.ele.oneMeanDiv.addEventListener("click", e => {
-        if (e.target.className === "toggle-btn") {
-          const div = e.target.nextElementSibling;
-          console.log(div);
+        if (e.target.className === "toggle-box") {
+          const div = e.target.parentElement.nextElementSibling;
           div.style.display = div.style.display === "none" ? "flex" : "none";
         }
       });

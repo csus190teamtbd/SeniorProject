@@ -9,13 +9,15 @@
   textarea[readonly] {
     background-color: lightgray;
   }
-  .toggle-btn:hover {
-    cursor: pointer;
+  .toggle-box {
+    margin-left: 1ch;
   }
-
+  hr {
+    border: 2px solid green;
+  }
   .chart-input-form {
     display: flex;
-    border-bottom: 3px green solid;
+    // border-bottom: 3px green solid;
     .data-form {
       display: flex;
       flex-direction: column;
