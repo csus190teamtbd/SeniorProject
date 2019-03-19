@@ -42,15 +42,16 @@ export class OneMean {
       ),
       totalSamplesDisplay: OneMeanDiv.querySelector("#total-samples"),
       proportionDisplay: OneMeanDiv.querySelector("#proportion"),
-      oneMeanDiv: OneMeanDiv
+      oneMeanDiv: OneMeanDiv,
+      runSimErrorMsg: OneMeanDiv.querySelector("#run-sim-error-msg")
     };
     this.datasets = [
       { label: "Original", backgroundColor: "#333333", data: [] },
       { label: "Population", backgroundColor: "#93cb52", data: [] },
       { label: "Most Recent Drawn", backgroundColor: "#333333", data: [] },
       [
-        { label: "Not Selected", backgroundColor: "lightgray", data: [] },
-        { label: "Selected", backgroundColor: "blue", data: [] }
+        { label: "Samples", backgroundColor: "lightgray", data: [] },
+        { label: "N/A", backgroundColor: "blue", data: [] }
       ]
     ];
 
@@ -118,27 +119,34 @@ export class OneMean {
   }
 
   runSim(sampleSize, noOfSample) {
-    if (this.populationData.length === 0) return;
+    // if (this.populationData.length === 0) return;
     const newMeanSamples = [];
-    for (let i = 0; i < noOfSample; i++) {
-      const { chosen, unchoosen } = randomSubset(
-        this.populationData,
-        sampleSize
-      );
-      const roundedMean = MathUtil.roundToPlaces(
-        MathUtil.mean(chosen.map(x => x.value)),
-        3
-      );
-      newMeanSamples.push(roundedMean);
-      if (i === noOfSample - 1) this.mostRecentDraw = chosen;
+    try {
+      if (!this.populationData.length) throw "ERROR: No Population Data";
+      for (let i = 0; i < noOfSample; i++) {
+        const { chosen, unchoosen } = randomSubset(
+          this.populationData,
+          sampleSize
+        );
+        const roundedMean = MathUtil.roundToPlaces(
+          MathUtil.mean(chosen.map(x => x.value)),
+          3
+        );
+        newMeanSamples.push(roundedMean);
+        if (i === noOfSample - 1) this.mostRecentDraw = chosen;
+      }
+      if (this.sampleSize !== sampleSize) {
+        this.sampleSize = sampleSize;
+        this.sampleMeans = newMeanSamples;
+      } else {
+        this.sampleMeans = this.sampleMeans.concat(newMeanSamples);
+      }
+    } catch (err) {
+      this.ele.runSimErrorMsg.innerText = `${err}`;
+      setTimeout(() => {
+        this.ele.runSimErrorMsg.innerText = "";
+      }, 2000);
     }
-    if (this.sampleSize !== sampleSize) {
-      this.sampleSize = sampleSize;
-      this.sampleMeans = newMeanSamples;
-    } else {
-      this.sampleMeans = this.sampleMeans.concat(newMeanSamples);
-    }
-
     this.updateData(this.dataName.mostRecentDraw);
     this.updateData(this.dataName.sampleMeans);
   }
@@ -201,6 +209,7 @@ export class OneMean {
     this.updateData(this.dataName.sampleMeans);
   }
 
+  //update chart, mean and textarea based on the dataName
   updateData(dataName) {
     let chart, data, meanEle, key, textAreaEle;
     if (dataName === this.dataName.orginalData) {
@@ -233,12 +242,16 @@ export class OneMean {
         chart.setDataFromRaw([valuesArr]);
       } else {
         valuesArr = data;
+        const tailDirection = this.ele.tailDirectionInput.value;
+        const tailInput = Number(this.ele.tailValueInput.value);
+        const mean = MathUtil.roundToPlaces(MathUtil.mean(this.sampleMeans), 2);
         const { chosen, unchosen } = splitByPredicate(
           valuesArr,
-          this.predicateForTail()
+          this.predicateForTail(tailDirection, tailInput, mean)
         );
         //update statistic output
         this.updateStatistic(chosen.length, unchosen.length);
+        this.updateSampleMeansChartLabels(tailDirection, tailInput, mean);
         chart.setDataFromRaw([unchosen, chosen]);
         pointRadius = 2;
       }
@@ -284,13 +297,9 @@ export class OneMean {
     );
   }
 
-  predicateForTail() {
-    const tailDirection = this.ele.tailDirectionInput.value;
-    const tailInput = Number(this.ele.tailValueInput.value);
+  predicateForTail(tailDirection, tailInput, mean) {
     if (tailDirection === "null") {
-      return function(x) {
-        return false;
-      };
+      return null;
     } else if (tailDirection === "oneTailRight") {
       return function(x) {
         return x >= tailInput;
@@ -300,16 +309,32 @@ export class OneMean {
         return x <= tailInput;
       };
     } else {
-      const MeanOfSampleMeans = MathUtil.roundToPlaces(
-        MathUtil.mean(this.sampleMeans),
-        2
-      );
-      const distance = Math.abs(MeanOfSampleMeans - tailInput);
+      const distance = MathUtil.roundToPlaces(Math.abs(mean - tailInput), 2);
       return function(x) {
-        return (
-          x <= MeanOfSampleMeans - distance || x >= MeanOfSampleMeans + distance
-        );
+        return x <= mean - distance || x >= mean + distance;
       };
+    }
+  }
+
+  updateSampleMeansChartLabels(tailDirection, tailInput, mean) {
+    if (tailDirection === "null") {
+      this.dataChart4.updateLabelName(0, "samples");
+      this.dataChart4.updateLabelName(1, "N/A");
+    } else if (tailDirection === "oneTailRight") {
+      this.dataChart4.updateLabelName(0, `samples < ${tailInput}`);
+      this.dataChart4.updateLabelName(1, `samples >= ${tailInput}`);
+    } else if (tailDirection === "oneTailLeft") {
+      this.dataChart4.updateLabelName(0, `samples > ${tailInput}`);
+      this.dataChart4.updateLabelName(1, `samples <= ${tailInput}`);
+    } else {
+      const distance = MathUtil.roundToPlaces(Math.abs(mean - tailInput), 2);
+      const left = mean - distance;
+      const right = mean + distance;
+      this.dataChart4.updateLabelName(0, `${left} < samples < ${right}`);
+      this.dataChart4.updateLabelName(
+        1,
+        `samples <= ${left} or samples >= ${right}`
+      );
     }
   }
 }
