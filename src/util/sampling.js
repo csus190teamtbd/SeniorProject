@@ -37,13 +37,17 @@ export function randomSubset(itr, n) {
 /**
  * fn is a predicate function
  * return two arrays, one is when fn is true, one is when fn is false
+ * if fn is null, all elements will be unchosen
  */
 export function splitByPredicate(itr, fn) {
   const chosen = [];
-  const unchosen = [];
-  itr.forEach(x => {
-    if (fn(x)) chosen.push(x);
-    else unchosen.push(x);
-  });
+  let unchosen = [];
+  if (fn === null) unchosen = itr;
+  else {
+    itr.forEach(x => {
+      if (fn(x)) chosen.push(x);
+      else unchosen.push(x);
+    });
+  }
   return { chosen, unchosen };
 }
