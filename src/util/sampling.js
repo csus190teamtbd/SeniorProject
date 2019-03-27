@@ -18,19 +18,36 @@ export function randomSubset(itr, n) {
       result[seen] = item;
     }
     // Each subsequent item has some chance of being pulled in
-    else if (Math.random() < (n / (seen + 1))) {
+    else if (Math.random() < n / (seen + 1)) {
       // Randomly decide who gets the boot
       let replaceIdx = randomInt(0, n);
       unchosen.push(result[replaceIdx]);
       result[replaceIdx] = item;
-    }
-    else {
+    } else {
       unchosen.push(item);
     }
     seen += 1;
   }
   if (seen < n) {
-    throw new Error('Not Enough Elements');
+    throw new Error("Not Enough Elements");
   }
-  return {chosen: result, unchosen};
+  return { chosen: result, unchosen };
+}
+
+/**
+ * fn is a predicate function
+ * return two arrays, one is when fn is true, one is when fn is false
+ * if fn is null, all elements will be unchosen
+ */
+export function splitByPredicate(itr, fn) {
+  const chosen = [];
+  let unchosen = [];
+  if (fn === null) unchosen = itr;
+  else {
+    itr.forEach(x => {
+      if (fn(x)) chosen.push(x);
+      else unchosen.push(x);
+    });
+  }
+  return { chosen, unchosen };
 }
