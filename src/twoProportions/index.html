@@ -1,0 +1,48 @@
+---
+layout: default
+title: Two Proportions
+---
+
+<link rel="stylesheet" href="twoProportions.css">
+<div id="two-proportions">
+  <h1>Two Proportions</h1>
+  <div id="input-section" class="section">
+    <div class="lhs">
+      <table>
+        <thead>
+          <tr>
+            <td></td>
+            <td class="desc">Group A</td>
+            <td class="desc">Group B</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="desc">Successes</td>
+            <td><input type="number" id="a-success"></td>
+            <td><input type="number" id="b-success"></td>
+          </tr>
+          <tr>
+            <td class="desc">Failures</td>
+            <td><input type="number" id="a-failure"></td>
+            <td><input type="number" id="b-failure"></td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      <button class="btn" onclick="twoProportions.loadData()">Load Data</button>
+    </div>
+    <div class="rhs">
+      <!--<div id="chart-wrap"><canvas id="input-pie"></canvas></div>-->
+      <div id="chart-wrap"><canvas id="input-bars"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<!-- TODO(matthewmerrill): don't CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js" integrity="sha256-rjYnB0Bull7k2XkbJ03UNGqMuMieR769uQVGSSlsi6A=" crossorigin="anonymous"></script>
+<script type="module">
+  import {TwoProportions} from './twoProportions.js';
+  window.twoProportions = new TwoProportions(document.getElementById('two-proportions'));
+</script>
+
