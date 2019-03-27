@@ -2,6 +2,10 @@
 ---
 
 #one-mean {
+  h1 {
+    padding-bottom: 10px;
+    text-align: center;
+  }
   label,
   p {
     font-size: 10px;
@@ -9,17 +13,23 @@
   textarea[readonly] {
     background-color: lightgray;
   }
-
+  .toggle-box {
+    margin-left: 1ch;
+  }
+  hr {
+    border: 2px solid green;
+  }
   .chart-input-form {
     display: flex;
-    border-bottom: 3px green solid;
+    // border-bottom: 3px green solid;
     .data-form {
       display: flex;
       flex-direction: column;
       flex: 1;
-      width: 20ch;
+      width: 30ch;
       padding: 5px;
       margin-bottom: 10px;
+      text-align: justify;
     }
     .chart-wrap {
       flex: 8;

@@ -5,7 +5,8 @@ title: One Means
 
 <link rel="stylesheet" href="oneMean.css">
 <div id="one-mean">
-  <h3>1. Enter Data or Drop CSV</h3>
+  <h1> One Mean</h1>
+  <h3>1. Enter Data or Drop CSV<input type="checkbox" class='toggle-box' checked="checked"></h3>
   <div class="chart-input-form">
     <div class="data-form">
       <textarea rows="10" id="csv-input" placeholder="please enter data or drop csv here"></textarea>
@@ -16,9 +17,10 @@ title: One Means
       <p>mean:<span id ="original-mean"></span></p>
     </div>
     <div class="chart-wrap"><canvas id="original-data-chart"></canvas></div>
-  </div> 
+  </div>
+  <hr> 
 
-  <h3>2. Generate Population</h3>
+  <h3>2. Generate Population<input type="checkbox" class='toggle-box' checked="checked"></h3>
   <div class="chart-input-form">
     <div class="data-form">
       <label for="shiftMeanInput"> shift mean</label>
@@ -34,8 +36,9 @@ title: One Means
     </div>
     <div class="chart-wrap"><canvas id="population-data-chart"></canvas></div>
   </div>
+  <hr>
 
-  <h3>3. Draw Sample</h3>  
+  <h3>3. Draw Sample<input type="checkbox" class='toggle-box' checked="checked"></h3>  
   <div class="chart-input-form">
     <div class="data-form">
       <label for="sample-size"> Sample Size</label>
@@ -50,11 +53,22 @@ title: One Means
     </div>
     <div class="chart-wrap"><canvas id="sample-data-chart"></canvas></div>
   </div>
+  <hr>
 
-  <h3>4. Statistic</h3>  
+  <h3>4. Statistic<input type="checkbox" class='toggle-box' checked="checked"></h3>  
   <div class="chart-input-form">
     <div class="data-form">
-      <h3>XXXXXXXXXXXXX</h3>
+      <select id="tailDirection">
+        <option value=null>Please Select</option>
+        <option value="oneTailRight">One Tail Right</option>
+        <option value="oneTailLeft">One Tail Left</option>
+        <option value="TwoTail">Two Tail</option>
+      </select>
+      <label for="tailValue"> Value</label>
+      <input type="number" id="tailValue"/>
+      <p>Selected Samples: <span id="total-selected-samples"></span></p>
+      <p>Total Samples:<span id="total-samples"></span></p>
+      <p>Proportion:<span id="proportion"></span></p>
     </div>
     <div class="data-form">
       <textarea rows="10" readonly id="samples-mean-display"></textarea>
@@ -62,6 +76,7 @@ title: One Means
     </div>
     <div class="chart-wrap"><canvas id="statistic-data-chart"></canvas></div>
   </div>
+  <hr>
 </div>
 
 <!-- TODO(matthewmerrill): don't CDN -->

@@ -48,14 +48,3 @@ export function maxInArray(arr) {
     return acc > x ? acc : x;
   }, arr[0]);
 }
-
-export function drawSamplesNoRepitition(arr, noOfEle) {
-  noOfEle = Math.min(noOfEle, arr.length);
-  for (let i = arr.length - 1; i > 0; i--) {
-    const index = Math.floor(Math.random() * arr.length);
-    const temp = arr[i];
-    arr[i] = arr[index];
-    arr[index] = temp;
-  }
-  return arr.slice(0, noOfEle);
-}
