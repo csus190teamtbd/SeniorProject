@@ -264,6 +264,7 @@ export class OneMean {
     } else {
       chart.clear();
     }
+    chart.scaleToStackDots();
     chart.chart.update();
 
     //update mean output
