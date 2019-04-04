@@ -58,3 +58,8 @@ export function parseCSVtoSingleArray(rawData) {
     .filter(x => numRegex.test(x))
     .map((x, index) => ({ id: index, value: Number(x.match(numRegex)[0]) }));
 }
+
+//return promise
+export function readLocalFile(filePath) {
+  return fetch(filePath).then(r => r.text());
+}
