@@ -1,4 +1,8 @@
-import { dropTextFileOnTextArea, parseCSVtoSingleArray } from "../util/csv.js";
+import {
+  dropTextFileOnTextArea,
+  parseCSVtoSingleArray,
+  readLocalFile
+} from "../util/csv.js";
 import StackedDotChart from "../util/stackeddotchart.js";
 import { randomSubset, splitByPredicate } from "../util/sampling.js";
 import * as MathUtil from "/util/math.js";
@@ -13,6 +17,12 @@ export class OneMean {
     this.sampleMeans = [];
     this.sampleSize = undefined;
     this.tailDiection = null;
+    this.sampleData = {
+      // has to hardcode if not using server
+      "sample data": null,
+      sample1: "../sampleData/sample1.csv",
+      sample2: "../sampleData/sample2.csv"
+    };
     this.ele = {
       csvTextArea: OneMeanDiv.querySelector("#csv-input"),
       loadDataBtn: OneMeanDiv.querySelector("#load-data-btn"),
@@ -43,8 +53,10 @@ export class OneMean {
       totalSamplesDisplay: OneMeanDiv.querySelector("#total-samples"),
       proportionDisplay: OneMeanDiv.querySelector("#proportion"),
       oneMeanDiv: OneMeanDiv,
-      runSimErrorMsg: OneMeanDiv.querySelector("#run-sim-error-msg")
+      runSimErrorMsg: OneMeanDiv.querySelector("#run-sim-error-msg"),
+      sampleDataDropDown: OneMeanDiv.querySelector("#sample-data")
     };
+
     this.datasets = [
       { label: "Original", backgroundColor: "#333333", data: [] },
       { label: "Population", backgroundColor: "#93cb52", data: [] },
@@ -89,7 +101,7 @@ export class OneMean {
       });
 
       dropTextFileOnTextArea(this.ele.csvTextArea);
-
+      this.sampleListListener();
       this.shiftMeanListener();
       this.mulFactorListener();
 
@@ -115,7 +127,17 @@ export class OneMean {
         }
       });
     };
+    this.loadSampleDataList();
     this.loadEventListener();
+  }
+
+  loadSampleDataList() {
+    Object.keys(this.sampleData).forEach(x => {
+      const option = document.createElement("option", {});
+      option.setAttribute("value", x);
+      option.innerText = x;
+      this.ele.sampleDataDropDown.appendChild(option);
+    });
   }
 
   runSim(sampleSize, noOfSample) {
@@ -149,6 +171,17 @@ export class OneMean {
     }
     this.updateData(this.dataName.mostRecentDraw);
     this.updateData(this.dataName.sampleMeans);
+  }
+
+  sampleListListener() {
+    this.ele.sampleDataDropDown.addEventListener("change", () => {
+      const sampleName = this.ele.sampleDataDropDown.value;
+      if (sampleName != "sample data") {
+        readLocalFile(this.sampleData[sampleName]).then(
+          text => (this.ele.csvTextArea.value = text)
+        );
+      } else this.ele.csvTextArea.value = "";
+    });
   }
 
   shiftMeanListener() {
