@@ -6,36 +6,55 @@ title: Two Proportions
 <link rel="stylesheet" href="twoProportions.css">
 <div id="two-proportions">
   <h1>Two Proportions</h1>
-  <div id="input-section" class="section">
-    <div class="lhs">
-      <table>
-        <thead>
-          <tr>
-            <td></td>
-            <td class="desc">Group A</td>
-            <td class="desc">Group B</td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="desc">Successes</td>
-            <td><input type="number" id="a-success"></td>
-            <td><input type="number" id="b-success"></td>
-          </tr>
-          <tr>
-            <td class="desc">Failures</td>
-            <td><input type="number" id="a-failure"></td>
-            <td><input type="number" id="b-failure"></td>
-          </tr>
-        </tbody>
-      </table>
-      <br>
-      <button class="btn" onclick="twoProportions.loadData()">Load Data</button>
+  <div id="input-section" class="section flex-col">
+    <h2>Enter Data</h2>
+    <div class="flex-row">
+      <div class="lhs">
+        <table>
+          <thead>
+            <tr>
+              <td></td>
+              <td class="desc">Group A</td>
+              <td class="desc">Group B</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="desc">Successes</td>
+              <td><input type="number" id="a-success"></td>
+              <td><input type="number" id="b-success"></td>
+            </tr>
+            <tr>
+              <td class="desc">Failures</td>
+              <td><input type="number" id="a-failure"></td>
+              <td><input type="number" id="b-failure"></td>
+            </tr>
+          </tbody>
+        </table>
+        <br>
+        <button class="btn" onclick="twoProportions.loadData()">Load Data</button>
+      </div>
+      <div class="rhs">
+        <!--<div id="chart-wrap"><canvas id="input-pie"></canvas></div>-->
+        <div id="chart-wrap"><canvas id="input-bars"></canvas></div>
+      </div>
     </div>
-    <div class="rhs">
-      <!--<div id="chart-wrap"><canvas id="input-pie"></canvas></div>-->
-      <div id="chart-wrap"><canvas id="input-bars"></canvas></div>
+  </div>
+
+  <div id="sim-section" class="section flex-col">
+    <h2>Run Simulations</h2>
+    <div class="flex-row">
+      <div class="lhs flex-col">
+        <h3># Simulations</h3>
+        <input type="number" id="num-simulations" value="1">
+        <button class="btn" onclick="twoProportions.runSimulations()">Run</button>
+      </div>
     </div>
+  </div>
+
+  <div id="tail-widget-section" class="section flex-col">
+    <h2>Results</h2>
+    {% include tailWidget.html %}
   </div>
 </div>
 

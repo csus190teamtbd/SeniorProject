@@ -25,9 +25,7 @@ export class OneMean {
       recentSampleDisplay: OneMeanDiv.querySelector(
         "#most-recent-sample-display"
       ),
-      sampleMeansDisplay: OneMeanDiv.querySelector("#samples-mean-display"),
       sampleMean: OneMeanDiv.querySelector("#sample-mean"),
-      samplesMean: OneMeanDiv.querySelector("#samples-mean"),
       originalMean: OneMeanDiv.querySelector("#original-mean"),
       polulationMean: OneMeanDiv.querySelector("#population-mean"),
       mulFactorDisplay: OneMeanDiv.querySelector("#mul-factor-display"),
@@ -35,24 +33,14 @@ export class OneMean {
       runSimBtn: OneMeanDiv.querySelector("#run-sim-btn"),
       sampleSizeInput: OneMeanDiv.querySelector("#sample-size"),
       noOfSampleInput: OneMeanDiv.querySelector("#no-of-sample"),
-      tailValueInput: OneMeanDiv.querySelector("#tailValue"),
-      tailDirectionInput: OneMeanDiv.querySelector("#tailDirection"),
-      totalSelectedSamplesDisplay: OneMeanDiv.querySelector(
-        "#total-selected-samples"
-      ),
-      totalSamplesDisplay: OneMeanDiv.querySelector("#total-samples"),
-      proportionDisplay: OneMeanDiv.querySelector("#proportion"),
       oneMeanDiv: OneMeanDiv,
       runSimErrorMsg: OneMeanDiv.querySelector("#run-sim-error-msg")
     };
+    this.tailWidget = new TailWidget(OneMeanDiv.querySelector('#tail-widget'));
     this.datasets = [
       { label: "Original", backgroundColor: "#333333", data: [] },
       { label: "Population", backgroundColor: "#93cb52", data: [] },
       { label: "Most Recent Drawn", backgroundColor: "#333333", data: [] },
-      [
-        { label: "Samples", backgroundColor: "lightgray", data: [] },
-        { label: "N/A", backgroundColor: "blue", data: [] }
-      ]
     ];
 
     this.dataChart1 = new StackedDotChart(
@@ -67,15 +55,10 @@ export class OneMean {
       OneMeanDiv.querySelector("#sample-data-chart"),
       [this.datasets[2]]
     );
-    this.dataChart4 = new StackedDotChart(
-      OneMeanDiv.querySelector("#statistic-data-chart"),
-      this.datasets[3]
-    );
     this.dataName = {
       orginalData: "orginalData",
       populationData: "populationData",
       mostRecentDraw: "mostRecentDraw",
-      sampleMeans: "sampleMeans"
     };
     this.loadEventListener = () => {
       this.ele.loadDataBtn.addEventListener("click", e => {
@@ -98,14 +81,6 @@ export class OneMean {
         const noOfSamples = Number(this.ele.noOfSampleInput.value);
         this.runSim(newSampleSize, noOfSamples);
         e.preventDefault();
-      });
-
-      this.ele.tailDirectionInput.addEventListener("change", e => {
-        if (this.sampleMeans.length) this.updateData(this.dataName.sampleMeans);
-      });
-
-      this.ele.tailValueInput.addEventListener("input", e => {
-        if (this.sampleMeans.length) this.updateData(this.dataName.sampleMeans);
       });
 
       this.ele.oneMeanDiv.addEventListener("click", e => {
@@ -148,7 +123,7 @@ export class OneMean {
       }, 2000);
     }
     this.updateData(this.dataName.mostRecentDraw);
-    this.updateData(this.dataName.sampleMeans);
+    this.tailWidget.updateChart();
   }
 
   shiftMeanListener() {
@@ -202,11 +177,11 @@ export class OneMean {
     this.ele.mulFactorSlider.value = this.mulFactor;
     this.ele.mulFactorDisplay.innerText = this.mulFactor;
     this.mostRecentDraw = [];
-    this.sampleMeans = [];
-    this.tailDiection = null;
     this.ele.tailDirectionInput.value = this.tailDiection;
     this.updateData(this.dataName.mostRecentDraw);
-    this.updateData(this.dataName.sampleMeans);
+    this.tailWidget.reset();
+    this.tailWidget.updateChart();
+
   }
 
   //update chart, mean and textarea based on the dataName
@@ -237,24 +212,8 @@ export class OneMean {
     let valuesArr = null;
     let pointRadius = 6;
     if (data.length) {
-      if (dataName !== this.dataName.sampleMeans) {
-        valuesArr = data.map(x => x.value);
-        chart.setDataFromRaw([valuesArr]);
-      } else {
-        valuesArr = data;
-        const tailDirection = this.ele.tailDirectionInput.value;
-        const tailInput = Number(this.ele.tailValueInput.value);
-        const mean = MathUtil.roundToPlaces(MathUtil.mean(this.sampleMeans), 2);
-        const { chosen, unchosen } = splitByPredicate(
-          valuesArr,
-          this.predicateForTail(tailDirection, tailInput, mean)
-        );
-        //update statistic output
-        this.updateStatistic(chosen.length, unchosen.length);
-        this.updateSampleMeansChartLabels(tailDirection, tailInput, mean);
-        chart.setDataFromRaw([unchosen, chosen]);
-        pointRadius = 2;
-      }
+      valuesArr = data.map(x => x.value);
+      chart.setDataFromRaw([valuesArr]);
       if (data.length > 500) chart.setAnimationDuration(0);
       else chart.setAnimationDuration(1000);
       chart.changeDotAppearance(pointRadius, undefined);
@@ -284,56 +243,6 @@ export class OneMean {
       textAreaEle.value = data.reduce(
         (acc, x, index) => acc + `${index + 1}\t${x}\n`,
         `sample#\tmean\n`
-      );
-    }
-  }
-
-  updateStatistic(totalChosen, totalUnchosen) {
-    this.ele.totalSelectedSamplesDisplay.innerText = totalChosen;
-    this.ele.totalSamplesDisplay.innerText = totalChosen + totalUnchosen;
-    this.ele.proportionDisplay.innerText = MathUtil.roundToPlaces(
-      totalChosen / (totalChosen + totalUnchosen),
-      5
-    );
-  }
-
-  predicateForTail(tailDirection, tailInput, mean) {
-    if (tailDirection === "null") {
-      return null;
-    } else if (tailDirection === "oneTailRight") {
-      return function(x) {
-        return x >= tailInput;
-      };
-    } else if (tailDirection === "oneTailLeft") {
-      return function(x) {
-        return x <= tailInput;
-      };
-    } else {
-      const distance = MathUtil.roundToPlaces(Math.abs(mean - tailInput), 2);
-      return function(x) {
-        return x <= mean - distance || x >= mean + distance;
-      };
-    }
-  }
-
-  updateSampleMeansChartLabels(tailDirection, tailInput, mean) {
-    if (tailDirection === "null") {
-      this.dataChart4.updateLabelName(0, "samples");
-      this.dataChart4.updateLabelName(1, "N/A");
-    } else if (tailDirection === "oneTailRight") {
-      this.dataChart4.updateLabelName(0, `samples < ${tailInput}`);
-      this.dataChart4.updateLabelName(1, `samples >= ${tailInput}`);
-    } else if (tailDirection === "oneTailLeft") {
-      this.dataChart4.updateLabelName(0, `samples > ${tailInput}`);
-      this.dataChart4.updateLabelName(1, `samples <= ${tailInput}`);
-    } else {
-      const distance = MathUtil.roundToPlaces(Math.abs(mean - tailInput), 2);
-      const left = mean - distance;
-      const right = mean + distance;
-      this.dataChart4.updateLabelName(0, `${left} < samples < ${right}`);
-      this.dataChart4.updateLabelName(
-        1,
-        `samples <= ${left} or samples >= ${right}`
       );
     }
   }

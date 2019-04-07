@@ -57,24 +57,7 @@ title: One Means
 
   <h3>4. Statistic<input type="checkbox" class='toggle-box' checked="checked"></h3>  
   <div class="chart-input-form">
-    <div class="data-form">
-      <select id="tailDirection">
-        <option value=null>Please Select</option>
-        <option value="oneTailRight">One Tail Right</option>
-        <option value="oneTailLeft">One Tail Left</option>
-        <option value="TwoTail">Two Tail</option>
-      </select>
-      <label for="tailValue"> Value</label>
-      <input type="number" id="tailValue"/>
-      <p>Selected Samples: <span id="total-selected-samples"></span></p>
-      <p>Total Samples:<span id="total-samples"></span></p>
-      <p>Proportion:<span id="proportion"></span></p>
-    </div>
-    <div class="data-form">
-      <textarea rows="10" readonly id="samples-mean-display"></textarea>
-      <p>mean of samples mean:<span id ="samples-mean"></span></p>
-    </div>
-    <div class="chart-wrap"><canvas id="statistic-data-chart"></canvas></div>
+    {% include tailWidget.html %}
   </div>
   <hr>
 </div>

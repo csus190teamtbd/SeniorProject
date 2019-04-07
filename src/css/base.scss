@@ -224,3 +224,18 @@ p {
 .slider:hover {
   opacity: 10;
 }
+
+.flex-row {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.flex-col {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
