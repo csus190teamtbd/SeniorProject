@@ -1,6 +1,5 @@
 import ChartModule from "./chartModule.js";
 import { cal } from "./calculation.js";
-import { generateCoins } from "./animation.js";
 
 export class OneProportion {
   constructor() {
@@ -41,8 +40,7 @@ export class OneProportion {
       sampleBtn: document.getElementById("sampleBtn"),
       proportionDisplay: document.getElementById("proportionDisplay"),
       meanDisplay: document.getElementById("meanDisplay"),
-      stdDisplay: document.getElementById("stdDisplay"),
-      animation: document.getElementById("animation")
+      stdDisplay: document.getElementById("stdDisplay")
     };
     this.state = this.initState();
     this.chart = new ChartModule(this.ele.chart);
@@ -165,11 +163,6 @@ export class OneProportion {
       this.updatedSelectedSamples(state);
     };
 
-    this.loadCoinsImage = (animationEle, lastDrawResults) => {
-      while (animationEle.firstChild) animationEle.firstChild.remove();
-      generateCoins(lastDrawResults).forEach(x => animationEle.appendChild(x));
-    };
-
     this.updateView = (state, ele, loadCoins = true) => {
       const {
         probability,
@@ -205,9 +198,6 @@ export class OneProportion {
       ele.proportionDisplay.innerText = `${noOfSelected} / ${totalSamples} = ${(
         noOfSelected / totalSamples
       ).toFixed(3)}`;
-      if (noOfCoin <= 50 && loadCoins)
-        this.loadCoinsImage(ele.animation, lastDrawResults);
-      else if (noOfCoin > 50) this.loadCoinsImage(ele.animation, []);
       this.chart.updateChartData(state);
     };
 
