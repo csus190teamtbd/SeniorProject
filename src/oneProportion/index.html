@@ -3,13 +3,15 @@ layout: default
 title: One Proportion
 ---
 
+<link rel="stylesheet" href="./oneProportion.css">
 <div id="one-proportion">
-  <div id="mainpanel">
+  <h1> One Proportion</h1>
+    <div class="chart-input-form">
     <div id="control" class="container">
       <form>
         <div class="form-group">
           <label for="probability"
-            >Head Probability: <span id="probDisplay"></span
+            >Probability of head: <span id="probDisplay"></span
           ></label>
           <input type="range" min="0" max="1" step="0.01" class="slider" id="probability" />
         </div>
@@ -71,7 +73,7 @@ title: One Proportion
         </table>
       </div>
     </div>
-  </div>
+    </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.js"></script>
 <script type="module" src="./oneProportion.js"></script>

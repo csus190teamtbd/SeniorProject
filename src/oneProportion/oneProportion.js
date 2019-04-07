@@ -18,7 +18,6 @@ export class OneProportion {
         lowerSelectedRange: 0,
         upperSelectedRange: 0,
         thisSampleSizes: 1,
-        lastDrawResults: [],
         zoomIn: false
       };
     };
