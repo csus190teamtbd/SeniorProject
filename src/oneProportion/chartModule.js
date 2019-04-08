@@ -60,7 +60,7 @@ export default class ChartModule {
               },
               scaleLabel: {
                 display: true,
-                labelString: "frequency"
+                labelString: "# of samples"
               }
             }
           ],
