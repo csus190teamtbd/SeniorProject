@@ -2,7 +2,7 @@ export default class ChartModule {
   constructor(canvasEle) {
     this.zoomIn = false;
     this.color = {
-      sample: "rgba(255,0,0,0.6)",
+      sample: "rgba(255,0,0,0.7)",
       binomial: "rgba(0,0,255,0.6)",
       selected: "rgba(0,255,0,0.6)",
       line: "rgba(0,255,0,0.6)",
@@ -175,19 +175,19 @@ Chart.pluginService.register({
   }
 });
 
-Chart.pluginService.register({
-  id: "sampleBarColor",
-  beforeUpdate: function(chart) {
-    if (chart.mean) {
-      const chartData = chart.config.data; // sample dataset
-      chartData.datasets[0].backgroundColor = chartData.labels.map(
-        x =>
-          `rgba(255,0,0,${1 -
-            (Math.abs(x - chart.mean) * 1.2) / chartData.labels.length})`
-      );
-    }
-  }
-});
+// Chart.pluginService.register({
+//   id: "sampleBarColor",
+//   beforeUpdate: function(chart) {
+//     if (chart.mean) {
+//       const chartData = chart.config.data; // sample dataset
+//       chartData.datasets[0].backgroundColor = chartData.labels.map(
+//         x =>
+//           `rgba(255,0,0,${1 -
+//             (Math.abs(x - chart.mean) * 1.2) / chartData.labels.length})`
+//       );
+//     }
+//   }
+// });
 
 Chart.pluginService.register({
   id: "fixedSamplelegendColor",
