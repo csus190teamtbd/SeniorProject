@@ -26,7 +26,7 @@ export class OneProportion {
       probabilityInput: document.getElementById("probability"),
       coinsInput: document.getElementById("coins"),
       probDisplay: document.getElementById("probDisplay"),
-      tossesDisplay: document.getElementById("tossesDisplay"),
+      tossesDisplay: document.querySelectorAll("#tossesDisplay"),
       lowerDisplay: document.getElementById("lowerDisplay"),
       upperDisplay: document.getElementById("upperDisplay"),
       drawInput: document.getElementById("draws"),
@@ -60,7 +60,6 @@ export class OneProportion {
         Array(state.noOfCoin + 1).fill(0),
         reSamples
       );
-      state.lastDrawResults = reSamples[reSamples.length - 1];
       this.updateState(state);
       this.updateView(state, this.ele);
     };
@@ -77,12 +76,19 @@ export class OneProportion {
         }
       });
 
-      this.ele.coinsInput.addEventListener("input", e => {
-        this.ele.tossesDisplay.innerText = Number(e.target.value);
-        this.state.noOfCoin = Number(e.target.value);
-      });
+      // this.ele.coinsInput.addEventListener("change", e => {
+      //   this.ele.tossesDisplay.forEach(
+      //     x => (x.innerText = Number(e.target.value))
+      //   );
+      //   this.state.noOfCoin = Number(e.target.value);
+      // });
 
-      this.ele.coinsInput.addEventListener("change", () => {
+      this.ele.coinsInput.addEventListener("change", e => {
+        this.ele.tossesDisplay.forEach(
+          x => (x.innerText = Number(e.target.value))
+        );
+        this.state.noOfCoin = Number(e.target.value);
+
         if (this.state.labels.length !== 0) {
           this.reSampleWithSameSampleSize(this.state);
         }
@@ -102,7 +108,6 @@ export class OneProportion {
           noOfCoin,
           thisSampleSizes
         );
-        this.state.lastDrawResults = newSamples[newSamples.length - 1];
         if (this.state.samples.length === 0)
           this.state.samples = Array(this.state.noOfCoin + 1).fill(0);
         this.state.samples = cal.addSamples(this.state.samples, newSamples);
