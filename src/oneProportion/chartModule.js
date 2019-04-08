@@ -57,12 +57,20 @@ export default class ChartModule {
             {
               ticks: {
                 beginAtZero: true
+              },
+              scaleLabel: {
+                display: true,
+                labelString: "frequency"
               }
             }
           ],
           xAxes: [
             {
-              barPercentage: 1.0
+              barPercentage: 1.0,
+              scaleLabel: {
+                display: true,
+                labelString: "Number of heads"
+              }
             }
           ]
         },
@@ -135,6 +143,7 @@ export default class ChartModule {
     this.dataFromCalculation.theoryMean = mean;
     this.dataFromCalculation.noOfSelected = noOfSelected;
     this.chart.mean = mean;
+    this.chart.options.scales.xAxes[0].scaleLabel.labelString = `Number of heads in ${noOfCoin} tosses`;
     this.chart.update();
   }
 }
