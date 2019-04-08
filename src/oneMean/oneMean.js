@@ -58,12 +58,12 @@ export class OneMean {
     };
 
     this.datasets = [
-      { label: "Original", backgroundColor: "#333333", data: [] },
-      { label: "Population", backgroundColor: "#93cb52", data: [] },
-      { label: "Most Recent Drawn", backgroundColor: "#333333", data: [] },
+      { label: "Original", backgroundColor: "orange", data: [] },
+      { label: "Population", backgroundColor: "orange", data: [] },
+      { label: "Most Recent Drawn", backgroundColor: "blue", data: [] },
       [
-        { label: "Samples", backgroundColor: "lightgray", data: [] },
-        { label: "N/A", backgroundColor: "blue", data: [] }
+        { label: "Samples", backgroundColor: "green", data: [] },
+        { label: "N/A", backgroundColor: "red", data: [] }
       ]
     ];
 
