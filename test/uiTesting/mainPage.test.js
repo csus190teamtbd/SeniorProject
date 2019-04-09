@@ -49,7 +49,7 @@ describe("Main Page UI", () => {
   });
 
   it("should display one mean page", async () => {
-    await page.waitForSelector("#main-menu > ul > li:nth-child(2) > a");
+    await page.waitForSelector("#main-menu > ul > li:nth-child(3) > a");
     await page.click("#main-menu > ul > li:nth-child(3) > a");
     const title = await page.title();
     expect(title).to.contain("One Mean");
