@@ -10,7 +10,7 @@ import * as MathUtil from "/util/math.js";
 export class OneMean {
   constructor(OneMeanDiv) {
     this.shiftMean = 0;
-    this.mulFactor = 1;
+    this.mulFactor = 0;
     this.populationData = [];
     this.originalData = [];
     this.mostRecentDraw = [];
@@ -19,9 +19,9 @@ export class OneMean {
     this.tailDiection = null;
     this.sampleData = {
       // has to hardcode if not using server
-      "sample data": null,
-      sample1: "../sampleData/sample1.csv",
-      sample2: "../sampleData/sample2.csv"
+      "Select Sample Data": null,
+      Sample1: "../sampleData/sample1.csv",
+      Sample2: "../sampleData/sample2.csv"
     };
     this.ele = {
       csvTextArea: OneMeanDiv.querySelector("#csv-input"),
@@ -58,12 +58,12 @@ export class OneMean {
     };
 
     this.datasets = [
-      { label: "Original", backgroundColor: "#333333", data: [] },
-      { label: "Population", backgroundColor: "#93cb52", data: [] },
-      { label: "Most Recent Drawn", backgroundColor: "#333333", data: [] },
+      { label: "Original", backgroundColor: "orange", data: [] },
+      { label: "Hypothetical Population", backgroundColor: "orange", data: [] },
+      { label: "Most Recent Drawn", backgroundColor: "blue", data: [] },
       [
-        { label: "Samples", backgroundColor: "lightgray", data: [] },
-        { label: "N/A", backgroundColor: "blue", data: [] }
+        { label: "Samples", backgroundColor: "green", data: [] },
+        { label: "N/A", backgroundColor: "red", data: [] }
       ]
     ];
 
@@ -94,9 +94,13 @@ export class OneMean {
         this.originalData = parseCSVtoSingleArray(this.ele.csvTextArea.value);
         this.updateData(this.dataName.orginalData);
         this.shiftMean = 0;
-        this.mulFactor = 1;
+        this.mulFactor = 0;
         this.clearResult();
-        this.updatedPopulationData(this.originalData, 0, 1);
+        this.updatedPopulationData(
+          this.originalData,
+          this.shiftMean,
+          this.mulFactor
+        );
         e.preventDefault();
       });
 
@@ -176,7 +180,7 @@ export class OneMean {
   sampleListListener() {
     this.ele.sampleDataDropDown.addEventListener("change", () => {
       const sampleName = this.ele.sampleDataDropDown.value;
-      if (sampleName != "sample data") {
+      if (sampleName != "Select Sample Data") {
         readLocalFile(this.sampleData[sampleName]).then(
           text => (this.ele.csvTextArea.value = text)
         );
@@ -191,7 +195,6 @@ export class OneMean {
         Number(e.target.value) || 0,
         this.mulFactor
       );
-      this.clear();
     });
     this.ele.shiftMeanSlider.addEventListener("change", e => {
       this.updatedPopulationData(
@@ -206,6 +209,10 @@ export class OneMean {
   mulFactorListener() {
     this.ele.mulFactorSlider.addEventListener("change", e => {
       const mulFactor = Number(e.target.value);
+      this.ele.mulFactorDisplay.innerText = mulFactor;
+    });
+    this.ele.mulFactorSlider.addEventListener("input", e => {
+      const mulFactor = Number(e.target.value);
       this.updatedPopulationData(this.originalData, this.shiftMean, mulFactor);
       this.ele.mulFactorDisplay.innerText = mulFactor;
       this.clearResult();
@@ -218,7 +225,7 @@ export class OneMean {
     this.ele.shiftMeanInput.value = shift;
     this.mulFactor = mulFactor;
     this.populationData = [];
-    for (let i = 0; i < mulFactor; i++) {
+    for (let i = 0; i < mulFactor + 1; i++) {
       this.populationData = this.populationData.concat(
         orginalData.map(x => ({
           id: x.id + i * orginalData.length,
@@ -323,12 +330,11 @@ export class OneMean {
   }
 
   updateStatistic(totalChosen, totalUnchosen) {
+    const totalSamples = totalChosen + totalUnchosen;
+    const proportion = MathUtil.roundToPlaces(totalChosen / totalSamples, 5);
     this.ele.totalSelectedSamplesDisplay.innerText = totalChosen;
-    this.ele.totalSamplesDisplay.innerText = totalChosen + totalUnchosen;
-    this.ele.proportionDisplay.innerText = MathUtil.roundToPlaces(
-      totalChosen / (totalChosen + totalUnchosen),
-      5
-    );
+    this.ele.totalSamplesDisplay.innerText = totalSamples;
+    this.ele.proportionDisplay.innerText = ` ${totalChosen} / ${totalSamples} = ${proportion}`;
   }
 
   predicateForTail(tailDirection, tailInput, mean) {
