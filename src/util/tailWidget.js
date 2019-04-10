@@ -5,6 +5,7 @@ import { randomSubset, splitByPredicate } from "../util/sampling.js";
 export default class TailWidget {
 
   constructor(widgetSection, resultMap) {
+    this.tailDiection = null;
     this.dom = {
       tailValueInput: widgetSection.querySelector("#tailValue"),
       tailDirectionInput: widgetSection.querySelector("#tailDirection"),
@@ -19,28 +20,39 @@ export default class TailWidget {
     this.chart = new StackedDotChart(
       widgetSection.querySelector("#statistic-data-chart"),
       [
-        { label: "Samples", backgroundColor: "lightgray", data: [] },
-        { label: "N/A", backgroundColor: "blue", data: [] }
+        { label: "Samples", backgroundColor: "green", data: [] },
+        { label: "N/A", backgroundColor: "red", data: [] }
       ]
     );
-    this.results = [];
+    this.sampleMeans = [];
 
     this.dom.tailDirectionInput.addEventListener("change", e => {
-      if (this.sampleMeans.length) this.updateData(this.dataName.sampleMeans);
+      if (this.sampleMeans.length) this.updateChart();
     });
 
     this.dom.tailValueInput.addEventListener("input", e => {
-      if (this.sampleMeans.length) this.updateData(this.dataName.sampleMeans);
+      if (this.sampleMeans.length) this.updateChart();
     });
 
   }
 
   reset() {
     this.tailDiection = null;
+    this.dom.tailDirectionInput.value = this.tailDiection;
   }
 
   addResult(result) {
-    this.results.push(result);
+    this.sampleMeans.push(result);
+  }
+
+  addAllResults(results) {
+    for (let result of results) {
+      this.addResult(result);
+    }
+  }
+
+  dropResults() {
+    this.sampleMeans = [];
   }
 
   updateSampleMeansChartLabels(tailDirection, tailInput, mean) {
@@ -94,10 +106,10 @@ export default class TailWidget {
   }
 
   updateChart() {
-    let valuesArr = this.results;
+    let valuesArr = this.sampleMeans;
     const tailDirection = this.dom.tailDirectionInput.value;
     const tailInput = Number(this.dom.tailValueInput.value);
-    const mean = MathUtil.roundToPlaces(MathUtil.mean(this.results), 2);
+    const mean = MathUtil.roundToPlaces(MathUtil.mean(this.sampleMeans), 2);
     const { chosen, unchosen } = splitByPredicate(
       valuesArr,
       this.predicateForTail(tailDirection, tailInput, mean)
@@ -106,6 +118,8 @@ export default class TailWidget {
     this.updateStatistic(chosen.length, unchosen.length);
     this.updateSampleMeansChartLabels(tailDirection, tailInput, mean);
     this.chart.setDataFromRaw([unchosen, chosen]);
+    this.chart.scaleToStackDots();
+    this.chart.chart.update();
     //this.chart.setpointRadius = 2;
   }
 }

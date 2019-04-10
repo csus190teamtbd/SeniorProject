@@ -1,7 +1,7 @@
 // TODO(matthewmerrill): don't CDN
 //import Chart from "chart.js";
 
-import {randomInt} from "../util/sampling.js";
+import {randomInt, shuffle} from "../util/sampling.js";
 import StackedDotChart from "../util/stackeddotchart.js";
 import TailWidget from "../util/tailWidget.js";
 
@@ -31,12 +31,12 @@ export class TwoProportions {
             {
               label: 'Successes',
               backgroundColor: 'green',
-              data: [30, 60],
+              data: [null, null],
             },
             {
               label: 'Failures',
               backgroundColor: 'red',
-              data: [ 70, 40 ],
+              data: [null, null],
             },
           ],
         },
@@ -77,9 +77,11 @@ export class TwoProportions {
     let totalFailure = numAFailure + numBFailure;
     this.charts.inputBars.data.datasets[0].data[0] = 100 * numASuccess / totalInA;
     this.charts.inputBars.data.datasets[0].data[1] = 100 * numBSuccess / totalInB;
-    this.charts.inputBars.data.datasets[0].data[0] = 100 * numAFailure / totalInA;
+    this.charts.inputBars.data.datasets[1].data[0] = 100 * numAFailure / totalInA;
     this.charts.inputBars.data.datasets[1].data[1] = 100 * numBFailure / totalInB;
     this.charts.inputBars.update();
+    this.tailWidget.dropResults();
+    this.tailWidget.updateChart();
   }
 
   runSimulations() {
@@ -90,13 +92,23 @@ export class TwoProportions {
     let totalGroupA = numASuccess + numAFailure;
     let totalGroupB = numBSuccess + numBFailure;
     for (let simIdx = 0; simIdx < numSimulations; simIdx++) {
-      let minASuccesses = Math.max(0, totalSuccess - totalGroupB);
-      let maxASuccesses = Math.min(totalGroupA, totalSuccess);
-      let sampleASuccess = randomInt(minASuccesses, maxASuccesses + 1);
-      let sampleAFailure = totalGroupA - sampleASuccess;
-      let sampleBSuccess = totalSuccess - sampleASuccess;
-      let sampleBFailure = totalFailure - sampleAFailure;
-      this.addSimResult({sampleASuccess, sampleAFailure, sampleBSuccess, sampleBFailure});
+      //TODO(matthewmerrill): this isn't right, it should be BINOM
+      //let minASuccesses = Math.max(0, totalSuccess - totalGroupB);
+      //let maxASuccesses = Math.min(totalGroupA, totalSuccess);
+      //let sampleASuccess = randomInt(minASuccesses, maxASuccesses + 1);
+      //let sampleBSuccess = totalSuccess - sampleASuccess;
+      //TODO(matthewmerrill): don't shuffle
+      let allItems = new Array(totalGroupA + totalGroupB);
+      allItems.fill(0);
+      allItems.fill(1, 0, totalSuccess);
+      let shuffled = shuffle(allItems);
+      let sampleA = shuffled.slice(0, totalGroupA);
+      let sampleB = shuffled.slice(totalGroupA);
+      let sampleASuccess = sampleA.reduce((sum, x) => x == 1 ? sum + 1 : sum, 0);
+      let sampleBSuccess = sampleB.reduce((sum, x) => x == 1 ? sum + 1 : sum, 0);
+      let sampleAProportion = sampleASuccess / totalGroupA;
+      let sampleBProportion = sampleBSuccess / totalGroupB;
+      this.addSimResult(sampleAProportion - sampleBProportion);
     }
     this.updateSimCharts();
   }

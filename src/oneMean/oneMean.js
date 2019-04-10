@@ -6,6 +6,7 @@ import {
 import StackedDotChart from "../util/stackeddotchart.js";
 import { randomSubset, splitByPredicate } from "../util/sampling.js";
 import * as MathUtil from "/util/math.js";
+import TailWidget from "../util/tailWidget.js";
 
 export class OneMean {
   constructor(OneMeanDiv) {
@@ -14,9 +15,7 @@ export class OneMean {
     this.populationData = [];
     this.originalData = [];
     this.mostRecentDraw = [];
-    this.sampleMeans = [];
     this.sampleSize = undefined;
-    this.tailDiection = null;
     this.sampleData = {
       // has to hardcode if not using server
       "Select Sample Data": null,
@@ -137,9 +136,10 @@ export class OneMean {
       }
       if (this.sampleSize !== sampleSize) {
         this.sampleSize = sampleSize;
-        this.sampleMeans = newMeanSamples;
+        this.tailWidget.dropResults();
+        this.tailWidget.addAllResults(newMeanSamples);
       } else {
-        this.sampleMeans = this.sampleMeans.concat(newMeanSamples);
+        this.tailWidget.addAllResults(newMeanSamples);
       }
     } catch (err) {
       this.ele.runSimErrorMsg.innerText = `${err}`;
@@ -216,7 +216,6 @@ export class OneMean {
     this.ele.mulFactorSlider.value = this.mulFactor;
     this.ele.mulFactorDisplay.innerText = this.mulFactor;
     this.mostRecentDraw = [];
-    this.ele.tailDirectionInput.value = this.tailDiection;
     this.updateData(this.dataName.mostRecentDraw);
     this.tailWidget.reset();
     this.tailWidget.updateChart();
@@ -270,9 +269,10 @@ export class OneMean {
       ? MathUtil.roundToPlaces(MathUtil.mean(valuesArr), 2)
       : "No Data";
     meanEle.innerText = mean;
-    if (dataName === this.dataName.orginalData && !isNaN(mean)) {
-      this.ele.tailValueInput.value = mean;
-    }
+    // TODO: fix
+    //if (dataName === this.dataName.orginalData && !isNaN(mean)) {
+    //  this.ele.tailValueInput.value = mean;
+    //}
     // update text area output
     if (dataName !== this.dataName.sampleMeans) {
       textAreaEle.value = data.reduce(

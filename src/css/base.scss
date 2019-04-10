@@ -248,3 +248,10 @@ textarea.dragover {
   align-items: stretch;
 }
 
+.section {
+  margin-top: 2em;
+  .section-content ~ *[checked] {
+    display: none;
+  }
+}
+
