@@ -1,14 +1,14 @@
 export function dropTextFileOnTextArea(textAreaElement) {
   textAreaElement.addEventListener("dragover", () => {
-    textAreaElement.style.backgroundColor = "skyblue";
+    textAreaElement.classList.add('dragover');
   });
 
   textAreaElement.addEventListener("dragleave", () => {
-    textAreaElement.style.backgroundColor = "white";
+    textAreaElement.classList.remove('dragover');
   });
 
   textAreaElement.addEventListener("drop", e => {
-    textAreaElement.style.backgroundColor = "white";
+    textAreaElement.classList.remove('dragover');
     let file = e.dataTransfer.files[0];
     const reader = new FileReader();
     reader.onload = event => {
@@ -57,4 +57,9 @@ export function parseCSVtoSingleArray(rawData) {
     .split(/[\r\n]+/)
     .filter(x => numRegex.test(x))
     .map((x, index) => ({ id: index, value: Number(x.match(numRegex)[0]) }));
+}
+
+//return promise
+export function readLocalFile(filePath) {
+  return fetch(filePath).then(r => r.text());
 }

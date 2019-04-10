@@ -1,6 +1,5 @@
 import ChartModule from "./chartModule.js";
 import { cal } from "./calculation.js";
-import { generateCoins } from "./animation.js";
 
 export class OneProportion {
   constructor() {
@@ -19,7 +18,6 @@ export class OneProportion {
         lowerSelectedRange: 0,
         upperSelectedRange: 0,
         thisSampleSizes: 1,
-        lastDrawResults: [],
         zoomIn: false
       };
     };
@@ -28,7 +26,7 @@ export class OneProportion {
       probabilityInput: document.getElementById("probability"),
       coinsInput: document.getElementById("coins"),
       probDisplay: document.getElementById("probDisplay"),
-      tossesDisplay: document.getElementById("tossesDisplay"),
+      tossesDisplay: document.querySelectorAll("#tossesDisplay"),
       lowerDisplay: document.getElementById("lowerDisplay"),
       upperDisplay: document.getElementById("upperDisplay"),
       drawInput: document.getElementById("draws"),
@@ -41,8 +39,7 @@ export class OneProportion {
       sampleBtn: document.getElementById("sampleBtn"),
       proportionDisplay: document.getElementById("proportionDisplay"),
       meanDisplay: document.getElementById("meanDisplay"),
-      stdDisplay: document.getElementById("stdDisplay"),
-      animation: document.getElementById("animation")
+      stdDisplay: document.getElementById("stdDisplay")
     };
     this.state = this.initState();
     this.chart = new ChartModule(this.ele.chart);
@@ -63,7 +60,6 @@ export class OneProportion {
         Array(state.noOfCoin + 1).fill(0),
         reSamples
       );
-      state.lastDrawResults = reSamples[reSamples.length - 1];
       this.updateState(state);
       this.updateView(state, this.ele);
     };
@@ -80,12 +76,19 @@ export class OneProportion {
         }
       });
 
-      this.ele.coinsInput.addEventListener("input", e => {
-        this.ele.tossesDisplay.innerText = Number(e.target.value);
-        this.state.noOfCoin = Number(e.target.value);
-      });
+      // this.ele.coinsInput.addEventListener("change", e => {
+      //   this.ele.tossesDisplay.forEach(
+      //     x => (x.innerText = Number(e.target.value))
+      //   );
+      //   this.state.noOfCoin = Number(e.target.value);
+      // });
 
-      this.ele.coinsInput.addEventListener("change", () => {
+      this.ele.coinsInput.addEventListener("change", e => {
+        this.ele.tossesDisplay.forEach(
+          x => (x.innerText = Number(e.target.value))
+        );
+        this.state.noOfCoin = Number(e.target.value);
+
         if (this.state.labels.length !== 0) {
           this.reSampleWithSameSampleSize(this.state);
         }
@@ -105,7 +108,6 @@ export class OneProportion {
           noOfCoin,
           thisSampleSizes
         );
-        this.state.lastDrawResults = newSamples[newSamples.length - 1];
         if (this.state.samples.length === 0)
           this.state.samples = Array(this.state.noOfCoin + 1).fill(0);
         this.state.samples = cal.addSamples(this.state.samples, newSamples);
@@ -128,13 +130,13 @@ export class OneProportion {
       this.ele.lowerSelectedRange.addEventListener("input", e => {
         this.state.lowerSelectedRange = Number(e.target.value);
         this.updateState(this.state);
-        this.updateView(this.state, this.ele, false);
+        this.updateView(this.state, this.ele);
       });
 
       this.ele.upperSelectedRange.addEventListener("input", e => {
         this.state.upperSelectedRange = Number(e.target.value);
         this.updateState(this.state);
-        this.updateView(this.state, this.ele, false);
+        this.updateView(this.state, this.ele);
       });
     };
 
@@ -161,16 +163,11 @@ export class OneProportion {
       );
       state.mean = cal.calculateMean(state.samples);
       state.std = cal.calucalteStd(state.samples);
-      this.state.zoomIn = state.noOfCoin >= 50 ? true : false;
+      // this.state.zoomIn = state.noOfCoin >= 50 ? true : false;
       this.updatedSelectedSamples(state);
     };
 
-    this.loadCoinsImage = (animationEle, lastDrawResults) => {
-      while (animationEle.firstChild) animationEle.firstChild.remove();
-      generateCoins(lastDrawResults).forEach(x => animationEle.appendChild(x));
-    };
-
-    this.updateView = (state, ele, loadCoins = true) => {
+    this.updateView = (state, ele) => {
       const {
         probability,
         noOfCoin,
@@ -180,8 +177,7 @@ export class OneProportion {
         thisSampleSizes,
         noOfSelected,
         lowerSelectedRange,
-        upperSelectedRange,
-        lastDrawResults
+        upperSelectedRange
       } = state;
       ele.probDisplay.innerText = probability;
       ele.tossesDisplay.innerText = noOfCoin;
@@ -205,9 +201,6 @@ export class OneProportion {
       ele.proportionDisplay.innerText = `${noOfSelected} / ${totalSamples} = ${(
         noOfSelected / totalSamples
       ).toFixed(3)}`;
-      if (noOfCoin <= 50 && loadCoins)
-        this.loadCoinsImage(ele.animation, lastDrawResults);
-      else if (noOfCoin > 50) this.loadCoinsImage(ele.animation, []);
       this.chart.updateChartData(state);
     };
 

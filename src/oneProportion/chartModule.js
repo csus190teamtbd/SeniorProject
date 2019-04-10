@@ -2,7 +2,7 @@ export default class ChartModule {
   constructor(canvasEle) {
     this.zoomIn = false;
     this.color = {
-      sample: "rgba(255,0,0,0.6)",
+      sample: "rgba(255,0,0,0.7)",
       binomial: "rgba(0,0,255,0.6)",
       selected: "rgba(0,255,0,0.6)",
       line: "rgba(0,255,0,0.6)",
@@ -57,12 +57,20 @@ export default class ChartModule {
             {
               ticks: {
                 beginAtZero: true
+              },
+              scaleLabel: {
+                display: true,
+                labelString: "# of samples"
               }
             }
           ],
           xAxes: [
             {
-              barPercentage: 1.0
+              barPercentage: 1.0,
+              scaleLabel: {
+                display: true,
+                labelString: "Number of heads"
+              }
             }
           ]
         },
@@ -135,6 +143,7 @@ export default class ChartModule {
     this.dataFromCalculation.theoryMean = mean;
     this.dataFromCalculation.noOfSelected = noOfSelected;
     this.chart.mean = mean;
+    this.chart.options.scales.xAxes[0].scaleLabel.labelString = `Number of heads in ${noOfCoin} tosses`;
     this.chart.update();
   }
 }
@@ -166,19 +175,19 @@ Chart.pluginService.register({
   }
 });
 
-Chart.pluginService.register({
-  id: "sampleBarColor",
-  beforeUpdate: function(chart) {
-    if (chart.mean) {
-      const chartData = chart.config.data; // sample dataset
-      chartData.datasets[0].backgroundColor = chartData.labels.map(
-        x =>
-          `rgba(255,0,0,${1 -
-            (Math.abs(x - chart.mean) * 1.2) / chartData.labels.length})`
-      );
-    }
-  }
-});
+// Chart.pluginService.register({
+//   id: "sampleBarColor",
+//   beforeUpdate: function(chart) {
+//     if (chart.mean) {
+//       const chartData = chart.config.data; // sample dataset
+//       chartData.datasets[0].backgroundColor = chartData.labels.map(
+//         x =>
+//           `rgba(255,0,0,${1 -
+//             (Math.abs(x - chart.mean) * 1.2) / chartData.labels.length})`
+//       );
+//     }
+//   }
+// });
 
 Chart.pluginService.register({
   id: "fixedSamplelegendColor",

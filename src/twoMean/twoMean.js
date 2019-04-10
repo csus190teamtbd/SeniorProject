@@ -1,5 +1,11 @@
 // TODO(matthewmerrill): don't CDN
 //import Chart from "chart.js";
+import {
+  dropTextFileOnTextArea,
+  // TODO(matthewmerrill): use these library functions
+  parseCSVtoSingleArray,
+  readLocalFile
+} from "../util/csv.js";
 import StackedDotChart from '/util/stackeddotchart.js';
 import * as MathUtil from '/util/math.js';
 import { randomSubset } from '/util/sampling.js';
@@ -27,6 +33,7 @@ export class TwoMean {
       { label: 'Diff of Means', backgroundColor: '#333333', data: [], },
     ]);
     this.updateData([[], []]);
+    dropTextFileOnTextArea(this.csvInput);
   }
 
   loadData() {

@@ -1,4 +1,8 @@
-import { dropTextFileOnTextArea, parseCSVtoSingleArray } from "../util/csv.js";
+import {
+  dropTextFileOnTextArea,
+  parseCSVtoSingleArray,
+  readLocalFile
+} from "../util/csv.js";
 import StackedDotChart from "../util/stackeddotchart.js";
 import { randomSubset, splitByPredicate } from "../util/sampling.js";
 import * as MathUtil from "/util/math.js";
@@ -6,13 +10,19 @@ import * as MathUtil from "/util/math.js";
 export class OneMean {
   constructor(OneMeanDiv) {
     this.shiftMean = 0;
-    this.mulFactor = 1;
+    this.mulFactor = 0;
     this.populationData = [];
     this.originalData = [];
     this.mostRecentDraw = [];
     this.sampleMeans = [];
     this.sampleSize = undefined;
     this.tailDiection = null;
+    this.sampleData = {
+      // has to hardcode if not using server
+      "Select Sample Data": null,
+      Sample1: "../sampleData/sample1.csv",
+      Sample2: "../sampleData/sample2.csv"
+    };
     this.ele = {
       csvTextArea: OneMeanDiv.querySelector("#csv-input"),
       loadDataBtn: OneMeanDiv.querySelector("#load-data-btn"),
@@ -34,13 +44,14 @@ export class OneMean {
       sampleSizeInput: OneMeanDiv.querySelector("#sample-size"),
       noOfSampleInput: OneMeanDiv.querySelector("#no-of-sample"),
       oneMeanDiv: OneMeanDiv,
-      runSimErrorMsg: OneMeanDiv.querySelector("#run-sim-error-msg")
+      runSimErrorMsg: OneMeanDiv.querySelector("#run-sim-error-msg"),
+      sampleDataDropDown: OneMeanDiv.querySelector("#sample-data")
     };
     this.tailWidget = new TailWidget(OneMeanDiv.querySelector('#tail-widget'));
     this.datasets = [
-      { label: "Original", backgroundColor: "#333333", data: [] },
-      { label: "Population", backgroundColor: "#93cb52", data: [] },
-      { label: "Most Recent Drawn", backgroundColor: "#333333", data: [] },
+      { label: "Original", backgroundColor: "orange", data: [] },
+      { label: "Hypothetical Population", backgroundColor: "orange", data: [] },
+      { label: "Most Recent Drawn", backgroundColor: "blue", data: [] },
     ];
 
     this.dataChart1 = new StackedDotChart(
@@ -65,14 +76,18 @@ export class OneMean {
         this.originalData = parseCSVtoSingleArray(this.ele.csvTextArea.value);
         this.updateData(this.dataName.orginalData);
         this.shiftMean = 0;
-        this.mulFactor = 1;
+        this.mulFactor = 0;
         this.clearResult();
-        this.updatedPopulationData(this.originalData, 0, 1);
+        this.updatedPopulationData(
+          this.originalData,
+          this.shiftMean,
+          this.mulFactor
+        );
         e.preventDefault();
       });
 
       dropTextFileOnTextArea(this.ele.csvTextArea);
-
+      this.sampleListListener();
       this.shiftMeanListener();
       this.mulFactorListener();
 
@@ -90,7 +105,17 @@ export class OneMean {
         }
       });
     };
+    this.loadSampleDataList();
     this.loadEventListener();
+  }
+
+  loadSampleDataList() {
+    Object.keys(this.sampleData).forEach(x => {
+      const option = document.createElement("option", {});
+      option.setAttribute("value", x);
+      option.innerText = x;
+      this.ele.sampleDataDropDown.appendChild(option);
+    });
   }
 
   runSim(sampleSize, noOfSample) {
@@ -126,6 +151,17 @@ export class OneMean {
     this.tailWidget.updateChart();
   }
 
+  sampleListListener() {
+    this.ele.sampleDataDropDown.addEventListener("change", () => {
+      const sampleName = this.ele.sampleDataDropDown.value;
+      if (sampleName != "Select Sample Data") {
+        readLocalFile(this.sampleData[sampleName]).then(
+          text => (this.ele.csvTextArea.value = text)
+        );
+      } else this.ele.csvTextArea.value = "";
+    });
+  }
+
   shiftMeanListener() {
     this.ele.shiftMeanInput.addEventListener("input", e => {
       this.updatedPopulationData(
@@ -133,7 +169,6 @@ export class OneMean {
         Number(e.target.value) || 0,
         this.mulFactor
       );
-      this.clear();
     });
     this.ele.shiftMeanSlider.addEventListener("change", e => {
       this.updatedPopulationData(
@@ -148,6 +183,10 @@ export class OneMean {
   mulFactorListener() {
     this.ele.mulFactorSlider.addEventListener("change", e => {
       const mulFactor = Number(e.target.value);
+      this.ele.mulFactorDisplay.innerText = mulFactor;
+    });
+    this.ele.mulFactorSlider.addEventListener("input", e => {
+      const mulFactor = Number(e.target.value);
       this.updatedPopulationData(this.originalData, this.shiftMean, mulFactor);
       this.ele.mulFactorDisplay.innerText = mulFactor;
       this.clearResult();
@@ -160,7 +199,7 @@ export class OneMean {
     this.ele.shiftMeanInput.value = shift;
     this.mulFactor = mulFactor;
     this.populationData = [];
-    for (let i = 0; i < mulFactor; i++) {
+    for (let i = 0; i < mulFactor + 1; i++) {
       this.populationData = this.populationData.concat(
         orginalData.map(x => ({
           id: x.id + i * orginalData.length,
@@ -223,6 +262,7 @@ export class OneMean {
     } else {
       chart.clear();
     }
+    chart.scaleToStackDots();
     chart.chart.update();
 
     //update mean output
@@ -243,6 +283,55 @@ export class OneMean {
       textAreaEle.value = data.reduce(
         (acc, x, index) => acc + `${index + 1}\t${x}\n`,
         `sample#\tmean\n`
+      );
+    }
+  }
+
+  updateStatistic(totalChosen, totalUnchosen) {
+    const totalSamples = totalChosen + totalUnchosen;
+    const proportion = MathUtil.roundToPlaces(totalChosen / totalSamples, 5);
+    this.ele.totalSelectedSamplesDisplay.innerText = totalChosen;
+    this.ele.totalSamplesDisplay.innerText = totalSamples;
+    this.ele.proportionDisplay.innerText = ` ${totalChosen} / ${totalSamples} = ${proportion}`;
+  }
+
+  predicateForTail(tailDirection, tailInput, mean) {
+    if (tailDirection === "null") {
+      return null;
+    } else if (tailDirection === "oneTailRight") {
+      return function(x) {
+        return x >= tailInput;
+      };
+    } else if (tailDirection === "oneTailLeft") {
+      return function(x) {
+        return x <= tailInput;
+      };
+    } else {
+      const distance = MathUtil.roundToPlaces(Math.abs(mean - tailInput), 2);
+      return function(x) {
+        return x <= mean - distance || x >= mean + distance;
+      };
+    }
+  }
+
+  updateSampleMeansChartLabels(tailDirection, tailInput, mean) {
+    if (tailDirection === "null") {
+      this.dataChart4.updateLabelName(0, "samples");
+      this.dataChart4.updateLabelName(1, "N/A");
+    } else if (tailDirection === "oneTailRight") {
+      this.dataChart4.updateLabelName(0, `samples < ${tailInput}`);
+      this.dataChart4.updateLabelName(1, `samples >= ${tailInput}`);
+    } else if (tailDirection === "oneTailLeft") {
+      this.dataChart4.updateLabelName(0, `samples > ${tailInput}`);
+      this.dataChart4.updateLabelName(1, `samples <= ${tailInput}`);
+    } else {
+      const distance = MathUtil.roundToPlaces(Math.abs(mean - tailInput), 2);
+      const left = mean - distance;
+      const right = mean + distance;
+      this.dataChart4.updateLabelName(0, `${left} < samples < ${right}`);
+      this.dataChart4.updateLabelName(
+        1,
+        `samples <= ${left} or samples >= ${right}`
       );
     }
   }
