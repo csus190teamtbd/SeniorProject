@@ -55,8 +55,7 @@ title: Two Means
   </div>
 </div>
 
-<!-- TODO(matthewmerrill): don't CDN -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js" integrity="sha256-rjYnB0Bull7k2XkbJ03UNGqMuMieR769uQVGSSlsi6A=" crossorigin="anonymous"></script>
+<script src="../lib/Chart.bundle.min.js"></script>
 <script type="module">
   import {TwoMean} from './twoMean.js';
   window.twoMean = new TwoMean(document.getElementById('two-mean'));
