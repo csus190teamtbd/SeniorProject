@@ -21,6 +21,7 @@ title: Two Means
       <div id="data-summary" class="stats">
         <div><span>Mean of Group 1:</span> <span id="data-mean-1"></span></div>
         <div><span>Mean of Group 2:</span> <span id="data-mean-2"></span></div>
+        <div><span>Difference of Means:</span><span id="diff-of-data"></span></div>
       </div>
     </div>
     <div class="view">
@@ -34,6 +35,11 @@ title: Two Means
       <h3># Simulations</h3>
       <input id="num-simulations" type="number" value="1" min="1" max="100" />
       <button onclick="twoMean.runSim()" onclick="" class="btn">Run Simulation</button>
+      <div class="stats">
+        <div><span>New Mean of Group 1:</span> <span id="new-data-mean-1"></span></div>
+        <div><span>New Mean of Group 2:</span> <span id="new-data-mean-2"></span></div>
+        <div><span>New Difference of Means:</span><span id="new-diff-of-data"></span></div>
+      </div>
     </div>
     <div class="view">
       <div class="chart-wrap"><canvas id="sample-chart-1"></canvas></div>
@@ -41,17 +47,8 @@ title: Two Means
     </div>
   </div>
   <h2>Statistical Significance:</h2>
-  <div id="two-mean-diff">
-    <div id="two-mean-diff-stats" class="control stats">
-      <div><span>Dataset Difference of Means:</span><span id="diff-of-data"></span></div>
-      <div><span>Mean of Sample Differences:</span><span id="mean-sample-diffs"></span></div>
-      <div><span>StdDev of Sample Differences:</span><span id="stddev-sample-diffs"></span></div>
-      <br/>
-      <div><span>Difference of means in dataset is <span id="how-many-stddev"></span> standard deviations from the mean of differences in resamplings.</span></div>
-    </div>
-    <div class="view">
-      <div class="chart-wrap"><canvas id="diff-chart"></canvas></div>
-    </div>
+  <div id="tail-widget-section">
+    {% include tailWidget.html %}
   </div>
 </div>
 
