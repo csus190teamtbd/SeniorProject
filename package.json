@@ -2,7 +2,10 @@
   "name": "seniorproject",
   "version": "1.0.0",
   "description": "1. setup jekyll",
-  "main": "index.js",
+  "main": "./_site/main.js",
+  "background": {
+    "script": "./_site/oneProportion/oneProportion.js"
+  },
   "dependencies": {
     "chai": "^4.2.0",
     "puppeteer": "^1.14.0"
@@ -12,11 +15,13 @@
     "babel-plugin-transform-es2015-destructuring": "^6.23.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
-    "mocha": "^5.2.0"
+    "mocha": "^5.2.0",
+    "electron": "^4.1.4"
   },
   "scripts": {
     "test": "mocha --require babel-core/register",
-    "test-all": "mocha --require babel-core/register --timeout=30000 test/**/*.test.js"
+    "test-all": "mocha --require babel-core/register --timeout=30000 test/**/*.test.js",
+    "start": "electron ."
   },
   "repository": {
     "type": "git",
