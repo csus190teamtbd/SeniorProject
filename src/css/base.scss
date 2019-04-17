@@ -12,6 +12,7 @@ $contentBkgd: #f4f4f4;
 
 html {
   width: 100%;
+  color: black;
 }
 html,
 #navbar,
@@ -35,17 +36,25 @@ a {
   text-decoration: none;
 }
 
+hr {
+  border: 2px solid green;
+}
+
 p {
   margin: 0.75em 0;
 }
 
 textarea, input, select {
   background-color: white;
+  border: 1px solid #888;
   color: black;
 }
 textarea.dragover {
   background-color: skyblue;
   color: black;
+}
+textarea[readonly] {
+  background-color: lightgray;
 }
 
 .container {
@@ -233,3 +242,11 @@ textarea.dragover {
 .slider:hover {
   opacity: 10;
 }
+
+#mainContent {
+  h1 {
+    padding-bottom: 10px;
+    text-align: center;
+  }
+}
+
