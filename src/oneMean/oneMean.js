@@ -26,7 +26,6 @@ export class OneMean {
     this.ele = {
       csvTextArea: OneMeanDiv.querySelector("#csv-input"),
       loadDataBtn: OneMeanDiv.querySelector("#load-data-btn"),
-      shiftMeanSlider: OneMeanDiv.querySelector("#shiftMeanSlider"),
       shiftMeanInput: OneMeanDiv.querySelector("#shiftMeanInput"),
       originalDataDisplay: OneMeanDiv.querySelector("#original-data-display"),
       populationDataDisplay: OneMeanDiv.querySelector(
@@ -54,7 +53,8 @@ export class OneMean {
       proportionDisplay: OneMeanDiv.querySelector("#proportion"),
       oneMeanDiv: OneMeanDiv,
       runSimErrorMsg: OneMeanDiv.querySelector("#run-sim-error-msg"),
-      sampleDataDropDown: OneMeanDiv.querySelector("#sample-data")
+      sampleDataDropDown: OneMeanDiv.querySelector("#sample-data"),
+      resetBtn: OneMeanDiv.querySelector("#reset-btn")
     };
 
     this.datasets = [
@@ -108,6 +108,7 @@ export class OneMean {
       this.sampleListListener();
       this.shiftMeanListener();
       this.mulFactorListener();
+      this.resetBtnListener();
 
       this.ele.runSimBtn.addEventListener("click", e => {
         const newSampleSize = Number(this.ele.sampleSizeInput.value);
@@ -177,6 +178,25 @@ export class OneMean {
     this.updateData(this.dataName.sampleMeans);
   }
 
+  resetBtnListener() {
+    this.ele.resetBtn.addEventListener("click", e => {
+      console.log("reset");
+      this.clearResult();
+      this.ele.csvTextArea.value = "";
+      this.originalData = [];
+      this.updateData(this.dataName.orginalData);
+      this.shiftMean = 0;
+      this.mulFactor = 0;
+      this.clearResult();
+      this.updatedPopulationData(
+        this.originalData,
+        this.shiftMean,
+        this.mulFactor
+      );
+      e.preventDefault();
+    });
+  }
+
   sampleListListener() {
     this.ele.sampleDataDropDown.addEventListener("change", () => {
       const sampleName = this.ele.sampleDataDropDown.value;
@@ -190,13 +210,6 @@ export class OneMean {
 
   shiftMeanListener() {
     this.ele.shiftMeanInput.addEventListener("input", e => {
-      this.updatedPopulationData(
-        this.originalData,
-        Number(e.target.value) || 0,
-        this.mulFactor
-      );
-    });
-    this.ele.shiftMeanSlider.addEventListener("change", e => {
       this.updatedPopulationData(
         this.originalData,
         Number(e.target.value) || 0,
@@ -221,7 +234,6 @@ export class OneMean {
 
   updatedPopulationData(orginalData, shift, mulFactor) {
     this.shiftMean = shift;
-    this.ele.shiftMeanSlider.value = shift;
     this.ele.shiftMeanInput.value = shift;
     this.mulFactor = mulFactor;
     this.populationData = [];
@@ -229,7 +241,7 @@ export class OneMean {
       this.populationData = this.populationData.concat(
         orginalData.map(x => ({
           id: x.id + i * orginalData.length,
-          value: x.value + shift
+          value: MathUtil.roundToPlaces(x.value + shift, 4)
         }))
       );
     }
@@ -238,7 +250,6 @@ export class OneMean {
 
   clearResult() {
     this.ele.shiftMeanInput.value = this.shiftMean;
-    this.ele.shiftMeanSlider.value = this.shiftMean;
     this.ele.mulFactorSlider.value = this.mulFactor;
     this.ele.mulFactorDisplay.innerText = this.mulFactor;
     this.mostRecentDraw = [];
