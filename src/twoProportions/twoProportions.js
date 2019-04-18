@@ -40,6 +40,12 @@ export class TwoProportions {
     this.data = { numASuccess, numAFailure, numBSuccess, numBFailure };
     this.charts.inputChart.setProportions(this.data);
     this.charts.inputChart.update();
+    this.charts.lastSimChart.setProportions({
+      numASuccess: 0, numAFailure: 0, numBSuccess: 0, numBFailure: 0,
+    });
+    this.charts.lastSimChart.update();
+    this.charts.tailChart.reset();
+    this.charts.tailChart.updateChart();
   }
 
   runSimulations() {
@@ -77,11 +83,11 @@ export class TwoProportions {
       }
     }
     this.charts.lastSimChart.update();
-    //this.charts.tailChart.update();
+    this.charts.tailChart.updateChart();
   }
 
   addSimulationResult(diffOfProps) {
-    /* nop */
+    this.charts.tailChart.addResult(diffOfProps);
   }
 
 }
