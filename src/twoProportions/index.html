@@ -59,6 +59,12 @@ title: Two Proportions
   <h2>3. Sampling Distribution of Difference of Proportions</h2>
   <div class="section flex-row">
     <div class="lhs">
+      <select>
+        {% include tailChartDirectionOptions.html %}
+      </select>
+      <span>Select all as extreme as</span><input type="number">
+      <hr>
+
       <div><span>Dataset Difference of Means:</span><span id="diff-of-data" class="stat"></span></div>
       <div><span>Mean of Sample Differences:</span><span id="mean-sample-diffs" class="stat"></span></div>
       <div><span>StdDev of Sample Differences:</span><span id="stddev-sample-diffs" class="stat"></span></div>
