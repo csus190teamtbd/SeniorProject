@@ -5,6 +5,9 @@
   h1 {
     margin-bottom: .5em;
   }
+  table {
+    width: 100%;
+  }
 
   .section {
     display: flex;
@@ -13,15 +16,21 @@
   }
 
   .lhs, .rhs {
-    flex-grow: 0;
+    //flex-grow: 0;
 
     display: flex;
     flex-flow: column nowrap;
     justify-content: flex-start;
   }
+  .lhs {
+    width: 26em;
+  }
+  .rhs {
+    flex-grow: 1;
+  }
 
   .chart-wrap {
-    display: block;
-    position: relative;
+    height: 10em;
+    max-width: 40em;
   }
 }

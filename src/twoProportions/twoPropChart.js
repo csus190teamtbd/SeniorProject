@@ -44,7 +44,9 @@ export default class TwoPropChart {
               },
             },
           ],
-        } 
+        }, 
+        responsive: true,
+        maintainAspectRatio: false,
       },
     });
   }

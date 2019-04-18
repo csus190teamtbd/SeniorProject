@@ -34,20 +34,30 @@ title: Two Proportions
       <button class="btn" onclick="twoProportions.loadData()">Load Data</button>
     </div>
     <div class="rhs">
-      <div id="chart-wrap"><canvas id="input-bars"></canvas></div>
+      <div class="chart-wrap"><canvas id="input-bars"></canvas></div>
     </div>
   </div>
 
   <h2>2. Run Simulation</h2>
   <div class="section">
     <div class="lhs">
-      <label># of Simulations
+      <label># of Simulations:
         <input id="num-simulations" type="number" min="1" value="1" max="1000"/>
       </label>
       <button class="btn" onclick="twoProportions.runSimulations()">Run Simulations</button>
     </div>
     <div class="rhs">
-      <div id="chart-wrap"><canvas id="last-sim-bars"></canvas></div>
+      <div class="chart-wrap"><canvas id="last-sim-bars"></canvas></div>
+    </div>
+  </div>
+
+  <h2>3. Sampling Distribution of Difference of Proportions</h2>
+  <div class="section flex-row">
+    <div class="lhs">
+      Test
+    </div>
+    <div class="rhs">
+      <div class="chart-wrap"><canvas id="tail-chart"></canvas></div>
     </div>
   </div>
 </div>

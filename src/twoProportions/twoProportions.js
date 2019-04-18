@@ -8,6 +8,7 @@ import TailChart from "../util/tailchart.js";
 import TwoPropChart from "./twoPropChart.js";
 
 export class TwoProportions {
+
   constructor(twoPropDiv) {
     this.dom = {
       twoPropDiv,
@@ -24,10 +25,10 @@ export class TwoProportions {
     this.charts = {
       inputChart: new TwoPropChart(this.dom.inputCanvas),
       lastSimChart: new TwoPropChart(this.dom.lastSimCanvas),
-      /*tailChart: new TailChart({
+      tailChart: new TailChart({
         chartElement: this.dom.tailChartCanvas,
         whatAreWeRecording: 'Differences',
-      }),*/
+      }),
     };
   }
 
