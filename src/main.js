@@ -4,10 +4,17 @@ const { app, BrowserWindow } = require("electron");
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
+let server;
 
-var path = require("path");
+const path = require("path");
+const express = require("express");
 
 function createWindow() {
+  let app = express();
+  app.use(express.static(path.join(__dirname, "")));
+  server = app.listen();
+  console.log(server.address());
+
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: 800,
@@ -19,7 +26,7 @@ function createWindow() {
 
   // and load the index.html of the app.
   // mainWindow.loadFile("./index.html");
-  mainWindow.loadFile(path.join(__dirname, "index.html"));
+  mainWindow.loadURL(`http://127.0.0.1:${server.address().port}`);
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
