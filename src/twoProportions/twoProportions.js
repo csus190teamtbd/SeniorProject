@@ -71,7 +71,7 @@ export class TwoProportions {
     let totalFailure = numAFailure + numBFailure;
     this.charts.inputBars.data.datasets[0].data[0] = 100 * numASuccess / totalInA;
     this.charts.inputBars.data.datasets[0].data[1] = 100 * numBSuccess / totalInB;
-    this.charts.inputBars.data.datasets[0].data[0] = 100 * numAFailure / totalInA;
+    this.charts.inputBars.data.datasets[1].data[0] = 100 * numAFailure / totalInA;
     this.charts.inputBars.data.datasets[1].data[1] = 100 * numBFailure / totalInB;
     this.charts.inputBars.update();
   }
