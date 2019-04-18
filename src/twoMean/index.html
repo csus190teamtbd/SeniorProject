@@ -5,7 +5,7 @@ title: Two Means
 <link rel="stylesheet" href="twoMean.css">
 <div id="two-mean">
   <h1>Two Means</h1>
-  <h2>Step One: Enter Data</h2>
+  <h2>1. Enter Data</h2>
   <div id="two-mean-data">
     <div id="two-mean-data-lhs">
       <div class="control">
@@ -26,7 +26,7 @@ title: Two Means
       <div class="chart-wrap"><canvas id="data-chart-2"></canvas></div>
     </div>
   </div>
-  <h2>Step Two: Run Simulations</h2>
+  <h2>2. Run Simulations</h2>
   <div id="two-mean-sample">
     <div class="control">
       <h3># Simulations</h3>
@@ -40,19 +40,16 @@ title: Two Means
       <div class="chart-wrap"><canvas id="sample-chart-2"></canvas></div>
     </div>
   </div>
-  <h2>Statistical Significance:</h2>
+  <h2>3. Sampling Distribution of Difference of Means</h2>
   <div id="two-mean-diff">
     <div id="two-mean-diff-stats" class="control stats">
-      <div><span>Dataset Difference of Means:</span><span id="diff-of-data" class="stat"></span></div>
+      <div><span>Original Dataset Difference of Means:</span><span id="diff-of-data" class="stat">No Data</span></div>
       <div><span>Mean of Sample Differences:</span><span id="mean-sample-diffs" class="stat"></span></div>
       <div><span>StdDev of Sample Differences:</span><span id="stddev-sample-diffs" class="stat"></span></div>
       <br>
       <div><span>Total Samples:</span><span id="total-samples" class="stat">No Data</span></div>
       <div><span># Selected:</span><span id="chosen-count" class="stat">No Data</span></div>
-      <div><span>% Selected:</span><span id="proportion" class="stat">No Data</span></div>
-      <br/>
-      <br/>
-      <div><span>Difference of means in dataset is <span id="how-many-stddev"></span> standard deviations from the mean of differences in resamplings.</span></div>
+      <div><span>Proportion Selected:</span><span id="proportion" class="stat">No Data</span></div>
     </div>
     <div class="view">
       <div class="chart-wrap"><canvas id="diff-chart"></canvas></div>
