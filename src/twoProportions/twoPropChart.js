@@ -2,6 +2,9 @@ export default class TwoPropChart {
   
   constructor(canvas) {
     this.dom = {canvas};
+    if (!canvas) {
+      throw new Error('canvas is undefined!');
+    }
     // TODO(matthewmerrill): better tooltips
     // TODO(matthewmerrill): make the red/green more intuitive with how data is entered
     //  Note: This might require ChartJS v3.0.0 https://github.com/mendix/ChartJS/issues/31

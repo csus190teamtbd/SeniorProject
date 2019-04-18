@@ -6,7 +6,7 @@ title: Two Proportions
 <link rel="stylesheet" href="twoProportions.css">
 <div id="two-proportions">
   <h1>Two Proportions</h1>
-  <h2>Enter Data</h2>
+  <h2>1. Enter Data</h2>
   <div id="input-section" class="section">
     <div class="lhs">
       <table>
@@ -34,8 +34,20 @@ title: Two Proportions
       <button class="btn" onclick="twoProportions.loadData()">Load Data</button>
     </div>
     <div class="rhs">
-      <!--<div id="chart-wrap"><canvas id="input-pie"></canvas></div>-->
       <div id="chart-wrap"><canvas id="input-bars"></canvas></div>
+    </div>
+  </div>
+
+  <h2>2. Run Simulation</h2>
+  <div class="section">
+    <div class="lhs">
+      <label>How many simulations?
+        <input id="num-simulations" type="number" min="1" value="1" max="1000"/>
+      </label>
+      <button class="btn" onclick="twoProportions.runSimulations()">Run Simulations</button>
+    </div>
+    <div class="rhs">
+      <div id="chart-wrap"><canvas id="last-sim-bars"></canvas></div>
     </div>
   </div>
 </div>

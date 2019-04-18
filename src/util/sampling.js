@@ -2,6 +2,23 @@ export function randomInt(from, to) {
   return Math.floor((to - from) * Math.random()) + from;
 }
 
+/*
+ * Returns a new array that contains shuffled elements of the original array.
+ */
+export function shuffle(arr) {
+  let clone = arr.concat([]);
+  function swap(i, j) {
+    let tmp = clone[i];
+    clone[i] = clone[j];
+    clone[j] = tmp;
+  }
+  for (let i = 0; i < arr.length; i++) {
+    let swapWith = randomInt(i, arr.length);
+    swap(i, swapWith);
+  }
+  return clone;
+}
+
 /**
  * Returns a two arrays: one array containing `n` pseudo-randomly chosen
  * elements from iterable `itr`, and another array containing all the
