@@ -2,6 +2,8 @@
 //import Chart from "chart.js";
 
 import StackedDotChart from "../util/stackeddotchart.js";
+import TailChart from "../util/tailchart.js";
+import TwoPropChart from "./twoPropChart.js";
 
 export class TwoProportions {
   constructor(twoPropDiv) {
@@ -12,51 +14,17 @@ export class TwoProportions {
       bSuccess: twoPropDiv.querySelector('#b-success'),
       bFailure: twoPropDiv.querySelector('#b-failure'),
       inputBars: twoPropDiv.querySelector("#input-bars"),
+      lastSimBars: twoPropDiv.querySelector("#last-sim-bars"),
+      tailChartCanvas: twoPropDiv.querySelector('#tail-chart'),
     };
 
     this.charts = {
-      // TODO(matthewmerrill): better tooltips
-      // TODO(matthewmerrill): make the red/green more intuitive with how data is entered
-      //  Note: This might require ChartJS v3.0.0 https://github.com/mendix/ChartJS/issues/31
-      inputBars: new Chart(this.dom.inputBars, {
-        type: 'bar',
-        data: {
-          labels: ['Group A', 'Group B'],
-          datasets: [
-            {
-              label: 'Successes',
-              backgroundColor: 'green',
-              data: [30, 60],
-            },
-            {
-              label: 'Failures',
-              backgroundColor: 'red',
-              data: [ 70, 40 ],
-            },
-          ],
-        },
-        options: {
-          scales: {
-            xAxes: [
-              {
-                stacked: true,
-                ticks: {
-                  max: 100,
-                },
-              }
-            ],
-            yAxes: [
-              {
-                id: 'groupAAxis',
-                stacked: true,
-                ticks: {
-                  max: 100,
-                },
-              },
-            ],
-          } 
-        },
-      }),
+      inputChart: new TwoPropChart(this.dom.inputBars),
+      //lastSimChart: new TwoPropChart(this.dom.lastSimChart),
+      /*tailChart: new TailChart({
+        chartElement: this.dom.tailChartCanvas,
+        whatAreWeRecording: 'Differences',
+      }),*/
     };
   }
 
@@ -65,15 +33,9 @@ export class TwoProportions {
     let numAFailure = this.dom.aFailure.value * 1;
     let numBSuccess = this.dom.bSuccess.value * 1;
     let numBFailure = this.dom.bFailure.value * 1;
-    let totalInA = numASuccess + numAFailure;
-    let totalInB = numBSuccess + numBFailure;
-    let totalSuccess = numASuccess + numBSuccess;
-    let totalFailure = numAFailure + numBFailure;
-    this.charts.inputBars.data.datasets[0].data[0] = 100 * numASuccess / totalInA;
-    this.charts.inputBars.data.datasets[0].data[1] = 100 * numBSuccess / totalInB;
-    this.charts.inputBars.data.datasets[1].data[0] = 100 * numAFailure / totalInA;
-    this.charts.inputBars.data.datasets[1].data[1] = 100 * numBFailure / totalInB;
-    this.charts.inputBars.update();
+    this.data = { numASuccess, numAFailure, numBSuccess, numBFailure };
+    this.charts.inputChart.setProportions(this.data);
+    this.charts.inputChart.update();
   }
 
 }
