@@ -32,12 +32,11 @@
   .stats div {
     margin: 0 .5em;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
     justify-content: space-between;
-
-    span[id] {
-      margin-left: auto;
+    .stat {
+      text-align: right;
     }
   }
 
@@ -52,11 +51,6 @@
   .chart-wrap {
     height: 10em;
   }
-}
-
-.chart-wrap {
-  display: block;
-  position: relative;
 }
 
 #how-many-stddev {

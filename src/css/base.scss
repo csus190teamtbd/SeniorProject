@@ -250,3 +250,14 @@ textarea[readonly] {
   }
 }
 
+.chart-wrap {
+  display: block;
+  position: relative;
+  flex-grow: 1;
+}
+
+.flex-row {
+  display: flex;
+  flex-flow: row nowrap;
+}
+

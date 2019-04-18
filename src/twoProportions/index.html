@@ -6,6 +6,7 @@ title: Two Proportions
 <link rel="stylesheet" href="twoProportions.css">
 <div id="two-proportions">
   <h1>Two Proportions</h1>
+  <h2>1. Enter Data</h2>
   <div id="input-section" class="section">
     <div class="lhs">
       <table>
@@ -33,8 +34,47 @@ title: Two Proportions
       <button class="btn" onclick="twoProportions.loadData()">Load Data</button>
     </div>
     <div class="rhs">
-      <!--<div id="chart-wrap"><canvas id="input-pie"></canvas></div>-->
-      <div id="chart-wrap"><canvas id="input-bars"></canvas></div>
+      <div class="chart-wrap"><canvas id="input-bars"></canvas></div>
+    </div>
+  </div>
+
+  <h2>2. Run Simulation</h2>
+  <div class="section">
+    <div class="lhs">
+      <label># of Simulations:
+        <input id="num-simulations" type="number" min="1" value="1" max="1000"/>
+      </label>
+      <button class="btn" onclick="twoProportions.runSimulations()">Run Simulations</button>
+      <div class="stats">
+        <div><span>Proportion of Sample Group A:</span><span id="sample-prop-a" class="stat">No Simulations</span></div>
+        <div><span>Proportion of Sample Group B:</span><span id="sample-prop-b" class="stat">No Simulations</span></div>
+        <div><span>Difference of Proportions:</span><span id="sample-prop-diff" class="stat">No Simulations</span></div>
+      </div>
+    </div>
+    <div class="rhs">
+      <div class="chart-wrap"><canvas id="last-sim-bars"></canvas></div>
+    </div>
+  </div>
+
+  <h2>3. Sampling Distribution of Difference of Proportions</h2>
+  <div class="section flex-row">
+    <div class="lhs">
+      <select>
+        {% include tailChartDirectionOptions.html %}
+      </select>
+      <span>Select all as extreme as</span><input type="number">
+      <hr>
+
+      <div><span>Dataset Difference of Means:</span><span id="diff-of-data" class="stat"></span></div>
+      <div><span>Mean of Sample Differences:</span><span id="mean-sample-diffs" class="stat"></span></div>
+      <div><span>StdDev of Sample Differences:</span><span id="stddev-sample-diffs" class="stat"></span></div>
+      <br>
+      <div><span>Total Samples:</span><span id="total-samples" class="stat">No Data</span></div>
+      <div><span># Selected:</span><span id="chosen-count" class="stat">No Data</span></div>
+      <div><span>% Selected:</span><span id="proportion" class="stat">No Data</span></div>
+    </div>
+    <div class="rhs">
+      <div class="chart-wrap"><canvas id="tail-chart"></canvas></div>
     </div>
   </div>
 </div>

@@ -9,18 +9,16 @@ title: Two Means
   <div id="two-mean-data">
     <div id="two-mean-data-lhs">
       <div class="control">
-        <h3>Enter CSV:</h3>
-        <textarea id="csv-input">1,1
-1,1
-1,2
-2,2
-2,3
-2,3</textarea>
-        <button onclick="twoMean.loadData()" onclick="" class="btn">Load Data</button>
+        <select disabled>
+          <option>Select Sample Data</option>
+        </select>
+        <textarea id="csv-input" placeholder="Enter or Drop CSV with first column as group number and second column as value."></textarea>
+        <button onclick="twoMean.loadData()" class="btn">Load Data</button>
+        <button onclick="twoMean.loadData()" class="btn">Reset</button>
       </div>
       <div id="data-summary" class="stats">
-        <div><span>Mean of Group 1:</span> <span id="data-mean-1"></span></div>
-        <div><span>Mean of Group 2:</span> <span id="data-mean-2"></span></div>
+        <div><span>Mean of Group 1:</span> <span id="data-mean-1" class="stat"></span></div>
+        <div><span>Mean of Group 2:</span> <span id="data-mean-2" class="stat"></span></div>
       </div>
     </div>
     <div class="view">
@@ -34,6 +32,8 @@ title: Two Means
       <h3># Simulations</h3>
       <input id="num-simulations" type="number" value="1" min="1" max="100" />
       <button onclick="twoMean.runSim()" onclick="" class="btn">Run Simulation</button>
+      <div><span>Mean of Sample Group 1:</span> <span id="data-mean-1"></span></div>
+      <div><span>Mean of Sample Group 2:</span> <span id="data-mean-2"></span></div>
     </div>
     <div class="view">
       <div class="chart-wrap"><canvas id="sample-chart-1"></canvas></div>
@@ -43,9 +43,14 @@ title: Two Means
   <h2>Statistical Significance:</h2>
   <div id="two-mean-diff">
     <div id="two-mean-diff-stats" class="control stats">
-      <div><span>Dataset Difference of Means:</span><span id="diff-of-data"></span></div>
-      <div><span>Mean of Sample Differences:</span><span id="mean-sample-diffs"></span></div>
-      <div><span>StdDev of Sample Differences:</span><span id="stddev-sample-diffs"></span></div>
+      <div><span>Dataset Difference of Means:</span><span id="diff-of-data" class="stat"></span></div>
+      <div><span>Mean of Sample Differences:</span><span id="mean-sample-diffs" class="stat"></span></div>
+      <div><span>StdDev of Sample Differences:</span><span id="stddev-sample-diffs" class="stat"></span></div>
+      <br>
+      <div><span>Total Samples:</span><span id="total-samples" class="stat">No Data</span></div>
+      <div><span># Selected:</span><span id="chosen-count" class="stat">No Data</span></div>
+      <div><span>% Selected:</span><span id="proportion" class="stat">No Data</span></div>
+      <br/>
       <br/>
       <div><span>Difference of means in dataset is <span id="how-many-stddev"></span> standard deviations from the mean of differences in resamplings.</span></div>
     </div>
