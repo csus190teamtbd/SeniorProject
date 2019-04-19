@@ -188,6 +188,7 @@ export class OneMean {
       this.shiftMean = 0;
       this.mulFactor = 0;
       this.clearResult();
+      this.ele.sampleDataDropDown.selectedIndex = 0;
       this.updatedPopulationData(
         this.originalData,
         this.shiftMean,
@@ -335,7 +336,7 @@ export class OneMean {
     } else {
       textAreaEle.value = data.reduce(
         (acc, x, index) => acc + `${index + 1}\t${x}\n`,
-        `sample#\tmean\n`
+        `Sample#\tMean\n`
       );
     }
   }
