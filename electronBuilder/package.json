@@ -1,0 +1,33 @@
+{
+  "name": "seniorproject",
+  "version": "1.0.0",
+  "description": "Electron OutPut",
+  "main": "",
+  "dependencies": {
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-plugin-transform-es2015-destructuring": "^6.23.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "electron": "^4.1.4"
+  },
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/csus190teamtbd/SeniorProject.git"
+  },
+  "author": {
+    "name": "Barney Rubble",
+    "email": "b@rubble.com",
+    "url": "http://barnyrubble.tumblr.com/"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/csus190teamtbd/SeniorProject/issues"
+  },
+  "homepage": "http://rion.io"
+}
