@@ -4,7 +4,13 @@ import { randomSubset, splitByPredicate } from "../util/sampling.js";
 
 export default class TailChart {
 
-  constructor({chartElement, whatAreWeRecording}) {
+  constructor(config) {
+    let {
+      chartElement,
+      whatAreWeRecording,
+      summaryElements = {},
+    } = config;
+
     this.tailDirection = null;
     this.tailInput = 0;
     this.whatAreWeRecording = whatAreWeRecording || 'Samples';
@@ -16,6 +22,7 @@ export default class TailChart {
         { label: "N/A", backgroundColor: "red", data: [] }
       ]
     );
+    this.summaryElements = summaryElements;
     this.results = [];
   }
 
@@ -48,9 +55,24 @@ export default class TailChart {
     );
     this.summary = {
       total: this.results.length,
+      mean: MathUtil.roundToPlaces(MathUtil.mean(this.results), 4),
+      stddev: MathUtil.roundToPlaces(MathUtil.stddev(this.results), 4),
       chosen: chosen.length,
       unchosen: unchosen.length,
     };
+    this.summary.proportion = MathUtil.roundToPlaces(this.summary.chosen / this.summary.total, 4),
+    this.updateSummaryElements();
+  }
+
+  updateSummaryElements() {
+    for (let [key, value] of Object.entries(this.summary)) {
+      let elems = this.summaryElements[key];
+      if (elems) {
+        for (let summaryElem of elems) {
+          summaryElem.innerText = value + '';
+        }
+      }
+    }
   }
 
   setTailDirection(tailDirection) {
@@ -110,7 +132,8 @@ export default class TailChart {
     this.updateChartLabels(0);
     this.chart.setDataFromRaw([unchosen, chosen]);
     this.chart.scaleToStackDots();
-    this.chart.chart.update();
+    // update(0) disables animations. This prevents dots moving around confusingly.
+    this.chart.chart.update(0);
     //this.chart.setpointRadius = 2;
   }
 }

@@ -20,7 +20,19 @@ export class TwoProportions {
       lastSimCanvas: twoPropDiv.querySelector("#last-sim-bars"),
       tailChartCanvas: twoPropDiv.querySelector('#tail-chart'),
       numSimulations: twoPropDiv.querySelector('#num-simulations'),
+      tailDirectionElement: twoPropDiv.querySelector('#tail-direction'),
+      tailInputElement: twoPropDiv.querySelector('#tail-input'),
     };
+
+    let summaryElements = {};
+    let summaryElementList = twoPropDiv.querySelectorAll('[twopropsummary]');
+    for (let summaryElement of summaryElementList) {
+      let key = summaryElement.getAttribute('twopropsummary');
+      if (!summaryElements[key]) {
+        summaryElements[key] = [];
+      }
+      summaryElements[key].push(summaryElement);
+    }
 
     this.charts = {
       inputChart: new TwoPropChart(this.dom.inputCanvas),
@@ -28,8 +40,17 @@ export class TwoProportions {
       tailChart: new TailChart({
         chartElement: this.dom.tailChartCanvas,
         whatAreWeRecording: 'Differences',
+        summaryElements: summaryElements,
       }),
     };
+    this.dom.tailDirectionElement.addEventListener('change', () => {
+      this.charts.tailChart.setTailDirection(this.dom.tailDirectionElement.value);
+      this.charts.tailChart.updateChart();
+    });
+    this.dom.tailInputElement.addEventListener('change', () => {
+      this.charts.tailChart.setTailInput(this.dom.tailInputElement.value * 1);
+      this.charts.tailChart.updateChart();
+    });
   }
 
   loadData() {
@@ -88,6 +109,10 @@ export class TwoProportions {
 
   addSimulationResult(diffOfProps) {
     this.charts.tailChart.addResult(diffOfProps);
+  }
+
+  updateSummary() {
+    let {total, chosen, unchosen} = this.charts.summary;
   }
 
 }

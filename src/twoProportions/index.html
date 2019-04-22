@@ -59,19 +59,38 @@ title: Two Proportions
   <h2>3. Sampling Distribution of Difference of Proportions</h2>
   <div class="section flex-row">
     <div class="lhs">
-      <select>
+      <select id="tail-direction">
         {% include tailChartDirectionOptions.html %}
       </select>
-      <span>Select all as extreme as</span><input type="number">
+      <span>Select all as extreme as</span><input type="number" id="tail-input" value="0" step="any">
       <hr>
-
-      <div><span>Dataset Difference of Means:</span><span id="diff-of-data" class="stat"></span></div>
-      <div><span>Mean of Sample Differences:</span><span id="mean-sample-diffs" class="stat"></span></div>
-      <div><span>StdDev of Sample Differences:</span><span id="stddev-sample-diffs" class="stat"></span></div>
-      <br>
-      <div><span>Total Samples:</span><span id="total-samples" class="stat">No Data</span></div>
-      <div><span># Selected:</span><span id="chosen-count" class="stat">No Data</span></div>
-      <div><span>% Selected:</span><span id="proportion" class="stat">No Data</span></div>
+      <div class="stats">
+        <div>
+          <span>Dataset Difference of Proportions:</span>
+          <span id="diff-of-data" class="stat"></span>
+        </div>
+        <div>
+          <span>Mean of Sample Differences:</span>
+          <span id="mean-sample-diffs" class="stat" twopropsummary="mean"></span>
+        </div>
+        <div>
+          <span>(Standard Deviation):</span>
+          <span id="stddev-sample-diffs" class="stat" twopropsummary="stddev"></span>
+        </div>
+        <br>
+        <div>
+          <span>Total Samples:</span>
+          <span id="total-samples" class="stat" twopropsummary="total">No Data</span>
+        </div>
+        <div>
+          <span># Selected:</span>
+          <span id="chosen-count" class="stat" twopropsummary="chosen">No Data</span>
+        </div>
+        <div>
+          <span>Proportion Selected:</span>
+          <span id="proportion" class="stat" twopropsummary="proportion">No Data</span>
+        </div>
+      </div>
     </div>
     <div class="rhs">
       <div class="chart-wrap"><canvas id="tail-chart"></canvas></div>
