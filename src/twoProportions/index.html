@@ -32,6 +32,21 @@ title: Two Proportions
       </table>
       <br>
       <button class="btn" onclick="twoProportions.loadData()">Load Data</button>
+      <hr>
+      <div class="stats">
+        <div>
+          <span>Proportion of Group A</span>
+          <span summary="proportionA"></span>
+        </div>
+        <div>
+          <span>Proportion of Group B</span>
+          <span summary="proportionB"></span>
+        </div>
+        <div>
+          <span>Difference of Proportions (A - B)</span>
+          <span summary="proportionDiff"></span>
+        </div>
+      </div>
     </div>
     <div class="rhs">
       <div class="chart-wrap"><canvas id="input-bars"></canvas></div>
@@ -46,9 +61,18 @@ title: Two Proportions
       </label>
       <button class="btn" onclick="twoProportions.runSimulations()">Run Simulations</button>
       <div class="stats">
-        <div><span>Proportion of Sample Group A:</span><span id="sample-prop-a" class="stat">No Simulations</span></div>
-        <div><span>Proportion of Sample Group B:</span><span id="sample-prop-b" class="stat">No Simulations</span></div>
-        <div><span>Difference of Proportions:</span><span id="sample-prop-diff" class="stat">No Simulations</span></div>
+        <div>
+          <span>Proportion of Sample Group A:</span>
+          <span summary="sampleProportionA">No Simulations</span>
+        </div>
+        <div>
+          <span>Proportion of Sample Group B:</span>
+          <span summary="sampleProportionB">No Simulations</span>
+        </div>
+        <div>
+          <span>Difference of Proportions:</span>
+          <span summary="sampleProportionDiff">No Simulations</span>
+        </div>
       </div>
     </div>
     <div class="rhs">
@@ -71,24 +95,24 @@ title: Two Proportions
         </div>
         <div>
           <span>Mean of Sample Differences:</span>
-          <span id="mean-sample-diffs" class="stat" twopropsummary="mean"></span>
+          <span id="mean-sample-diffs" class="stat" summary="mean"></span>
         </div>
         <div>
           <span>(Standard Deviation):</span>
-          <span id="stddev-sample-diffs" class="stat" twopropsummary="stddev"></span>
+          <span id="stddev-sample-diffs" class="stat" summary="stddev"></span>
         </div>
         <br>
         <div>
           <span>Total Samples:</span>
-          <span id="total-samples" class="stat" twopropsummary="total">No Data</span>
+          <span id="total-samples" class="stat" summary="total">No Data</span>
         </div>
         <div>
           <span># Selected:</span>
-          <span id="chosen-count" class="stat" twopropsummary="chosen">No Data</span>
+          <span id="chosen-count" class="stat" summary="chosen">No Data</span>
         </div>
         <div>
           <span>Proportion Selected:</span>
-          <span id="proportion" class="stat" twopropsummary="proportion">No Data</span>
+          <span id="proportion" class="stat" summary="proportion">No Data</span>
         </div>
       </div>
     </div>

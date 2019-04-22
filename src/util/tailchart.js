@@ -1,5 +1,6 @@
 import StackedDotChart from "../util/stackeddotchart.js";
-import * as MathUtil from "/util/math.js";
+import * as MathUtil from "../util/math.js";
+import * as Summaries from "../util/summaries.js";
 import { randomSubset, splitByPredicate } from "../util/sampling.js";
 
 export default class TailChart {
@@ -61,18 +62,7 @@ export default class TailChart {
       unchosen: unchosen.length,
     };
     this.summary.proportion = MathUtil.roundToPlaces(this.summary.chosen / this.summary.total, 4),
-    this.updateSummaryElements();
-  }
-
-  updateSummaryElements() {
-    for (let [key, value] of Object.entries(this.summary)) {
-      let elems = this.summaryElements[key];
-      if (elems) {
-        for (let summaryElem of elems) {
-          summaryElem.innerText = value + '';
-        }
-      }
-    }
+    Summaries.updateSummaryElements(this.summaryElements, this.summary);
   }
 
   setTailDirection(tailDirection) {
