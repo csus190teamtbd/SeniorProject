@@ -4,6 +4,7 @@
 import {countWhere} from "../util/math.js";
 import {randomInt, shuffle} from "../util/sampling.js";
 import StackedDotChart from "../util/stackeddotchart.js";
+import * as Summaries from "../util/summaries.js";
 import TailChart from "../util/tailchart.js";
 import TwoPropChart from "./twoPropChart.js";
 
@@ -20,7 +21,10 @@ export class TwoProportions {
       lastSimCanvas: twoPropDiv.querySelector("#last-sim-bars"),
       tailChartCanvas: twoPropDiv.querySelector('#tail-chart'),
       numSimulations: twoPropDiv.querySelector('#num-simulations'),
+      tailDirectionElement: twoPropDiv.querySelector('#tail-direction'),
+      tailInputElement: twoPropDiv.querySelector('#tail-input'),
     };
+    this.summaryElements = Summaries.loadSummaryElements(twoPropDiv);
 
     this.charts = {
       inputChart: new TwoPropChart(this.dom.inputCanvas),
@@ -28,8 +32,17 @@ export class TwoProportions {
       tailChart: new TailChart({
         chartElement: this.dom.tailChartCanvas,
         whatAreWeRecording: 'Differences',
+        summaryElements: this.summaryElements,
       }),
     };
+    this.dom.tailDirectionElement.addEventListener('change', () => {
+      this.charts.tailChart.setTailDirection(this.dom.tailDirectionElement.value);
+      this.charts.tailChart.updateChart();
+    });
+    this.dom.tailInputElement.addEventListener('change', () => {
+      this.charts.tailChart.setTailInput(this.dom.tailInputElement.value * 1);
+      this.charts.tailChart.updateChart();
+    });
   }
 
   loadData() {
@@ -37,6 +50,12 @@ export class TwoProportions {
     let numAFailure = this.dom.aFailure.value * 1;
     let numBSuccess = this.dom.bSuccess.value * 1;
     let numBFailure = this.dom.bFailure.value * 1;
+    let summary = {
+      proportionA: numASuccess / (numASuccess + numAFailure), // todo(matthewmerrill): fixed decimals
+      proportionB: numBSuccess / (numBSuccess + numBFailure),
+    }
+    summary.proportionDiff = summary.proportionA - summary.proportionB;
+    Summaries.updateSummaryElements(this.summaryElements, summary);
     this.data = { numASuccess, numAFailure, numBSuccess, numBFailure };
     this.charts.inputChart.setProportions(this.data);
     this.charts.inputChart.update();
@@ -80,6 +99,12 @@ export class TwoProportions {
           numAFailure: totalGroupA - sampleASuccess,
           numBFailure: totalGroupB - sampleBSuccess,
         });
+        let summary = {
+          sampleProportionA: sampleASuccess / totalGroupA,
+          sampleProportionB: sampleBSuccess / totalGroupB,
+          sampleProportionDiff: (sampleASuccess - sampleBSuccess) / (totalGroupA + totalGroupB),
+        };
+        Summaries.updateSummaryElements(this.summaryElements, summary);
       }
     }
     this.charts.lastSimChart.update();
@@ -88,6 +113,10 @@ export class TwoProportions {
 
   addSimulationResult(diffOfProps) {
     this.charts.tailChart.addResult(diffOfProps);
+  }
+
+  updateSummary() {
+    let {total, chosen, unchosen} = this.charts.summary;
   }
 
 }

@@ -2,44 +2,9 @@
 ---
 
 #two-proportions {
-  h1 {
-    margin-bottom: .5em;
-  }
   table {
-    width: 100%;
+   // width: 100%;
   }
-
-  .section {
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: flex-start;
-  }
-
-  .lhs, .rhs {
-    //flex-grow: 0;
-
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: flex-start;
-  }
-  .lhs {
-    width: 26em;
-  }
-  .rhs {
-    flex-grow: 1;
-  }
-  .stats div {
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    .stat {
-      margin-left: 2ch;
-      text-align: left;
-    }
-  }
-
 
   .chart-wrap {
     height: 10em;
