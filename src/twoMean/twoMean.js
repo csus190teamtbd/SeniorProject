@@ -58,9 +58,13 @@ export class TwoMean {
     dropTextFileOnTextArea(this.csvInput);
   }
 
+  reset() {
+    this.csvInput.value = '';
+    this.loadData();
+  }
+
   loadData() {
     let rawData = this.parseData(this.csvInput.value.trim());
-    console.log(rawData);
     this.updateData(rawData);
   }
 
@@ -111,13 +115,20 @@ export class TwoMean {
     this.sampleChart2.chart.update();
     this.updateSimResults();
 
-    let mean0 = MathUtil.mean(data[0]);
-    let mean1 = MathUtil.mean(data[1]);
     let summary = {
-      dataMean1: mean0,
-      dataMean2: mean1,
-      dataMeanDiff: mean1 - mean0,
+      dataMean1: 'No Data', // TODO(matthewmerrill): make this translatable
+      dataMean2: 'No Data',
+      dataMeanDiff: 'No Data',
     };
+    if (data[0].length) {
+      summary.dataMean1 = MathUtil.mean(data[0]);
+    }
+    if (data[1].length) {
+      summary.dataMean2 = MathUtil.mean(data[1]);
+    }
+    if (data[0].length && data[1].length) {
+      summary.dataMeanDiff = summary.dataMean1 - summary.dataMean2;
+    }
     Summaries.updateSummaryElements(this.summaryElements, summary);
   }
 
@@ -165,6 +176,13 @@ export class TwoMean {
       let mean1 = MathUtil.mean(sampleValues[1]);
       let sampleDiffOfMeans = mean1 - mean0;
       results.push(sampleDiffOfMeans);
+
+      let summary = {
+        sampleMean1: mean0,
+        sampleMean2: mean1,
+        sampleMeanDiff: sampleDiffOfMeans,
+      };
+      Summaries.updateSummaryElements(this.summaryElements, summary);
     }
     this.charts.tailChart.addAllResults(results);
     this.updateSimResults();

@@ -261,7 +261,7 @@ textarea[readonly] {
   flex-flow: row nowrap;
 }
 
-#two-proportion, #two-mean {
+#two-proportions, #two-mean {
   .section {
     margin-bottom: 2em;
     display: flex;
@@ -291,6 +291,10 @@ textarea[readonly] {
     }
   }
   .stats {
+    span {
+      display: block;
+      height: 1rem;
+    }
     [summary] {
       margin-left: 4ch;
     }
