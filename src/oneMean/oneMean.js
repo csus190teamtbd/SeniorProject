@@ -6,6 +6,7 @@ import {
 import StackedDotChart from "../util/stackeddotchart.js";
 import { randomSubset, splitByPredicate } from "../util/sampling.js";
 import * as MathUtil from "/util/math.js";
+import { readTranlationData } from "../util/translation.js";
 
 export class OneMean {
   constructor(OneMeanDiv) {
@@ -54,15 +55,33 @@ export class OneMean {
       oneMeanDiv: OneMeanDiv,
       runSimErrorMsg: OneMeanDiv.querySelector("#run-sim-error-msg"),
       sampleDataDropDown: OneMeanDiv.querySelector("#sample-data"),
-      resetBtn: OneMeanDiv.querySelector("#reset-btn")
+      resetBtn: OneMeanDiv.querySelector("#reset-btn"),
+      translationData: OneMeanDiv.querySelector("#translation-data")
     };
-
+    this.translationData = readTranlationData(this.ele.translationData);
+    console.log(this.translationData);
     this.datasets = [
-      { label: "Original", backgroundColor: "orange", data: [] },
-      { label: "Hypothetical Population", backgroundColor: "orange", data: [] },
-      { label: "Most Recent Drawn", backgroundColor: "blue", data: [] },
+      {
+        label: this.translationData.original,
+        backgroundColor: "orange",
+        data: []
+      },
+      {
+        label: this.translationData.hypotheticalPopulation,
+        backgroundColor: "orange",
+        data: []
+      },
+      {
+        label: this.translationData.mostRecentDrawn,
+        backgroundColor: "blue",
+        data: []
+      },
       [
-        { label: "Samples", backgroundColor: "green", data: [] },
+        {
+          label: this.translationData.Samples,
+          backgroundColor: "green",
+          data: []
+        },
         { label: "N/A", backgroundColor: "red", data: [] }
       ]
     ];
@@ -322,7 +341,7 @@ export class OneMean {
     //update mean output
     const mean = data.length
       ? MathUtil.roundToPlaces(MathUtil.mean(valuesArr), 2)
-      : "No Data";
+      : this.translationData.noData;
     meanEle.innerText = mean;
     if (dataName === this.dataName.orginalData && !isNaN(mean)) {
       this.ele.tailValueInput.value = mean;
@@ -331,12 +350,12 @@ export class OneMean {
     if (dataName !== this.dataName.sampleMeans) {
       textAreaEle.value = data.reduce(
         (acc, x) => acc + `${x.id}\t${x.value}\n`,
-        `ID\tValue\n`
+        `${this.translationData.id}\t${this.translationData.value}\n`
       );
     } else {
       textAreaEle.value = data.reduce(
         (acc, x, index) => acc + `${index + 1}\t${x}\n`,
-        `Sample#\tMean\n`
+        `${this.translationData.sampleNo}\t${this.translationData.mean2}\n`
       );
     }
   }
@@ -369,23 +388,24 @@ export class OneMean {
   }
 
   updateSampleMeansChartLabels(tailDirection, tailInput, mean) {
+    const sampleName = this.translationData.samples;
     if (tailDirection === "null") {
-      this.dataChart4.updateLabelName(0, "samples");
+      this.dataChart4.updateLabelName(0, "${sampleName}");
       this.dataChart4.updateLabelName(1, "N/A");
     } else if (tailDirection === "oneTailRight") {
-      this.dataChart4.updateLabelName(0, `samples < ${tailInput}`);
-      this.dataChart4.updateLabelName(1, `samples >= ${tailInput}`);
+      this.dataChart4.updateLabelName(0, `${sampleName} < ${tailInput}`);
+      this.dataChart4.updateLabelName(1, `${sampleName} >= ${tailInput}`);
     } else if (tailDirection === "oneTailLeft") {
-      this.dataChart4.updateLabelName(0, `samples > ${tailInput}`);
-      this.dataChart4.updateLabelName(1, `samples <= ${tailInput}`);
+      this.dataChart4.updateLabelName(0, `${sampleName} > ${tailInput}`);
+      this.dataChart4.updateLabelName(1, `${sampleName} <= ${tailInput}`);
     } else {
       const distance = MathUtil.roundToPlaces(Math.abs(mean - tailInput), 2);
       const left = mean - distance;
       const right = mean + distance;
-      this.dataChart4.updateLabelName(0, `${left} < samples < ${right}`);
+      this.dataChart4.updateLabelName(0, `${left} < ${sampleName} < ${right}`);
       this.dataChart4.updateLabelName(
         1,
-        `samples <= ${left} or samples >= ${right}`
+        `${sampleName} <= ${left} or ${sampleName} >= ${right}`
       );
     }
   }

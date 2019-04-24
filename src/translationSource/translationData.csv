@@ -34,3 +34,38 @@ Standard Deviation:	Desviación Estándar:	oneProportion.standardDeviation
 Probability of Heads p:	Probabilidad de Agulas p:	oneProportion.probHeads
 Add samples	Add samples(MISSING):	oneProportion.addSamples
 Select interval for # of heads in	Select interval for # of heads in(MISSING)	oneProportion.selectInterval
+Enter Data:	Teclee los Datos	oneMean.enterData
+Select Sample Data	Seleccione Datos Muestra	oneMean.slectData
+Sample XXX	Muestra XXX	oneMean.sample
+Please enter data or drop columns from cvs file here (no column titles - see sample data)	Teclee datos aquí o pegue selección de columnas de archivo csv (sin títulos de columna - ver datos muestra)	oneMean.textAreaPlaceHolder
+Load Data	Cargar Datos	oneMean.loadData
+Reset	Reinicio	oneMean.reset
+ID	#	oneMean.id
+Value	Dato	oneMean.value
+Mean:	Media:	oneMean.mean1
+Generate Hypothetical Population	Generar Población Hipotética	oneMean.chartTitle2
+Shift mean	Desplace la media	oneMean.shiftMean
+Increase data	Incremente la muestra	oneMean.increaseData
+times	veces	oneMean.times
+Draw Sample	Obtenga la Muestra	oneMean.drawSample
+Sample size:	Tamaño de muestra	oneMean.sampleSize
+# of samples	# de muestras	oneMean.noOfSample
+Run Simulation	Correr Simulacón	oneMean.runSim
+Sampling Distribution of Means	Distribucón de las medias	oneMean.chartTitle4
+Please select	Seleccione	oneMean.pleaseSelect
+One Tail Right	Una cola (derecha)	oneMean.oneTailRight
+One Tail Left	Una cola (izquierda)	oneMean.oneTailLeft
+Two Tail	Dos colas	oneMean.twoTail
+Total # of samples:	Total # de muestras	oneMean.totalNoOfSamples
+Sample means at least as extreme as	Medias igual o más extremas que	oneMean.extremeSamples
+samples	muestras	oneMean.samples
+Samples	Muestras	oneMean.Samples
+Proportion	Proporción	oneMean.proportion
+sample #	Número de muestra	oneMean.sampleNo
+Mean	Media	oneMean.mean2
+Mean of sample means: 	Media de las medias:	oneMean.meanOfsamplesMeans
+Original	Original	oneMean.original
+Hypothetical Population	Poblacíon Hipotética	oneMean.hypotheticalPopulation
+Most Recent Drawn	Ultima Muestra	oneMean.mostRecentDrawn
+No Data	No Data(MISSING)	oneMean.noData
+Total samples:	Total de muestras	oneMean.totalSamples

@@ -20,7 +20,43 @@ en:
   home:
     title: Home
   oneMean:
+    Samples: Samples
+    chartTitle2: Generate Hypothetical Population
+    chartTitle4: Sampling Distribution of Means
+    drawSample: Draw Sample
+    enterData: 'Enter Data:'
+    extremeSamples: Sample means at least as extreme as
+    hypotheticalPopulation: Hypothetical Population
+    id: ID
+    increaseData: Increase data
+    loadData: Load Data
+    mean1: 'Mean:'
+    mean2: Mean
+    meanOfsamplesMeans: 'Mean of sample means: '
+    mostRecentDrawn: Most Recent Drawn
+    noData: No Data
+    noOfSample: '# of samples'
+    oneTailLeft: One Tail Left
+    oneTailRight: One Tail Right
+    original: Original
+    pleaseSelect: Please select
+    proportion: Proportion
+    reset: Reset
+    runSim: Run Simulation
+    sample: Sample XXX
+    sampleNo: 'sample #'
+    sampleSize: 'Sample size:'
+    samples: samples
+    shiftMean: Shift mean
+    slectData: Select Sample Data
+    textAreaPlaceHolder: Please enter data or drop columns from cvs file here (no
+      column titles - see sample data)
+    times: times
     title: One Mean
+    totalNoOfSamples: 'Total # of samples:'
+    totalSamples: 'Total samples:'
+    twoTail: Two Tail
+    value: Value
   oneProportion:
     Samples: Samples
     addSamples: Add samples
@@ -76,7 +112,43 @@ es:
   home:
     title: Inicio
   oneMean:
+    Samples: Muestras
+    chartTitle2: Generar Población Hipotética
+    chartTitle4: Distribucón de las medias
+    drawSample: Obtenga la Muestra
+    enterData: Teclee los Datos
+    extremeSamples: Medias igual o más extremas que
+    hypotheticalPopulation: Poblacíon Hipotética
+    id: '#'
+    increaseData: Incremente la muestra
+    loadData: Cargar Datos
+    mean1: 'Media:'
+    mean2: Media
+    meanOfsamplesMeans: 'Media de las medias:'
+    mostRecentDrawn: Ultima Muestra
+    noData: No Data(MISSING)
+    noOfSample: '# de muestras'
+    oneTailLeft: Una cola (izquierda)
+    oneTailRight: Una cola (derecha)
+    original: Original
+    pleaseSelect: Seleccione
+    proportion: Proporción
+    reset: Reinicio
+    runSim: Correr Simulacón
+    sample: Muestra XXX
+    sampleNo: Número de muestra
+    sampleSize: Tamaño de muestra
+    samples: muestras
+    shiftMean: Desplace la media
+    slectData: Seleccione Datos Muestra
+    textAreaPlaceHolder: Teclee datos aquí o pegue selección de columnas de archivo
+      csv (sin títulos de columna - ver datos muestra)
+    times: veces
     title: Una Media
+    totalNoOfSamples: 'Total # de muestras'
+    totalSamples: Total de muestras
+    twoTail: Dos colas
+    value: Dato
   oneProportion:
     Samples: Muestras
     addSamples: 'Add samples(MISSING):'
