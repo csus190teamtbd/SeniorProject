@@ -1,7 +1,72 @@
 en:
+  userManual:
+    title: User Manual
+  about:
+    title: About
+  download:
+    title: Download
+  home:
+    title: Home
+  oneMean:
+    title: One Mean
+  oneProporion:
+    Samples: Samples
   oneProportion:
-    title: 'One Proportion'
-
+    binomial: Binomial
+    maxHead: "Max # of head:"
+    minHead: "Min # of heads:"
+    noOfHeads: "#of heads in XXX tosses"
+    noOfSamples: "# of samples"
+    proportion: Proportion
+    remark1: "1. Double click the graph to zoom in/out if # of tosses >= 50"
+    remark2:
+      2. Click the legend to hide/show corresponding info in graph (changed
+      Remark 2)
+    remarkTitle: "Remarks: "
+    samplesInterval: "# of samples in interval: "
+    selected: Selected
+    title: "One Proportion "
+    tosses: "tosses:"
+  site:
+    footer: Copyright ©2019 CSUS. All Rights Reserved.
+    title: "Statistical Analysis Vizualizions for Introtuctory Statistics "
+  twoMean:
+    title: Two Means
+  twoProportion:
+    title: Two Proportions
 es:
+  userManual:
+    title: Manual de Usuario
+  about:
+    title: Acerca de SAVIS
+  download:
+    title: Bajar Archivo
+  home:
+    title: Inicio
+  oneMean:
+    title: Una Media
+  oneProporion:
+    Samples: Muestras
   oneProportion:
-    title: 'Una Proporción'
+    binomial: Binomial
+    maxHead: "Max # de caras"
+    minHead: "Min # de caras"
+    noOfHeads: "# de muestras en XXX lanzamientos"
+    noOfSamples: "# de muestras"
+    proportion: Proporción
+    remark1:
+      1. Haga dos clics en al gráfica para agrandarla o disminuirla si el ·
+      de lanzamientos es >= 50
+    remark2: 2. Haga un clic en las leyendas para mostrar/esconder infromación correspondiente
+    remarkTitle: "Notas: "
+    samplesInterval: "# de caras en intervalo"
+    selected: Seleccionadas
+    title: Una Proporción
+    tosses: lanzamientos
+  site:
+    footer: Copyright ©2019 CSUS. All Rights Reserved.
+    title: Statistical Analysis and Visualization for Introductory Statistics
+  twoMean:
+    title: Dos Medias
+  twoProportion:
+    title: Dos Proporciones

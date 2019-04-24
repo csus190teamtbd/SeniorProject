@@ -10,16 +10,16 @@
     <nav id="navbar">
       <h1 class="logo"><span class="text-primary">SAVIS</span></h1>
       <ul>
-        <li><a href="/#">Home</a></li>
-        <li><a href="/about/">About</a></li>
-        <li><a href="/#">Download</a></li>
-        <li><a href="/#">User Manual</a></li>
+        <li><a href="/#">{% include translate.html key="home.title" %}</a></li>
+        <li><a href="/about/">{% include translate.html key="about.title" %}</a></li>
+        <li><a href="/#">{% include translate.html key="download.title" %}</a></li>
+        <li><a href="/#">{% include translate.html key="userManual.title" %}</a></li>
       </ul>
     </nav>
     <div id="main-content">{{content}}</div>
     <footer id="main-footer" class="bg-dark text-center py-1">
       <div class="container">
-        <p>Copyright ©2019 CSUS. All Rights Reserved.</p>
+        <p>{% include translate.html key="site.footer" %}</p>
       </div>
     </footer>
   </body>
