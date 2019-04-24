@@ -1,7 +1,7 @@
 en:
   about:
-    content1:
-      Statistical Analysis Visualizations for Introductory Statistics (SAVIS)
+    contact: Contact
+    content1: Statistical Analysis Visualizations for Introductory Statistics (SAVIS)
       was conceived as part of a collaborative research project on statistical education
       between the Department of Mathematics and Statistics at  California State University
       Sacramento (CSUS) and the School of Mathematics of the Universidad Autónoma
@@ -9,11 +9,11 @@ en:
       concepts of tests of statistical hypotheses using visualizations based on resampling
       and randomization techniques. SAVIS has an online and a stand-alone version
       (both freely available) in English and Spanish.
-    content2:
-      "SAVIS was created in the Spring of 2019 by the following group of graduating
+    content2: 'SAVIS was created in the Spring of 2019 by the following group of graduating
       seniors from the Department of Computer Science at CSUS under the direction
       of Rafael E. Diaz Escamilla, a professor in the Department of Mathematics and
-      Statistics at CSUS:"
+      Statistics at CSUS:'
+    contributors: Contributors
     title: About
   download:
     title: Download
@@ -26,29 +26,28 @@ en:
     addSamples: Add samples
     binomial: Binomial
     drawSamples: Draw Samples
-    maxHead: "Max # of head:"
-    meanNoOfHeads: "Mean # of heads:"
-    minHead: "Min # of heads:"
-    noOfHeads: "# of heads in "
-    noOfSamples: "# of samples"
-    probHeads: "Probability of Heads p:"
-    proportion: "Proportion:"
-    remark1: "1. Double click the graph to zoom in/out if # of tosses >= 50"
-    remark2:
-      2. Click the legend to hide/show corresponding info in graph  (changed
+    maxHead: 'Max # of head:'
+    meanNoOfHeads: 'Mean # of heads:'
+    minHead: 'Min # of heads:'
+    noOfHeads: '# of heads in '
+    noOfSamples: '# of samples'
+    probHeads: 'Probability of Heads p:'
+    proportion: 'Proportion:'
+    remark1: '1. Double click the graph to zoom in/out if # of tosses >= 50'
+    remark2: 2. Click the legend to hide/show corresponding info in graph  (changed
       Remark 2)
-    remarkTitle: "Remarks:        "
+    remarkTitle: 'Remarks:        '
     reset: Reset
-    samplesInterval: "# of samples in interval: "
-    selectInterval: "Select interval for # of heads in"
+    samplesInterval: '# of samples in interval: '
+    selectInterval: 'Select interval for # of heads in'
     selected: Selected
-    standardDeviation: "Standard Deviation:"
-    title: "One Proportion "
-    tosses1: "tosses:"
+    standardDeviation: 'Standard Deviation:'
+    title: 'One Proportion '
+    tosses1: 'tosses:'
     tosses2: tosses
-    totalSamples: "Total samples:"
+    totalSamples: 'Total samples:'
   site:
-    title: "Statistical Analysis Vizualizions for Introtuctory Statistics "
+    title: 'Statistical Analysis Vizualizions for Introtuctory Statistics '
   twoMean:
     title: Two Means
   twoProportion:
@@ -57,8 +56,8 @@ en:
     title: User Manual
 es:
   about:
-    content1:
-      Statistical Analysis Visualizations for Introductory Statistics (SAVIS)
+    contact: Contact(MISSING)
+    content1: Statistical Analysis Visualizations for Introductory Statistics (SAVIS)
       fue concebido como parte de un proyecto de investigación en educación de la
       estadística realizado por el Departamento de Matemáticas y Estadística de la
       Universidad Estatal de California Sacramento y la Universidad Autónoma de Yucatán.
@@ -66,11 +65,11 @@ es:
       hipótesis estadísticas a través de visualizaciones basadas en técnicas de aleatorización
       y re-muestreo. SAVIS tiene una versión autónoma y otra en línea, ambas gratis,
       en inlglés y en español.
-    content2:
-      "SAVIS fue creado como un proyecto de titulación por los siguientes
+    content2: 'SAVIS fue creado como un proyecto de titulación por los siguientes
       estudiantes del Departamento de Ciencias de la Computación de la Universidad
       Estatal de California Sacramento bajo la dirección de Rafael E. Diaz Escamilla,
-      profesor del Departamento de Matemáticas y Estadística de esta misma universidad:"
+      profesor del Departamento de Matemáticas y Estadística de esta misma universidad:'
+    contributors: Contributors
     title: Acerca de SAVIS
   download:
     title: Bajar Archivo
@@ -80,28 +79,27 @@ es:
     title: Una Media
   oneProportion:
     Samples: Muestras
-    addSamples: "Add samples(MISSING):"
+    addSamples: 'Add samples(MISSING):'
     binomial: Binomial
     drawSamples: Obtener Muestras
-    maxHead: "Max # de caras:"
-    meanNoOfHeads: "Media # de caras"
-    minHead: "Min # de caras:"
-    noOfHeads: "# de muestras en "
-    noOfSamples: "# de muestras"
-    probHeads: "Probabilidad de Agulas p:"
-    proportion: "Proporción:"
-    remark1:
-      1. Haga dos clics en al gráfica para agrandarla o disminuirla si el ·
+    maxHead: 'Max # de caras:'
+    meanNoOfHeads: 'Media # de caras'
+    minHead: 'Min # de caras:'
+    noOfHeads: '# de muestras en '
+    noOfSamples: '# de muestras'
+    probHeads: 'Probabilidad de Agulas p:'
+    proportion: 'Proporción:'
+    remark1: 1. Haga dos clics en al gráfica para agrandarla o disminuirla si el ·
       de lanzamientos es >= 50
     remark2: 2. Haga un clic en las leyendas para mostrar/esconder infromación correspondiente
-    remarkTitle: "Notas: "
+    remarkTitle: 'Notas: '
     reset: Reinicio
-    samplesInterval: "# de caras en intervalo"
-    selectInterval: "Select interval for # of heads in(MISSING)"
+    samplesInterval: '# de caras en intervalo'
+    selectInterval: 'Select interval for # of heads in(MISSING)'
     selected: Seleccionadas
-    standardDeviation: "Desviación Estándar:"
+    standardDeviation: 'Desviación Estándar:'
     title: Una Proporción
-    tosses1: "lanzamientos:"
+    tosses1: 'lanzamientos:'
     tosses2: lanzamientos
     totalSamples: Total de muestras
   site:
