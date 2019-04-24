@@ -1,5 +1,6 @@
+import { readTranlationData } from "../util/translation.js";
 export default class ChartModule {
-  constructor(canvasEle) {
+  constructor(canvasEle, translationEle) {
     this.zoomIn = false;
     this.color = {
       sample: "rgba(255,0,0,0.7)",
@@ -9,7 +10,8 @@ export default class ChartModule {
       box: "rgba(0,255,0,0.1)",
       invisible: "rgba(0,255,0,0.0)"
     };
-
+    this.translationData = readTranlationData(translationEle);
+    console.log(this.translationData);
     this.dataFromCalculation = {
       theoryMean: 0,
       noOfSelected: 0
@@ -22,7 +24,7 @@ export default class ChartModule {
         labels: [],
         datasets: [
           {
-            label: "Samples",
+            label: this.translationData.Samples,
             data: [],
             borderWidth: 1,
             id: "x-axis-1",
@@ -31,7 +33,7 @@ export default class ChartModule {
           },
           {
             type: "bubble",
-            label: "Binomial",
+            label: this.translationData.binomial,
             data: [],
             borderWidth: 0.1,
             id: "x-axis-2",
@@ -41,7 +43,7 @@ export default class ChartModule {
           },
           {
             type: "line",
-            label: "Selected",
+            label: this.translationData.selected,
             data: [],
             borderWidth: 0.1,
             id: "x-axis-3",
@@ -60,7 +62,7 @@ export default class ChartModule {
               },
               scaleLabel: {
                 display: true,
-                labelString: "# of samples",
+                labelString: this.translationData.noOfSamples,
                 fontColor: "black",
                 fontSize: "14"
               }
@@ -71,7 +73,7 @@ export default class ChartModule {
               barPercentage: 1.0,
               scaleLabel: {
                 display: true,
-                labelString: "# of heads",
+                labelString: this.translationData.noOfHeads,
                 fontColor: "black",
                 fontSize: "14"
               }
@@ -147,7 +149,9 @@ export default class ChartModule {
     this.dataFromCalculation.theoryMean = mean;
     this.dataFromCalculation.noOfSelected = noOfSelected;
     this.chart.mean = mean;
-    this.chart.options.scales.xAxes[0].scaleLabel.labelString = `# of heads in ${noOfCoin} tosses`;
+    this.chart.options.scales.xAxes[0].scaleLabel.labelString = `${
+      this.translationData.noOfHeads
+    } ${noOfCoin} ${this.translationData.tosses2}`;
     this.chart.update();
   }
 }

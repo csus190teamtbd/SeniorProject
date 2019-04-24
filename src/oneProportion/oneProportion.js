@@ -1,6 +1,6 @@
 import ChartModule from "./chartModule.js";
 import { cal } from "./calculation.js";
-import { readTranlationData } from "../util/translation.js";
+// import { readTranlationData } from "../util/translation.js";
 export class OneProportion {
   constructor() {
     this.initState = () => {
@@ -42,11 +42,15 @@ export class OneProportion {
       stdDisplay: document.getElementById("stdDisplay")
     };
 
-    this.translationData = readTranlationData(
+    // this.translationData = readTranlationData(
+    //   document.getElementById("translation-data")
+    // );
+    // console.log(this.translationData);
+    this.state = this.initState();
+    this.chart = new ChartModule(
+      this.ele.chart,
       document.getElementById("translation-data")
     );
-    this.state = this.initState();
-    this.chart = new ChartModule(this.ele.chart);
 
     this.reset = e => {
       this.state = this.initState();
