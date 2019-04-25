@@ -27,8 +27,8 @@ export class TwoMean {
     };
 
     this.datasets = [
-      { label: 'Group One', backgroundColor: '#333333', data: [] },
-      { label: 'Group Two', backgroundColor: '#93cb52', data: [] },
+      { label: 'Group One', backgroundColor: 'orange', data: [] },
+      { label: 'Group Two', backgroundColor: 'rebeccapurple', data: [] },
     ];
     this.dataChart1 = new StackedDotChart(twoMeanDiv.querySelector('#data-chart-1'), [this.datasets[0]]);
     this.dataChart2 = new StackedDotChart(twoMeanDiv.querySelector('#data-chart-2'), [this.datasets[1]]);
