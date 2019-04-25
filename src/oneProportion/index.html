@@ -4,7 +4,7 @@ title: One Proportion
 ---
 
 <link rel="stylesheet" href="./oneProportion.css">
-<p id="translation-data" hidden>{% include translate.html key="oneProportion" %}</p>
+<p id = "jekyll-env" hidden>{{jekyll.environment}}</p>
 <div id="one-proportion">
   <h1> {% include translate.html key="oneProportion.title" %}</h1>
   </p>
@@ -79,8 +79,12 @@ title: One Proportion
 <script src="../lib/Chart.bundle.min.js"></script>
 <script type="module" src="./oneProportion.js"></script>
 <script type="module">
-  import { OneProportion } from "./oneProportion.js";
-  window.oneProportion = new OneProportion(
-    document.getElementById("one-proportion")
-  );
+  import {loadTranslation, parseTranslationCSV} from '../util/csv.js';
+  import {OneProportion} from './oneProportion.js';
+  (async()=> {
+    const allTranslations = await loadTranslation('../translationSource/translationData.csv')
+    const lang = document.querySelector('#jekyll-env').innerText;
+    const tranlationDict = parseTranslationCSV(allTranslations, lang, 'oneProportion')
+    window.oneProportion = new OneProportion(document.getElementById('one-proportion'), tranlationDict);
+  })();
 </script>

@@ -1,6 +1,5 @@
-import { readTranlationData } from "../util/translation.js";
 export default class ChartModule {
-  constructor(canvasEle, translationEle) {
+  constructor(canvasEle, translation) {
     this.zoomIn = false;
     this.color = {
       sample: "rgba(255,0,0,0.7)",
@@ -10,7 +9,7 @@ export default class ChartModule {
       box: "rgba(0,255,0,0.1)",
       invisible: "rgba(0,255,0,0.0)"
     };
-    this.translationData = readTranlationData(translationEle);
+    this.translationData = translation;
     console.log(this.translationData);
     this.dataFromCalculation = {
       theoryMean: 0,

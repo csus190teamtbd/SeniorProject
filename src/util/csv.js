@@ -81,8 +81,9 @@ export function parseTranslationCSV(rawData, lang, pageTitle) {
   return res;
 }
 
-export async function loadTranslation(res, filePath) {
+export async function loadTranslation(filePath) {
   try {
     const r = await fetch(filePath);
+    return await r.text();
   } catch (error) {}
 }
