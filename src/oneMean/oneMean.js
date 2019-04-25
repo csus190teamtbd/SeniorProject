@@ -1,7 +1,8 @@
 import {
   dropTextFileOnTextArea,
   parseCSVtoSingleArray,
-  readLocalFile
+  readLocalFile,
+  parseTranslationCSV
 } from "../util/csv.js";
 import StackedDotChart from "../util/stackeddotchart.js";
 import { randomSubset, splitByPredicate } from "../util/sampling.js";
@@ -17,6 +18,7 @@ export class OneMean {
     this.mostRecentDraw = [];
     this.sampleMeans = [];
     this.sampleSize = undefined;
+    this.translationData = undefined;
     this.tailDiection = null;
     this.sampleData = {
       // has to hardcode if not using server
@@ -58,7 +60,9 @@ export class OneMean {
       resetBtn: OneMeanDiv.querySelector("#reset-btn"),
       translationData: OneMeanDiv.querySelector("#translation-data")
     };
-    this.translationData = readTranlationData(this.ele.translationData);
+
+    this.readTranlationData();
+
     console.log(this.translationData);
     this.datasets = [
       {
@@ -215,6 +219,16 @@ export class OneMean {
       );
       e.preventDefault();
     });
+  }
+
+  async readTranlationData() {
+    try {
+      const r = await fetch("../translationSource/translationData.csv");
+      const t = await r.text();
+      this.translationData = t;
+    } catch (err) {
+      console.log("cannot load csv");
+    }
   }
 
   sampleListListener() {

@@ -1,14 +1,14 @@
 export function dropTextFileOnTextArea(textAreaElement) {
   textAreaElement.addEventListener("dragover", () => {
-    textAreaElement.classList.add('dragover');
+    textAreaElement.classList.add("dragover");
   });
 
   textAreaElement.addEventListener("dragleave", () => {
-    textAreaElement.classList.remove('dragover');
+    textAreaElement.classList.remove("dragover");
   });
 
   textAreaElement.addEventListener("drop", e => {
-    textAreaElement.classList.remove('dragover');
+    textAreaElement.classList.remove("dragover");
     let file = e.dataTransfer.files[0];
     const reader = new FileReader();
     reader.onload = event => {
@@ -62,4 +62,27 @@ export function parseCSVtoSingleArray(rawData) {
 //return promise
 export function readLocalFile(filePath) {
   return fetch(filePath).then(r => r.text());
+}
+
+export function parseTranslationCSV(rawData, lang, pageTitle) {
+  const rows = rawData.split(/[\r\n]+/);
+  const res = rows.reduce((acc, row) => {
+    if (row) {
+      let [en, es, key] = row.split("\t");
+      // console.log(key.split("."));
+      const [mainKey, subKey] = key.split(".");
+      if (mainKey === pageTitle) {
+        if (lang === "en") return { ...acc, [subKey]: en };
+        if (lang === "es") return { ...acc, [subKey]: es };
+      } else return acc;
+    } else return acc;
+  }, {});
+  // console.log(res);
+  return res;
+}
+
+export async function loadTranslation(res, filePath) {
+  try {
+    const r = await fetch(filePath);
+  } catch (error) {}
 }

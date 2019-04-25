@@ -5,10 +5,8 @@ title: One Means
 
 <link rel="stylesheet" href="oneMean.css">
 <div id="one-mean">
-<p id="translation-data" hidden>{% include translate.html key="oneMean" %}</p>
-    {% for w in {% include translate.html key="oneMean" %} %}
-    <li><p> {{ w[0] }} ===== {{ w[1] }}</p></li>
-    {% endfor %}
+<p id="translation-data" >{% include translate.html key="oneMean" %}</p>
+
   <h1> {% include translate.html key="oneMean.title" %}</h1>
   <h3>1. {% include translate.html key="oneMean.enterData" %}<input type="checkbox" class='toggle-box' checked="checked"></h3>
   <div class="chart-input-form">
@@ -89,6 +87,13 @@ title: One Means
 
 <script src="../lib/Chart.bundle.min.js"></script>
 <script type="module">
+  let x
+  (async function tranlationData() {
+  const r = await fetch("../translationSource/translationData.csv");
+  const t = await r.text();
+  x = t;
+  })();
+  console.log(x);
   import {OneMean} from './oneMean.js';
   window.oneMean = new OneMean(document.getElementById('one-mean'));
 </script>
