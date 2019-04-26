@@ -1,0 +1,15 @@
+{%   comment
+%}{%   https://ricostacruz.com/til/relative-paths-in-jekyll
+%}{% endcomment
+
+ %}{% assign base = ''
+%}{% assign depth = page.url | split: '/' | size | minus: 1
+%}{% if depth <= 0
+%}{%   assign base = '.'
+%}{% else
+%}{%   assign base = '.'
+%}{%   for i in (0..depth)
+%}{%     assign base = base | append: '/..'
+%}{%   endfor
+%}{% endif
+%}

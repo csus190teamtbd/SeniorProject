@@ -1,6 +1,8 @@
-import ChartModule from "./chartModule.js";
-import { cal } from "./calculation.js";
-import translation from "../util/translate.js";
+---
+---
+import ChartModule from "{{base}}./chartModule.js";
+import { cal } from "{{base}}./calculation.js";
+import translation from "{{base}}../util/translate.js";
 export class OneProportion {
   constructor(ele) {
     this.initState = () => {

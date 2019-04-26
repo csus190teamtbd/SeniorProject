@@ -3,7 +3,7 @@ layout: default
 title: One Proportion
 ---
 
-<link rel="stylesheet" href="./oneProportion.css">
+<link rel="stylesheet" href="{{base}}./oneProportion.css">
 <div id="one-proportion">
   <h1> {% include translate.html key="oneProportion.title" %}</h1>
   </p>
@@ -75,9 +75,8 @@ title: One Proportion
     </div>
     </div>
 </div>
-<script src="../lib/Chart.bundle.min.js"></script>
-<script type="module" src="./oneProportion.js"></script>
+<script src="{{base}}../lib/Chart.bundle.min.js"></script>
 <script type="module">
-  import {OneProportion} from './oneProportion.js';
+  import {OneProportion} from '{{base}}./oneProportion.js';
   window.oneProportion = new OneProportion(document.getElementById('one-proportion'));
 </script>
