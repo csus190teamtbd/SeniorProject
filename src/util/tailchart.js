@@ -90,7 +90,7 @@ export default class TailChart {
       const distance = MathUtil.roundToPlaces(Math.abs(mean - this.tailInput), 2);
       const left = mean - distance;
       const right = mean + distance;
-      this.chart.updateLabelName(0, `${left} < samples < ${right}`);
+      this.chart.updateLabelName(0, `${left} < ${word} < ${right}`);
       this.chart.updateLabelName(
         1,
         `${word} <= ${left} or ${word} >= ${right}`
@@ -119,6 +119,7 @@ export default class TailChart {
       valuesArr,
       this.predicateForTail(0)
     );
+    // todo(matthewmerrill): if used for onemean, this isn't 0
     this.updateChartLabels(0);
     this.chart.setDataFromRaw([unchosen, chosen]);
     this.chart.scaleToStackDots();

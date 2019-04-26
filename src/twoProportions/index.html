@@ -49,7 +49,19 @@ title: Two Proportions
       </div>
     </div>
     <div class="rhs">
-      <div class="chart-wrap"><canvas id="input-bars"></canvas></div>
+      <table style="margin-left: 3em">
+        <tr>
+          <td style="text-align: right"><span summary="numAFailure"></span> Failures</td>
+          <td rowspan="2" colspan="2">
+            <div class="chart-wrap"><canvas id="input-bars"></canvas></div>
+          </td>
+          <td><span summary="numBFailure"></span> Failures</td>
+        </tr>
+        <tr>
+          <td style="text-align: right"><span summary="numASuccess"></span> Successes</td>
+          <td><span summary="numBSuccess"></span> Successes</td>
+        </tr>
+      </table>
     </div>
   </div>
 
@@ -57,9 +69,9 @@ title: Two Proportions
   <div class="section">
     <div class="lhs">
       <label># of Simulations:
-        <input id="num-simulations" type="number" min="1" value="1" max="1000"/>
+        <input id="num-simulations" type="number" min="1" value="1" max="1000" disabled="need-data"/>
       </label>
-      <button class="btn" onclick="twoProportions.runSimulations()">Run Simulations</button>
+      <button class="btn" disabled="need-data" onclick="twoProportions.runSimulations()">Run Simulations</button>
       <div class="stats">
         <div>
           <span>Proportion of Sample Group A:</span>
@@ -76,17 +88,30 @@ title: Two Proportions
       </div>
     </div>
     <div class="rhs">
-      <div class="chart-wrap"><canvas id="last-sim-bars"></canvas></div>
+      <table style="margin-left: 3em">
+        <tr>
+          <td style="text-align: right"><span summary="sampleAFailure"></span> Failures</td>
+          <td rowspan="2" colspan="2">
+            <div class="chart-wrap"><canvas id="last-sim-bars"></canvas></div>
+          </td>
+          <td><span summary="sampleBFailure"></span> Failures</td>
+        </tr>
+        <tr>
+          <td style="text-align: right"><span summary="sampleASuccess"></span> Successes</td>
+          <td><span summary="sampleBSuccess"></span> Successes</td>
+        </tr>
+      </table>
     </div>
   </div>
 
   <h2>3. Sampling Distribution of Difference of Proportions</h2>
   <div class="section flex-row">
     <div class="lhs">
-      <select id="tail-direction">
+      <select id="tail-direction" disabled="need-results">
         {% include tailChartDirectionOptions.html %}
       </select>
-      <span>Select all as extreme as</span><input type="number" id="tail-input" value="0" step="any">
+      <span>Select all as extreme as</span>
+      <input type="number" id="tail-input" value="0" step="any" disabled="need-results">
       <hr>
       <div class="stats">
         <div>

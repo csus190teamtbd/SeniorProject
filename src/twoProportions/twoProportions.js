@@ -23,6 +23,8 @@ export class TwoProportions {
       numSimulations: twoPropDiv.querySelector('#num-simulations'),
       tailDirectionElement: twoPropDiv.querySelector('#tail-direction'),
       tailInputElement: twoPropDiv.querySelector('#tail-input'),
+      needData: twoPropDiv.querySelectorAll('[disabled=need-data]'),
+      needResults: twoPropDiv.querySelectorAll('[disabled=need-results]'),
     };
     this.summaryElements = Summaries.loadSummaryElements(twoPropDiv);
 
@@ -50,21 +52,33 @@ export class TwoProportions {
     let numAFailure = this.dom.aFailure.value * 1;
     let numBSuccess = this.dom.bSuccess.value * 1;
     let numBFailure = this.dom.bFailure.value * 1;
-    let summary = {
-      proportionA: numASuccess / (numASuccess + numAFailure), // todo(matthewmerrill): fixed decimals
-      proportionB: numBSuccess / (numBSuccess + numBFailure),
+    if (numASuccess + numAFailure === 0 || numBSuccess + numBFailure === 0) {
+      alert('Group A and Group B must both have at least one element.');
     }
-    summary.proportionDiff = summary.proportionA - summary.proportionB;
-    Summaries.updateSummaryElements(this.summaryElements, summary);
-    this.data = { numASuccess, numAFailure, numBSuccess, numBFailure };
-    this.charts.inputChart.setProportions(this.data);
-    this.charts.inputChart.update();
-    this.charts.lastSimChart.setProportions({
-      numASuccess: 0, numAFailure: 0, numBSuccess: 0, numBFailure: 0,
-    });
-    this.charts.lastSimChart.update();
-    this.charts.tailChart.reset();
-    this.charts.tailChart.updateChart();
+    else {
+      let summary = {
+        numASuccess, numAFailure, numBSuccess, numBFailure,
+        proportionA: numASuccess / (numASuccess + numAFailure), // todo(matthewmerrill): fixed decimals
+        proportionB: numBSuccess / (numBSuccess + numBFailure),
+      }
+      summary.proportionDiff = summary.proportionA - summary.proportionB;
+      Summaries.updateSummaryElements(this.summaryElements, summary);
+      this.data = { numASuccess, numAFailure, numBSuccess, numBFailure };
+      this.charts.inputChart.setProportions(this.data);
+      this.charts.inputChart.update();
+      this.charts.lastSimChart.setProportions({
+        numASuccess: 0, numAFailure: 0, numBSuccess: 0, numBFailure: 0,
+      });
+      this.charts.lastSimChart.update();
+      this.charts.tailChart.reset();
+      this.charts.tailChart.updateChart();
+      for (let elem of this.dom.needData) {
+        elem.removeAttribute('disabled');
+      }
+      for (let elem of this.dom.needResults) {
+        elem.setAttribute('disabled', true);  
+      }
+    }
   }
 
   runSimulations() {
@@ -89,6 +103,8 @@ export class TwoProportions {
       let sampleB = shuffled.slice(totalGroupA);
       let sampleASuccess = countWhere(sampleA, x => x == 1);
       let sampleBSuccess = countWhere(sampleB, x => x == 1);
+      let sampleAFailure = totalGroupA - sampleASuccess;
+      let sampleBFailure = totalGroupB - sampleBSuccess;
       let sampleAProportion = sampleASuccess / totalGroupA;
       let sampleBProportion = sampleBSuccess / totalGroupB;
       this.addSimulationResult(sampleAProportion - sampleBProportion);
@@ -100,6 +116,7 @@ export class TwoProportions {
           numBFailure: totalGroupB - sampleBSuccess,
         });
         let summary = {
+          sampleASuccess, sampleAFailure, sampleBSuccess, sampleBFailure,
           sampleProportionA: sampleASuccess / totalGroupA,
           sampleProportionB: sampleBSuccess / totalGroupB,
           sampleProportionDiff: (sampleASuccess - sampleBSuccess) / (totalGroupA + totalGroupB),
@@ -109,6 +126,11 @@ export class TwoProportions {
     }
     this.charts.lastSimChart.update();
     this.charts.tailChart.updateChart();
+    if (this.charts.tailChart.results.length) {
+      for (let elem of this.dom.needResults) {
+        elem.removeAttribute('disabled');  
+      }
+    }
   }
 
   addSimulationResult(diffOfProps) {
