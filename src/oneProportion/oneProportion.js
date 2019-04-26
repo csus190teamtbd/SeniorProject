@@ -1,7 +1,8 @@
 import ChartModule from "./chartModule.js";
 import { cal } from "./calculation.js";
+import translation from "../util/translate.js";
 export class OneProportion {
-  constructor(ele, translation) {
+  constructor(ele) {
     this.initState = () => {
       return {
         noOfCoin: 5,
@@ -42,11 +43,8 @@ export class OneProportion {
     };
 
     this.state = this.initState();
-    this.translationData = translation;
-    this.chart = new ChartModule(
-      this.ele.chart,
-      this.translationData
-    );
+    this.translationData = translation.oneProportion;
+    this.chart = new ChartModule(this.ele.chart, this.translationData);
     this.reset = e => {
       this.state = this.initState();
       this.updateView(this.state, this.ele);

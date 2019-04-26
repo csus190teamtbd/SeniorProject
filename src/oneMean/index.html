@@ -4,7 +4,6 @@ title: One Means
 ---
 
 <link rel="stylesheet" href="oneMean.css">
-<p id = "jekyll-env" hidden>{{jekyll.environment}}</p>
 <div id="one-mean">
   <h1> {% include translate.html key="oneMean.title" %}</h1>
   <h3>1. {% include translate.html key="oneMean.enterData" %}<input type="checkbox" class='toggle-box' checked="checked"></h3>
@@ -86,13 +85,7 @@ title: One Means
 
 <script src="../lib/Chart.bundle.min.js"></script>
 <script type="module">
-  import {loadTranslation, parseTranslationCSV} from '../util/csv.js';
   import {OneMean} from './oneMean.js';
-  (async()=> {
-    const allTranslations = await loadTranslation('../translationSource/translationData.csv')
-    const lang = document.querySelector('#jekyll-env').innerText;
-    const tranlationDict = parseTranslationCSV(allTranslations, lang, 'oneMean')
-    window.oneMean = new OneMean(document.getElementById('one-mean'), tranlationDict);
-  })();
+  window.oneMean = new OneMean(document.getElementById('one-mean'));
 </script>
 

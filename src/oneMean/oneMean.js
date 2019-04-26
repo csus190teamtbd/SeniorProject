@@ -1,14 +1,15 @@
 import {
   dropTextFileOnTextArea,
   parseCSVtoSingleArray,
-  readLocalFile,
+  readLocalFile
 } from "../util/csv.js";
 import StackedDotChart from "../util/stackeddotchart.js";
 import { randomSubset, splitByPredicate } from "../util/sampling.js";
 import * as MathUtil from "/util/math.js";
+import translation from "../util/translate.js";
 
 export class OneMean {
-  constructor(OneMeanDiv, translation) {
+  constructor(OneMeanDiv) {
     this.shiftMean = 0;
     this.mulFactor = 0;
     this.populationData = [];
@@ -18,7 +19,7 @@ export class OneMean {
     this.sampleSize = undefined;
     this.translationData = undefined;
     this.tailDiection = null;
-    this.translationData = translation;
+    this.translationData = translation.oneMean;
     this.sampleData = {
       // has to hardcode if not using server
       "Select Sample Data": null,
@@ -61,7 +62,7 @@ export class OneMean {
     };
 
     // this.readTranlationData();
-    
+
     console.log(this.translationData);
     this.datasets = [
       {
