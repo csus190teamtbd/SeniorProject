@@ -1,9 +1,26 @@
----
-layout: default
-title: Two Proportions
----
-
-<link rel="stylesheet" href="twoProportions.css">
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>SAVIS | Two Proportions</title>
+    <link rel="stylesheet" href="/css/base.css"></link>
+  </head>
+  <body>
+    <nav id="navbar">
+      <h1 class="logo"><span class="text-primary">SAVIS</span></h1>
+      <ul>
+        <li><a href="/#">Inicio
+</a></li>
+        <li><a href="/about/">Acerca de SAVIS
+</a></li>
+        <li><a href="/#">Bajar Archivo
+</a></li>
+        <li><a href="/#">Manual de Usuario
+</a></li>
+      </ul>
+    </nav>
+    <div id="main-content"><link rel="stylesheet" href="twoProportions.css">
 <div id="two-proportions">
   <h1>Two Proportions</h1>
   <h2>1. Enter Data</h2>
@@ -108,7 +125,11 @@ title: Two Proportions
   <div class="section flex-row">
     <div class="lhs">
       <select id="tail-direction" disabled="need-results">
-        {% include tailChartDirectionOptions.html %}
+        <option value=null>Please Select</option>
+<option value="oneTailRight">One Tail Right</option>
+<option value="oneTailLeft">One Tail Left</option>
+<option value="TwoTail">Two Tail</option>
+
       </select>
       <span>Select all as extreme as</span>
       <input type="number" id="tail-input" value="0" step="any" disabled="need-results">
@@ -154,3 +175,11 @@ title: Two Proportions
   charset="utf-8"
 </script>
 
+</div>
+    <footer id="main-footer" class="bg-dark text-center py-1">
+      <div class="container">
+        <p>Copyright ©2019 CSUS. All Rights Reserved.</p>
+      </div>
+    </footer>
+  </body>
+</html>
