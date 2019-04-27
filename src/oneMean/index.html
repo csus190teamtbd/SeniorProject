@@ -11,12 +11,13 @@ title: One Means
     <div class="data-form">
       <select id="sample-data">
       </select>
-      <textarea rows="10" id="csv-input" placeholder="please enter data or drop csv here or select sample from sample list"></textarea>
-      <button class="btn" id="load-data-btn">load data</button>
+      <textarea rows="8" id="csv-input" placeholder="Please enter data or drop columns from cvs file here (no column titles - see sample data)"></textarea>
+      <button class="btn" id="load-data-btn">Load Data</button>
+      <button class="btn" id="reset-btn">Reset</button>
     </div>
     <div class="data-form">
       <textarea rows="10" id="original-data-display" readonly></textarea>
-      <p>mean:<span id ="original-mean"></span></p>
+      <p>Mean: <span id ="original-mean"></span></p>
     </div>
     <div class="chart-wrap"><canvas id="original-data-chart"></canvas></div>
   </div>
@@ -25,16 +26,15 @@ title: One Means
   <h3>2. Generate Hypothetical Population<input type="checkbox" class='toggle-box' checked="checked"></h3>
   <div class="chart-input-form">
     <div class="data-form">
-      <label for="shiftMeanInput"> shift mean</label>
+      <label for="shiftMeanInput"> Shift mean</label>
       <input type="number" step="0.1" id="shiftMeanInput" value="0"/>
-      <input type="range" min="-10" max="10" step="0.1" id="shiftMeanSlider"/>
-      <label for="mul-factor">Increase data by <span id="mul-factor-display">0</span
+      <label for="mul-factor">Increase data <span id="mul-factor-display">0</span
           > times</label>
       <input type="range" min="0" max="50" step="1" id="mul-factor" value="1"/>
     </div>  
     <div class="data-form">
       <textarea rows="10" readonly id="population-data-display"></textarea>
-      <p>mean:<span id ="population-mean"></span></p>
+      <p>Mean: <span id ="population-mean"></span></p>
     </div>
     <div class="chart-wrap"><canvas id="population-data-chart"></canvas></div>
   </div>
@@ -43,15 +43,15 @@ title: One Means
   <h3>3. Draw Sample<input type="checkbox" class='toggle-box' checked="checked"></h3>  
   <div class="chart-input-form">
     <div class="data-form">
-      <label for="sample-size"> Sample Size</label>
+      <label for="sample-size"> Sample size</label>
       <input type="number" min="1" step="1" id="sample-size" value="10"/>
-      <label for="no-of-sample"> No of Sample</label>
+      <label for="no-of-sample"> # of samples</label>
       <input type="number" min="1" step="1" id="no-of-sample" value="1"/>
       <button class="btn" id="run-sim-btn">Run Simulation</button>
     </div>
     <div class="data-form">
       <textarea rows="10" readonly id="most-recent-sample-display"></textarea>
-      <p>mean:<span id ="sample-mean"></span></p>
+      <p>Mean: <span id ="sample-mean"></span></p>
     </div>
     <div class="chart-wrap"><canvas id="sample-data-chart"></canvas></div>
   </div>
@@ -67,15 +67,15 @@ title: One Means
         <option value="TwoTail">Two Tail</option>
       </select>
       <br>
-      <p>Total Samples:<span id="total-samples"></span></p>
+      <p>Total samples:<span id="total-samples"></span></p>
       <label for="tailValue"> Sample means at least as extreme as</label>
       <input type="number" id="tailValue"/>
-      <p>= <span id="total-selected-samples">0</span> Samples</p>
-      <p>(Proportion:<br><span id="proportion"></span>)</p>
+      <p>= <span id="total-selected-samples">0</span> samples</p>
+      <p>Proportion:<br><span id="proportion"></span></p>
     </div>
     <div class="data-form">
       <textarea rows="10" readonly id="samples-mean-display"></textarea>
-      <p>mean of sample means:<span id ="samples-mean"></span></p>
+      <p>Mean of sample means: <br><span id ="samples-mean"></span></p>
     </div>
     <div class="chart-wrap"><canvas id="statistic-data-chart"></canvas></div>
   </div>

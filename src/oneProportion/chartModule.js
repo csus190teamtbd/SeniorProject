@@ -60,7 +60,9 @@ export default class ChartModule {
               },
               scaleLabel: {
                 display: true,
-                labelString: "# of samples"
+                labelString: "# of samples",
+                fontColor: "black",
+                fontSize: "14"
               }
             }
           ],
@@ -69,7 +71,9 @@ export default class ChartModule {
               barPercentage: 1.0,
               scaleLabel: {
                 display: true,
-                labelString: "Number of heads"
+                labelString: "# of heads",
+                fontColor: "black",
+                fontSize: "14"
               }
             }
           ]
@@ -143,7 +147,7 @@ export default class ChartModule {
     this.dataFromCalculation.theoryMean = mean;
     this.dataFromCalculation.noOfSelected = noOfSelected;
     this.chart.mean = mean;
-    this.chart.options.scales.xAxes[0].scaleLabel.labelString = `Number of heads in ${noOfCoin} tosses`;
+    this.chart.options.scales.xAxes[0].scaleLabel.labelString = `# of heads in ${noOfCoin} tosses`;
     this.chart.update();
   }
 }

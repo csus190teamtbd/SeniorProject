@@ -1,0 +1,10 @@
+{%   if jekyll.environment == "es"
+%}{%   assign lang="es"
+%}{% else
+%}{%   assign lang="en"
+%}{% endif
+%}{% assign node = site.data.translate[lang]
+%}{% assign key_path = include.key | split: '.'
+%}{% for key_seg in key_path
+%}{%   assign node = node[key_seg]
+%}{% endfor %}{{ node }}

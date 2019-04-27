@@ -17,7 +17,7 @@ title: One Proportion
         </div>
         <div class="form-group">
           <label for="coins"
-            >Number of Tosses: </label>
+            ># of tosses: </label>
           <input type="number" min="1" max ="500" id="coins" value = "5"/>
         </div>
         <button type="reset" value="reset" class="btn" id="resetBtn">
@@ -25,7 +25,7 @@ title: One Proportion
         </button>
         <hr />
         <div class="form-group">
-          <label for="draws">Add Samples</label>
+          <label for="draws">Add samples:</label>
           <input type="number" min="1" id="draws" value = "1"/>
         </div>
 
@@ -34,23 +34,23 @@ title: One Proportion
         </button>
         <hr />
         <div class="form-group">
-          <label>Total Samples: <span id="totalSamples">0</span></label>
-          <label>mean # of heads: <span id="meanDisplay">NaN</span></label>
-          <label>(Standard deviation: <span id="stdDisplay">NaN</span>)</label>
+          <label>Total samples: <span id="totalSamples">0</span></label>
+          <label>Mean # of heads: <span id="meanDisplay">NaN</span></label>
+          <label>(Standard deviation: <br><span id="stdDisplay">NaN</span>)</label>
           <br />
           <label for="lowerBound">Select interval for # of heads in <span id="tossesDisplay">5</span> tosses: </label>
           <label for="probability"
-            >Min # of Heads: <span id="lowerDisplay">0</span
+            >Min # of heads: <span id="lowerDisplay">0</span
           ></label>
           <input type="range" min="0" max="500" step="1" id="lowerSelectedRange" class="slider" value="0"/>
           <label for="probability"
-            >Max # of Head: <span id="upperDisplay">0</span
+            >Max # of head: <span id="upperDisplay">0</span
           ></label>
           <input type="range" min="0" max="500" step="1" id="upperSelectedRange" class="slider" value="0"/>
           <label
-            ># of sample in interval :<span id="sampleInRangeDisplay">0</span></label
+            ># of samples in interval: <br><span id="sampleInRangeDisplay">0</span></label
           >
-          <label>(proportion: <br><span id="proportionDisplay">0 / 0 = NaN</span>)</label>
+          <label>Proportion: <br><span id="proportionDisplay">0 / 0 = NaN</span></label>
         </div>
         <hr />
       </form>
@@ -62,12 +62,12 @@ title: One Proportion
           <tr>
             <td>Remarks:</td>
             <td>
-              1. Double click the graph to zoom in/out if number of tosses >= 50
+              1. Double click the graph to zoom in/out if # of tosses >= 50
             </td>
           </tr>
           <tr>
             <td></td>
-            <td>2. Click the legend to hide/show data in Graph</td>
+            <td>2. Click the legend to hide/show corresponding info in graph</td>
           </tr>
         </table>
       </div>

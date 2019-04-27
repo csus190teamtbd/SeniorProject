@@ -2,27 +2,12 @@
 ---
 
 #two-proportions {
-  h1 {
-    margin-bottom: .5em;
-  }
-
-  .section {
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: flex-start;
-  }
-
-  .lhs, .rhs {
-    border: 1px solid gray;
-    flex-grow: 0;
-
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: flex-start;
+  .lhs table {
+     width: 100%;
   }
 
   .chart-wrap {
-    display: block;
-    position: relative;
+    height: 10em;
+    max-width: 40em;
   }
 }

@@ -5,51 +5,100 @@ title: Two Means
 <link rel="stylesheet" href="twoMean.css">
 <div id="two-mean">
   <h1>Two Means</h1>
-  <h2>Step One: Enter Data</h2>
-  <div id="two-mean-data">
-    <div id="two-mean-data-lhs">
-      <div class="control">
-        <h3>Enter CSV:</h3>
-        <textarea id="csv-input">1,1
-1,1
-1,2
-2,2
-2,3
-2,3</textarea>
-        <button onclick="twoMean.loadData()" onclick="" class="btn">Load Data</button>
+  <h2>1. Enter Data</h2>
+  <div class="section">
+    <div class="lhs">
+      <div class="lhs">
+        <select disabled>
+          <option>Select Sample Data</option>
+        </select>
+        <textarea id="csv-input" placeholder="Enter or Drop CSV with first column as group number and second column as value."></textarea>
+        <button onclick="twoMean.loadData()" class="btn">Load Data</button>
+        <button onclick="twoMean.reset()" class="btn">Reset</button>
       </div>
       <div id="data-summary" class="stats">
-        <div><span>Mean of Group 1:</span> <span id="data-mean-1"></span></div>
-        <div><span>Mean of Group 2:</span> <span id="data-mean-2"></span></div>
+        <div>
+          <span>Mean of Group 1:</span>
+          <span summary="dataMean1"></span>
+        </div>
+        <div>
+          <span>Mean of Group 2:</span>
+          <span summary="dataMean2"></span>
+        </div>
+        <div>
+          <span>Difference of Means (Group 1 - Group 2):</span>
+          <span summary="dataMeanDiff"></span>
+        </div>
       </div>
     </div>
-    <div class="view">
+    <div class="rhs">
       <div class="chart-wrap"><canvas id="data-chart-1"></canvas></div>
       <div class="chart-wrap"><canvas id="data-chart-2"></canvas></div>
     </div>
   </div>
-  <h2>Step Two: Run Simulations</h2>
-  <div id="two-mean-sample">
-    <div class="control">
+  <h2>2. Run Simulations</h2>
+  <div class="section">
+    <div class="lhs">
       <h3># Simulations</h3>
       <input id="num-simulations" type="number" value="1" min="1" max="100" />
       <button onclick="twoMean.runSim()" onclick="" class="btn">Run Simulation</button>
+      <div class="stats">
+        <div>
+          <span>Mean of Sample Group 1:</span>
+          <span summary="sampleMean1"></span>
+        </div>
+        <div>
+          <span>Mean of Sample Group 2:</span>
+          <span summary="sampleMean2"></span>
+        </div>
+        <div>
+          <span>Difference of Sample Means:</span>
+          <span summary="sampleMeanDiff"></span>
+        </div>
+      </div>
     </div>
-    <div class="view">
+    <div class="rhs">
       <div class="chart-wrap"><canvas id="sample-chart-1"></canvas></div>
       <div class="chart-wrap"><canvas id="sample-chart-2"></canvas></div>
     </div>
   </div>
-  <h2>Statistical Significance:</h2>
-  <div id="two-mean-diff">
-    <div id="two-mean-diff-stats" class="control stats">
-      <div><span>Dataset Difference of Means:</span><span id="diff-of-data"></span></div>
-      <div><span>Mean of Sample Differences:</span><span id="mean-sample-diffs"></span></div>
-      <div><span>StdDev of Sample Differences:</span><span id="stddev-sample-diffs"></span></div>
-      <br/>
-      <div><span>Difference of means in dataset is <span id="how-many-stddev"></span> standard deviations from the mean of differences in resamplings.</span></div>
+  <h2>3. Sampling Distribution of Difference of Means</h2>
+  <div id="two-mean-diff" class="section">
+    <div class="lhs">
+      <select id="tail-direction">
+        {% include tailChartDirectionOptions.html %}
+      </select>
+      <span>Select all as extreme as</span><input type="number" id="tail-input" value="0" step="any">
+      <hr>
+      <div class="stats">
+        <div>
+          <span>Original Dataset Difference of Means:</span>
+          <span summary="dataMeanDiff">No Data</span>
+        </div>
+        <div>
+          <span>Mean of Sample Differences:</span>
+          <span summary="mean"></span>
+        </div>
+        <div>
+          <span>StdDev of Sample Differences:</span>
+          <span summary="stddev"></span>
+        </div>
+        <br>
+        <div>
+          <span>Total Samples:</span>
+          <span summary="total">No Data</span>
+        </div>
+        <div>
+          <span># Selected:</span>
+          <span summary="chosen">No Data</span>
+        </div>
+        <div>
+          <span>Proportion Selected:</span>
+          <span summary="proportion">No Data</span>
+        </div>
+      </div>
     </div>
-    <div class="view">
+    <div class="rhs">
       <div class="chart-wrap"><canvas id="diff-chart"></canvas></div>
     </div>
   </div>

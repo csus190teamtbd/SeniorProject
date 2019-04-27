@@ -1,6 +1,5 @@
-title: Statistic Simulation
+title: SAVIS
 source: src/
 
 sass:
   sass_dir: _sass
-

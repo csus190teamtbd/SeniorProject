@@ -4,6 +4,8 @@
 $headerFooterBkgd: #333;
 $contentBkgd: #f4f4f4;
 
+$transition-duration: 300ms;
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -12,6 +14,7 @@ $contentBkgd: #f4f4f4;
 
 html {
   width: 100%;
+  color: black;
 }
 html,
 #navbar,
@@ -35,17 +38,31 @@ a {
   text-decoration: none;
 }
 
+hr {
+  border: 2px solid green;
+}
+
 p {
   margin: 0.75em 0;
 }
 
 textarea, input, select {
   background-color: white;
+  border: 1px solid #888;
   color: black;
+  transition-property: color background-color;
+  transition-duration: $transition-duration;
 }
 textarea.dragover {
   background-color: skyblue;
   color: black;
+}
+textarea[readonly] {
+  background-color: lightgray;
+}
+textarea[disabled], input[disabled], select[disabled] {
+  background-color: #bbbbbb;
+  color: #444444;
 }
 
 .container {
@@ -81,10 +98,17 @@ textarea.dragover {
   padding: 0.5rem 2rem;
   border: none;
   border-radius: 5px;
+  transition-property: background-color color;
+  transition-duration: $transition-duration;
 }
 
 .btn:hover {
   background: #7ab436;
+}
+
+.btn[disabled] {
+  color: #bbbbbb;
+  background-color: #666666;
 }
 
 .btn-dark {
@@ -233,3 +257,62 @@ textarea.dragover {
 .slider:hover {
   opacity: 10;
 }
+
+#main-content {
+  h1 {
+    padding-bottom: 10px;
+    text-align: center;
+  }
+}
+
+.chart-wrap {
+  display: block;
+  position: relative;
+  flex-grow: 1;
+}
+
+.flex-row {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+#two-proportions, #two-mean {
+  .section {
+    margin-bottom: 2em;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: flex-start;
+  }
+  .lhs, .rhs {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+  }
+  .lhs {
+    width: 26em;
+  }
+  .rhs {
+    flex-grow: 1;
+  }
+  .stats div {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    .stat {
+      margin-left: 2ch;
+      text-align: left;
+    }
+  }
+  .stats {
+    span {
+      display: block;
+      height: 1rem;
+    }
+    [summary] {
+      margin-left: 4ch;
+    }
+  }
+}
+

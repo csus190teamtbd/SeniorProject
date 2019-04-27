@@ -2,18 +2,8 @@
 ---
 
 #one-mean {
-  h1 {
-    padding-bottom: 10px;
-    text-align: center;
-  }
-  textarea[readonly] {
-    background-color: lightgray;
-  }
   .toggle-box {
     margin-left: 1ch;
-  }
-  hr {
-    border: 2px solid green;
   }
   .chart-input-form {
     display: flex;
@@ -22,7 +12,7 @@
       display: flex;
       flex-direction: column;
       flex: 1;
-      width: 35ch;
+      width: 38ch;
       padding: 5px;
       margin-bottom: 10px;
       text-align: justify;
@@ -34,5 +24,9 @@
     input[type="number"] {
       display: inline-block;
     }
+  }
+  .btn {
+    margin-top: 1px;
+    margin-bottom: 1px;
   }
 }

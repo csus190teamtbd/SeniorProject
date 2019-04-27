@@ -48,3 +48,23 @@ export function maxInArray(arr) {
     return acc > x ? acc : x;
   }, arr[0]);
 }
+
+/**
+ * Counts items of iterable meeting predicate
+ *
+ * @param itr iterable
+ * @param p   predicate
+ */
+export function countWhere(itr, p) {
+  if (itr === undefined || p === undefined) {
+    throw new Error('Missing parameter');
+  }
+  let res = 0;
+  for (let item of itr) {
+    if (p(item)) {
+      res += 1;
+    }
+  }
+  return res;
+}
+

@@ -6,22 +6,29 @@ import {
   parseCSVtoSingleArray,
   readLocalFile
 } from "../util/csv.js";
-import StackedDotChart from '/util/stackeddotchart.js';
-import * as MathUtil from '/util/math.js';
-import { randomSubset } from '/util/sampling.js';
+import StackedDotChart from '../util/stackeddotchart.js';
+import TailChart from "../util/tailchart.js";
+import * as MathUtil from '../util/math.js';
+import * as Summaries from "../util/summaries.js";
+import { randomSubset } from '../util/sampling.js';
 
 export class TwoMean {
   constructor(twoMeanDiv) {
     this.twoMeanDiv = twoMeanDiv;
     this.csvInput = twoMeanDiv.querySelector('#csv-input');
-    this.diffChart = twoMeanDiv.querySelector('#diffChart');
     this.data = undefined;
     this.sampleDiffs = [];
     this.diffData = {};
+    this.summaryElements = Summaries.loadSummaryElements(twoMeanDiv);
+
+    this.dom = {
+      tailDirectionElement: twoMeanDiv.querySelector('#tail-direction'),
+      tailInputElement: twoMeanDiv.querySelector('#tail-input'),
+    };
 
     this.datasets = [
-      { label: 'Group One', backgroundColor: '#333333', data: [] },
-      { label: 'Group Two', backgroundColor: '#93cb52', data: [] },
+      { label: 'Group One', backgroundColor: 'orange', data: [] },
+      { label: 'Group Two', backgroundColor: 'rebeccapurple', data: [] },
     ];
     this.dataChart1 = new StackedDotChart(twoMeanDiv.querySelector('#data-chart-1'), [this.datasets[0]]);
     this.dataChart2 = new StackedDotChart(twoMeanDiv.querySelector('#data-chart-2'), [this.datasets[1]]);
@@ -29,16 +36,35 @@ export class TwoMean {
     this.sampleChart1.chart.options.legend.display = false;
     this.sampleChart2 = new StackedDotChart(twoMeanDiv.querySelector('#sample-chart-2'), this.datasets);
     this.sampleChart2.chart.options.legend.display = false;
-    this.diffChart = new StackedDotChart(twoMeanDiv.querySelector('#diff-chart'), [
-      { label: 'Diff of Means', backgroundColor: '#333333', data: [], },
-    ]);
+    // TODO(matthewmerrill): move other charts into here
+    this.charts = {
+      tailChart: new TailChart({
+        chartElement: twoMeanDiv.querySelector('#diff-chart'),
+        whatAreWeRecording: 'Differences',
+        summaryElements: this.summaryElements,
+      }),
+    };
+
+    this.dom.tailDirectionElement.addEventListener('change', () => {
+      this.charts.tailChart.setTailDirection(this.dom.tailDirectionElement.value);
+      this.charts.tailChart.updateChart();
+    });
+    this.dom.tailInputElement.addEventListener('change', () => {
+      this.charts.tailChart.setTailInput(this.dom.tailInputElement.value * 1);
+      this.charts.tailChart.updateChart();
+    });
+    
     this.updateData([[], []]);
     dropTextFileOnTextArea(this.csvInput);
   }
 
+  reset() {
+    this.csvInput.value = '';
+    this.loadData();
+  }
+
   loadData() {
     let rawData = this.parseData(this.csvInput.value.trim());
-    console.log(rawData);
     this.updateData(rawData);
   }
 
@@ -89,20 +115,21 @@ export class TwoMean {
     this.sampleChart2.chart.update();
     this.updateSimResults();
 
-    let mean0 = MathUtil.mean(data[0]);
-    let mean1 = MathUtil.mean(data[1]);
-    document.getElementById('data-mean-1').innerText =
-      data[0].length
-        ? MathUtil.roundToPlaces(mean0, 2)
-        : 'No Data';
-    document.getElementById('data-mean-2').innerText =
-      data[1].length
-        ? MathUtil.roundToPlaces(mean1, 2)
-        : 'No Data';
-    document.getElementById('diff-of-data').innerText =
-      (data[0].length && data[1].length)
-        ? MathUtil.roundToPlaces(mean1 - mean0, 2)
-        : 'No Data';
+    let summary = {
+      dataMean1: 'No Data', // TODO(matthewmerrill): make this translatable
+      dataMean2: 'No Data',
+      dataMeanDiff: 'No Data',
+    };
+    if (data[0].length) {
+      summary.dataMean1 = MathUtil.mean(data[0]);
+    }
+    if (data[1].length) {
+      summary.dataMean2 = MathUtil.mean(data[1]);
+    }
+    if (data[0].length && data[1].length) {
+      summary.dataMeanDiff = summary.dataMean1 - summary.dataMean2;
+    }
+    Summaries.updateSummaryElements(this.summaryElements, summary);
   }
 
   count(arr) {
@@ -125,6 +152,7 @@ export class TwoMean {
   runSim() {
     // Coerce to number
     let numSims = document.getElementById('num-simulations').value * 1;
+    let results = [];
     for (let simIdx = 0; simIdx < numSims; simIdx++) {
       let allData = [];
       for (let item of this.data[0]) {
@@ -147,8 +175,16 @@ export class TwoMean {
       let mean0 = MathUtil.mean(sampleValues[0]);
       let mean1 = MathUtil.mean(sampleValues[1]);
       let sampleDiffOfMeans = mean1 - mean0;
-      this.sampleDiffs.push(sampleDiffOfMeans);
+      results.push(sampleDiffOfMeans);
+
+      let summary = {
+        sampleMean1: mean0,
+        sampleMean2: mean1,
+        sampleMeanDiff: sampleDiffOfMeans,
+      };
+      Summaries.updateSummaryElements(this.summaryElements, summary);
     }
+    this.charts.tailChart.addAllResults(results);
     this.updateSimResults();
   }
 
@@ -167,20 +203,20 @@ export class TwoMean {
     let sampleDiffMean = MathUtil.mean(this.sampleDiffs);
     let sampleDiffStdDev = MathUtil.stddev(this.sampleDiffs);
 
-    document.getElementById('mean-sample-diffs').innerText =
-      (this.sampleDiffs.length)
-        ? MathUtil.roundToPlaces(sampleDiffMean, 2)
-        : 'No Samples';
-    document.getElementById('stddev-sample-diffs').innerText =
-      (this.sampleDiffs.length)
-        ? MathUtil.roundToPlaces(sampleDiffStdDev, 2)
-        : 'No Samples';
-    document.getElementById('how-many-stddev').innerText =
-      (this.data[0].length && this.data[1].length && this.sampleDiffs.length)
-        ? MathUtil.roundToPlaces((datasetDiffOfMeans - sampleDiffMean) / sampleDiffStdDev, 2)
-        : '___';
+    let summary = {
+      simMean1: mean0,
+      simMean2: mean1,
+      simMeanDiff: mean1 - mean0,
+      sampleDiffMean, sampleDiffStdDev,
+    }
+    Summaries.updateSummaryElements(this.summaryElements, summary);
+
+    /*
+    this.diffChart.updateChart();
     this.diffChart.setDataFromRaw([this.sampleDiffs]);
     this.diffChart.scaleToStackDots();
     this.diffChart.chart.update();
+    */
+    this.charts.tailChart.updateChart();
   }
 }
