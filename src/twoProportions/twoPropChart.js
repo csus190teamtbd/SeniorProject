@@ -1,3 +1,7 @@
+---
+---
+import translation from "{{base}}../util/translate.js";
+
 export default class TwoPropChart {
   
   constructor(canvas) {
@@ -11,15 +15,15 @@ export default class TwoPropChart {
     this.chart = new Chart(canvas, {
       type: 'bar',
       data: {
-        labels: ['Group A', 'Group B'],
+        labels: [translation.twoProportions.groupA, translation.twoProportions.groupB],
         datasets: [
           {
-            label: 'Successes',
+            label: translation.twoProportions.successes,
             backgroundColor: 'green',
             data: [0, 0],
           },
           {
-            label: 'Failures',
+            label: translation.twoProportions.failures,
             backgroundColor: 'red',
             data: [0, 0],
           },

@@ -1,19 +1,20 @@
+{%- include base -%}
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>{{site.title}} | {{page.title}}</title>
-    <link rel="stylesheet" href="/css/base.css"></link>
+    <link rel="stylesheet" href="{{base}}/css/base.css"></link>
   </head>
   <body>
     <nav id="navbar">
       <h1 class="logo"><span class="text-primary">SAVIS</span></h1>
       <ul>
-        <li><a href="/#">Home</a></li>
-        <li><a href="/about/">About</a></li>
-        <li><a href="/#">Download</a></li>
-        <li><a href="/#">User Manual</a></li>
+        <li><a href="{{base}}/index.html">{% include translate.html key="home.title" %}</a></li>
+        <li><a href="{{base}}/about/index.html">{% include translate.html key="about.title" %}</a></li>
+        <li><a href="{{base}}/#">{% include translate.html key="download.title" %}</a></li>
+        <li><a href="{{base}}/#">{% include translate.html key="userManual.title" %}</a></li>
       </ul>
     </nav>
     <div id="main-content">{{content}}</div>

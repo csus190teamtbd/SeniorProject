@@ -1,7 +1,10 @@
-import StackedDotChart from "../util/stackeddotchart.js";
-import * as MathUtil from "../util/math.js";
-import * as Summaries from "../util/summaries.js";
-import { randomSubset, splitByPredicate } from "../util/sampling.js";
+---
+---
+import StackedDotChart from "{{base}}../util/stackeddotchart.js";
+import * as MathUtil from "{{base}}../util/math.js";
+import * as Summaries from "{{base}}../util/summaries.js";
+import { randomSubset, splitByPredicate } from "{{base}}../util/sampling.js";
+import translation from "{{base}}../util/translate.js";
 
 export default class TailChart {
 
@@ -14,7 +17,7 @@ export default class TailChart {
 
     this.tailDirection = null;
     this.tailInput = 0;
-    this.whatAreWeRecording = whatAreWeRecording || 'Samples';
+    this.whatAreWeRecording = whatAreWeRecording || translation.twoMean.Samples;
     this.dom = { chartElement };
     this.chart = new StackedDotChart(
       chartElement,

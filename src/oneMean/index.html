@@ -3,88 +3,89 @@ layout: default
 title: One Means
 ---
 
-<link rel="stylesheet" href="oneMean.css">
+<link rel="stylesheet" href="{{base}}./oneMean.css">
 <div id="one-mean">
-  <h1> One Mean</h1>
-  <h3>1. Enter Data<input type="checkbox" class='toggle-box' checked="checked"></h3>
+  <h1> {% include translate.html key="oneMean.title" %}</h1>
+  <h3>1. {% include translate.html key="oneMean.enterData" %}<input type="checkbox" class='toggle-box' checked="checked"></h3>
   <div class="chart-input-form">
     <div class="data-form">
       <select id="sample-data">
       </select>
-      <textarea rows="8" id="csv-input" placeholder="Please enter data or drop columns from cvs file here (no column titles - see sample data)"></textarea>
-      <button class="btn" id="load-data-btn">Load Data</button>
-      <button class="btn" id="reset-btn">Reset</button>
+      <textarea rows="8" id="csv-input" placeholder="{% include translate.html key="oneMean.textAreaPlaceHolder" %}"></textarea>
+      <button class="btn" id="load-data-btn">{% include translate.html key="oneMean.loadData" %}</button>
+      <button class="btn" id="reset-btn">{% include translate.html key="oneMean.reset" %}</button>
     </div>
     <div class="data-form">
       <textarea rows="10" id="original-data-display" readonly></textarea>
-      <p>Mean: <span id ="original-mean"></span></p>
+      <p>{% include translate.html key="oneMean.mean1" %} <span id ="original-mean"></span></p>
     </div>
     <div class="chart-wrap"><canvas id="original-data-chart"></canvas></div>
   </div>
   <hr> 
 
-  <h3>2. Generate Hypothetical Population<input type="checkbox" class='toggle-box' checked="checked"></h3>
+  <h3>2. {% include translate.html key="oneMean.chartTitle2" %}<input type="checkbox" class='toggle-box' checked="checked"></h3>
   <div class="chart-input-form">
     <div class="data-form">
-      <label for="shiftMeanInput"> Shift mean</label>
+      <label for="shiftMeanInput"> {% include translate.html key="oneMean.shiftMean" %}</label>
       <input type="number" step="0.1" id="shiftMeanInput" value="0"/>
-      <label for="mul-factor">Increase data <span id="mul-factor-display">0</span
-          > times</label>
+      <label for="mul-factor">{% include translate.html key="oneMean.increaseData" %} <span id="mul-factor-display">0</span
+          > {% include translate.html key="oneMean.times" %}</label>
       <input type="range" min="0" max="50" step="1" id="mul-factor" value="1"/>
     </div>  
     <div class="data-form">
       <textarea rows="10" readonly id="population-data-display"></textarea>
-      <p>Mean: <span id ="population-mean"></span></p>
+      <p>{% include translate.html key="oneMean.mean1" %} <span id ="population-mean"></span></p>
     </div>
     <div class="chart-wrap"><canvas id="population-data-chart"></canvas></div>
   </div>
   <hr>
 
-  <h3>3. Draw Sample<input type="checkbox" class='toggle-box' checked="checked"></h3>  
+  <h3>3. {% include translate.html key="oneMean.drawSample" %}<input type="checkbox" class='toggle-box' checked="checked"></h3>  
   <div class="chart-input-form">
     <div class="data-form">
-      <label for="sample-size"> Sample size</label>
+      <label for="sample-size"> {% include translate.html key="oneMean.sampleSize" %}</label>
       <input type="number" min="1" step="1" id="sample-size" value="10"/>
-      <label for="no-of-sample"> # of samples</label>
+      <label for="no-of-sample"> {% include translate.html key="oneMean.noOfSample" %}</label>
       <input type="number" min="1" step="1" id="no-of-sample" value="1"/>
-      <button class="btn" id="run-sim-btn">Run Simulation</button>
+      <button class="btn" id="run-sim-btn">{% include translate.html key="oneMean.runSim" %}</button>
+      <p id ="run-sim-error-msg"></p>
     </div>
     <div class="data-form">
       <textarea rows="10" readonly id="most-recent-sample-display"></textarea>
-      <p>Mean: <span id ="sample-mean"></span></p>
+      <p>{% include translate.html key="oneMean.mean1" %} <span id ="sample-mean"></span></p>
     </div>
     <div class="chart-wrap"><canvas id="sample-data-chart"></canvas></div>
   </div>
   <hr>
 
-  <h3>4. Sampling Distribution of Means<input type="checkbox" class='toggle-box' checked="checked"></h3>  
+  <h3>4. {% include translate.html key="oneMean.chartTitle4" %} <input type="checkbox" class='toggle-box' checked="checked"></h3>  
   <div class="chart-input-form">
     <div class="data-form">
       <select id="tailDirection">
-        <option value=null>Please Select</option>
-        <option value="oneTailRight">One Tail Right</option>
-        <option value="oneTailLeft">One Tail Left</option>
-        <option value="TwoTail">Two Tail</option>
+        <option value=null>{% include translate.html key="oneMean.pleaseSelect" %}</option>
+        <option value="oneTailRight">{% include translate.html key="oneMean.oneTailRight" %}</option>
+        <option value="oneTailLeft">{% include translate.html key="oneMean.oneTailLeft" %}</option>
+        <option value="TwoTail">{% include translate.html key="oneMean.twoTail" %}</option>
       </select>
       <br>
-      <p>Total samples:<span id="total-samples"></span></p>
-      <label for="tailValue"> Sample means at least as extreme as</label>
+      <p>{% include translate.html key="oneMean.totalSamples" %}<span id="total-samples"></span></p>
+      <label for="tailValue"> {% include translate.html key="oneMean.extremeSamples" %}</label>
       <input type="number" id="tailValue"/>
-      <p>= <span id="total-selected-samples">0</span> samples</p>
-      <p>Proportion:<br><span id="proportion"></span></p>
+      <p>= <span id="total-selected-samples">0</span> {% include translate.html key="oneMean.samples" %}</p>
+      <p>{% include translate.html key="oneMean.proportion" %}<br><span id="proportion"></span></p>
     </div>
     <div class="data-form">
       <textarea rows="10" readonly id="samples-mean-display"></textarea>
-      <p>Mean of sample means: <br><span id ="samples-mean"></span></p>
+      <p>{% include translate.html key="oneMean.meanOfsamplesMeans" %} <br><span id ="samples-mean"></span></p>
     </div>
     <div class="chart-wrap"><canvas id="statistic-data-chart"></canvas></div>
   </div>
   <hr>
 </div>
 
-<script src="../lib/Chart.bundle.min.js"></script>
+<script src="{{base}}../lib/Chart.bundle.min.js"></script>
 <script type="module">
-  import {OneMean} from './oneMean.js';
+  import {OneMean} from '{{base}}./oneMean.js';
   window.oneMean = new OneMean(document.getElementById('one-mean'));
 </script>
 

@@ -2,31 +2,31 @@
 layout: default
 title: Two Means
 ---
-<link rel="stylesheet" href="twoMean.css">
+<link rel="stylesheet" href="{{base}}./twoMean.css">
 <div id="two-mean">
-  <h1>Two Means</h1>
-  <h2>1. Enter Data</h2>
+  <h1>{% include translate.html key="twoMean.title" %}</h1>
+  <h2>1. {% include translate.html key="twoMean.enterData" %}</h2>
   <div class="section">
     <div class="lhs">
       <div class="lhs">
         <select disabled>
-          <option>Select Sample Data</option>
+          <option>{% include translate.html key="twoMean.selectData" %}</option>
         </select>
-        <textarea id="csv-input" placeholder="Enter or Drop CSV with first column as group number and second column as value."></textarea>
-        <button onclick="twoMean.loadData()" class="btn">Load Data</button>
-        <button onclick="twoMean.reset()" class="btn">Reset</button>
+        <textarea id="csv-input" placeholder="{% include translate.html key="twoMean.placeholder" %}"></textarea>
+        <button onclick="twoMean.loadData()" class="btn">{% include translate.html key="twoMean.loadData" %}</button>
+        <button onclick="twoMean.reset()" class="btn">{% include translate.html key="twoMean.reset" %}</button>
       </div>
       <div id="data-summary" class="stats">
         <div>
-          <span>Mean of Group 1:</span>
+          <span>{% include translate.html key="twoMean.gp1Mean" %}</span>
           <span summary="dataMean1"></span>
         </div>
         <div>
-          <span>Mean of Group 2:</span>
+          <span>{% include translate.html key="twoMean.gp2Mean" %}</span>
           <span summary="dataMean2"></span>
         </div>
         <div>
-          <span>Difference of Means (Group 1 - Group 2):</span>
+          <span>{% include translate.html key="twoMean.diffOfMean" %}</span>
           <span summary="dataMeanDiff"></span>
         </div>
       </div>
@@ -36,23 +36,23 @@ title: Two Means
       <div class="chart-wrap"><canvas id="data-chart-2"></canvas></div>
     </div>
   </div>
-  <h2>2. Run Simulations</h2>
+  <h2>{% include translate.html key="twoMean.runSims" %}</h2>
   <div class="section">
     <div class="lhs">
-      <h3># Simulations</h3>
+      <h3>{% include translate.html key="twoMean.numSim" %}</h3>
       <input id="num-simulations" type="number" value="1" min="1" max="100" />
-      <button onclick="twoMean.runSim()" onclick="" class="btn">Run Simulation</button>
+      <button onclick="twoMean.runSim()" onclick="" class="btn">{% include translate.html key="twoMean.runSim" %}</button>
       <div class="stats">
         <div>
-          <span>Mean of Sample Group 1:</span>
+          <span>{% include translate.html key="twoMean.randomMean1" %}</span>
           <span summary="sampleMean1"></span>
         </div>
         <div>
-          <span>Mean of Sample Group 2:</span>
+          <span>{% include translate.html key="twoMean.randomMean2" %}</span>
           <span summary="sampleMean2"></span>
         </div>
         <div>
-          <span>Difference of Sample Means:</span>
+          <span>{% include translate.html key="twoMean.diffOfSampleMean" %}</span>
           <span summary="sampleMeanDiff"></span>
         </div>
       </div>
@@ -62,39 +62,39 @@ title: Two Means
       <div class="chart-wrap"><canvas id="sample-chart-2"></canvas></div>
     </div>
   </div>
-  <h2>3. Sampling Distribution of Difference of Means</h2>
+  <h2>{% include translate.html key="twoMean.subTitle3" %}</h2>
   <div id="two-mean-diff" class="section">
     <div class="lhs">
       <select id="tail-direction">
         {% include tailChartDirectionOptions.html %}
       </select>
-      <span>Select all as extreme as</span><input type="number" id="tail-input" value="0" step="any">
+      <span>{% include translate.html key="twoMean.selectAllExtreme" %}</span><input type="number" id="tail-input" value="0" step="any">
       <hr>
       <div class="stats">
         <div>
-          <span>Original Dataset Difference of Means:</span>
-          <span summary="dataMeanDiff">No Data</span>
+          <span>{% include translate.html key="twoMean.oriDiffOfMean" %}</span>
+          <span summary="dataMeanDiff">{% include translate.html key="twoMean.noData" %}</span>
         </div>
         <div>
-          <span>Mean of Sample Differences:</span>
+          <span>{% include translate.html key="twoMean.meanSampleDiff" %}</span>
           <span summary="mean"></span>
         </div>
         <div>
-          <span>StdDev of Sample Differences:</span>
+          <span>{% include translate.html key="twoMean.stdSampleDiff" %}</span>
           <span summary="stddev"></span>
         </div>
         <br>
         <div>
-          <span>Total Samples:</span>
-          <span summary="total">No Data</span>
+          <span>{% include translate.html key="twoMean.totalSamples" %}</span>
+          <span summary="total">{% include translate.html key="twoMean.noData" %}</span>
         </div>
         <div>
-          <span># Selected:</span>
-          <span summary="chosen">No Data</span>
+          <span>{% include translate.html key="twoMean.numSelected" %}</span>
+          <span summary="chosen">{% include translate.html key="twoMean.noData" %}</span>
         </div>
         <div>
-          <span>Proportion Selected:</span>
-          <span summary="proportion">No Data</span>
+          <span>{% include translate.html key="twoMean.proportionSelcted" %}</span>
+          <span summary="proportion">{% include translate.html key="twoMean.noData" %}</span>
         </div>
       </div>
     </div>
@@ -104,9 +104,9 @@ title: Two Means
   </div>
 </div>
 
-<script src="../lib/Chart.bundle.min.js"></script>
+<script src="{{base}}../lib/Chart.bundle.min.js"></script>
 <script type="module">
-  import {TwoMean} from './twoMean.js';
+  import {TwoMean} from '{{base}}./twoMean.js';
   window.twoMean = new TwoMean(document.getElementById('two-mean'));
 </script>
 

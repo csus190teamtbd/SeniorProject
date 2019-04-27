@@ -1,12 +1,13 @@
-// TODO(matthewmerrill): don't CDN
-//import Chart from "chart.js";
+---
+---
 
-import {countWhere} from "../util/math.js";
-import {randomInt, shuffle} from "../util/sampling.js";
+import {countWhere} from "{{base}}../util/math.js";
+import {randomInt, shuffle} from "{{base}}../util/sampling.js";
 import StackedDotChart from "../util/stackeddotchart.js";
-import * as Summaries from "../util/summaries.js";
-import TailChart from "../util/tailchart.js";
-import TwoPropChart from "./twoPropChart.js";
+import * as Summaries from "{{base}}../util/summaries.js";
+import TailChart from "{{base}}../util/tailchart.js";
+import TwoPropChart from "{{base}}./twoPropChart.js";
+import translation from "{{base}}../util/translate.js";
 
 export class TwoProportions {
 
@@ -33,7 +34,7 @@ export class TwoProportions {
       lastSimChart: new TwoPropChart(this.dom.lastSimCanvas),
       tailChart: new TailChart({
         chartElement: this.dom.tailChartCanvas,
-        whatAreWeRecording: 'Differences',
+        whatAreWeRecording: translation.twoProportions.differences,
         summaryElements: this.summaryElements,
       }),
     };
