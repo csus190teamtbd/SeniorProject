@@ -26,13 +26,13 @@ def generateYMLfromCSV(csvFile, ymlFile):
 
 def buildWebRelease():
   print("\n #####  Building site_en #####\n")
-  subprocess.run('jekyll build JEKYLL_ENV=es -d ./_site_en/ JEKYLL_ENV=es', shell=True)
+  subprocess.run('jekyll build -d ./_site_en/', shell=True)
 
   print("\n #####  zipping site_en #####\n")
   subprocess.run('zip -r ./dist/site_en.zip ./_site_en/', shell=True)
 
   print("\n #####  Building site_es #####\n")
-  subprocess.run('JEKYLL_ENV=es jekyll build -d ./_site_es/ JEKYLL_ENV=es', shell=True)
+  subprocess.run('JEKYLL_ENV=es jekyll build -d ./_site_es/', shell=True)
 
   print("\n #####  zipping site_es #####\n")
   subprocess.run('zip -r ./dist/site_es.zip ./_site_es/', shell=True)
