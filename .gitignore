@@ -6,3 +6,4 @@ _site_es/
 .vs/
 Gemfile.lock
 .vscode/
+_data/translate.yml
