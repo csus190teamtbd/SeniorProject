@@ -3,7 +3,7 @@
   "productName": "SAVIS",
   "version": "1.0.0",
   "description": "Statistical Analysis Vizualizions for Introtuctory Statistics",
-  "main": "./_site/main.js",
+  "main": "main.js",
   "dependencies": {
     "express": "^4.16.4"
   },
