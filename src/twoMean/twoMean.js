@@ -1,16 +1,16 @@
-// TODO(matthewmerrill): don't CDN
-//import Chart from "chart.js";
+---
+---
 import {
   dropTextFileOnTextArea,
   // TODO(matthewmerrill): use these library functions
   parseCSVtoSingleArray,
   readLocalFile
-} from "../util/csv.js";
-import StackedDotChart from '../util/stackeddotchart.js';
-import TailChart from "../util/tailchart.js";
-import * as MathUtil from '../util/math.js';
-import * as Summaries from "../util/summaries.js";
-import { randomSubset } from '../util/sampling.js';
+} from "{{base}}../util/csv.js";
+import StackedDotChart from '{{base}}../util/stackeddotchart.js';
+import TailChart from "{{base}}../util/tailchart.js";
+import * as MathUtil from '{{base}}../util/math.js';
+import * as Summaries from "{{base}}../util/summaries.js";
+import { randomSubset } from '{{base}}../util/sampling.js';
 
 export class TwoMean {
   constructor(twoMeanDiv) {

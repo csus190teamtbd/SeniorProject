@@ -1,12 +1,14 @@
+---
+---
 import {
   dropTextFileOnTextArea,
   parseCSVtoSingleArray,
   readLocalFile
-} from "../util/csv.js";
-import StackedDotChart from "../util/stackeddotchart.js";
-import { randomSubset, splitByPredicate } from "../util/sampling.js";
-import * as MathUtil from "/util/math.js";
-import translation from "../util/translate.js";
+} from "{{base}}../util/csv.js";
+import StackedDotChart from "{{base}}../util/stackeddotchart.js";
+import { randomSubset, splitByPredicate } from "{{base}}../util/sampling.js";
+import * as MathUtil from "{{base}}../util/math.js";
+import translation from "{{base}}../util/translate.js";
 
 export class OneMean {
   constructor(OneMeanDiv) {

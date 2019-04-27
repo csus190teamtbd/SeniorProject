@@ -2,7 +2,7 @@
 layout: default
 title: Two Means
 ---
-<link rel="stylesheet" href="twoMean.css">
+<link rel="stylesheet" href="{{base}}./twoMean.css">
 <div id="two-mean">
   <h1>Two Means</h1>
   <h2>1. Enter Data</h2>
@@ -104,9 +104,9 @@ title: Two Means
   </div>
 </div>
 
-<script src="../lib/Chart.bundle.min.js"></script>
+<script src="{{base}}../lib/Chart.bundle.min.js"></script>
 <script type="module">
-  import {TwoMean} from './twoMean.js';
+  import {TwoMean} from '{{base}}./twoMean.js';
   window.twoMean = new TwoMean(document.getElementById('two-mean'));
 </script>
 

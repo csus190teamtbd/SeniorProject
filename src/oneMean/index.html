@@ -3,7 +3,7 @@ layout: default
 title: One Means
 ---
 
-<link rel="stylesheet" href="oneMean.css">
+<link rel="stylesheet" href="{{base}}./oneMean.css">
 <div id="one-mean">
   <h1> {% include translate.html key="oneMean.title" %}</h1>
   <h3>1. {% include translate.html key="oneMean.enterData" %}<input type="checkbox" class='toggle-box' checked="checked"></h3>
@@ -83,9 +83,9 @@ title: One Means
   <hr>
 </div>
 
-<script src="../lib/Chart.bundle.min.js"></script>
+<script src="{{base}}../lib/Chart.bundle.min.js"></script>
 <script type="module">
-  import {OneMean} from './oneMean.js';
+  import {OneMean} from '{{base}}./oneMean.js';
   window.oneMean = new OneMean(document.getElementById('one-mean'));
 </script>
 

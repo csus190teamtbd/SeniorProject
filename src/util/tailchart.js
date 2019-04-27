@@ -1,7 +1,9 @@
-import StackedDotChart from "../util/stackeddotchart.js";
-import * as MathUtil from "../util/math.js";
-import * as Summaries from "../util/summaries.js";
-import { randomSubset, splitByPredicate } from "../util/sampling.js";
+---
+---
+import StackedDotChart from "{{base}}../util/stackeddotchart.js";
+import * as MathUtil from "{{base}}../util/math.js";
+import * as Summaries from "{{base}}../util/summaries.js";
+import { randomSubset, splitByPredicate } from "{{base}}../util/sampling.js";
 
 export default class TailChart {
 
