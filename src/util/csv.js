@@ -1,14 +1,14 @@
 export function dropTextFileOnTextArea(textAreaElement) {
   textAreaElement.addEventListener("dragover", () => {
-    textAreaElement.classList.add('dragover');
+    textAreaElement.classList.add("dragover");
   });
 
   textAreaElement.addEventListener("dragleave", () => {
-    textAreaElement.classList.remove('dragover');
+    textAreaElement.classList.remove("dragover");
   });
 
   textAreaElement.addEventListener("drop", e => {
-    textAreaElement.classList.remove('dragover');
+    textAreaElement.classList.remove("dragover");
     let file = e.dataTransfer.files[0];
     const reader = new FileReader();
     reader.onload = event => {

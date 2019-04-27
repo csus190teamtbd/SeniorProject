@@ -6,5 +6,5 @@
 %}{% assign node = site.data.translate[lang]
 %}{% assign key_path = include.key | split: '.'
 %}{% for key_seg in key_path
-%}{%   assign node = node[key_seg]
+%}{%   assign node = node[key_seg] 
 %}{% endfor %}{{ node }}

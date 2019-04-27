@@ -1,16 +1,17 @@
-// TODO(matthewmerrill): don't CDN
-//import Chart from "chart.js";
+---
+---
 import {
   dropTextFileOnTextArea,
   // TODO(matthewmerrill): use these library functions
   parseCSVtoSingleArray,
   readLocalFile
-} from "../util/csv.js";
-import StackedDotChart from '../util/stackeddotchart.js';
-import TailChart from "../util/tailchart.js";
-import * as MathUtil from '../util/math.js';
-import * as Summaries from "../util/summaries.js";
-import { randomSubset } from '../util/sampling.js';
+} from "{{base}}../util/csv.js";
+import StackedDotChart from '{{base}}../util/stackeddotchart.js';
+import TailChart from "{{base}}../util/tailchart.js";
+import * as MathUtil from '{{base}}../util/math.js';
+import * as Summaries from "{{base}}../util/summaries.js";
+import { randomSubset } from '{{base}}../util/sampling.js';
+import translation from "{{base}}../util/translate.js";
 
 export class TwoMean {
   constructor(twoMeanDiv) {
@@ -27,8 +28,8 @@ export class TwoMean {
     };
 
     this.datasets = [
-      { label: 'Group One', backgroundColor: 'orange', data: [] },
-      { label: 'Group Two', backgroundColor: 'rebeccapurple', data: [] },
+      { label: translation.twoMean.group1, backgroundColor: 'orange', data: [] },
+      { label: translation.twoMean.group2, backgroundColor: 'rebeccapurple', data: [] },
     ];
     this.dataChart1 = new StackedDotChart(twoMeanDiv.querySelector('#data-chart-1'), [this.datasets[0]]);
     this.dataChart2 = new StackedDotChart(twoMeanDiv.querySelector('#data-chart-2'), [this.datasets[1]]);
@@ -40,7 +41,7 @@ export class TwoMean {
     this.charts = {
       tailChart: new TailChart({
         chartElement: twoMeanDiv.querySelector('#diff-chart'),
-        whatAreWeRecording: 'Differences',
+        whatAreWeRecording: translation.twoMean.differences,
         summaryElements: this.summaryElements,
       }),
     };
@@ -116,9 +117,9 @@ export class TwoMean {
     this.updateSimResults();
 
     let summary = {
-      dataMean1: 'No Data', // TODO(matthewmerrill): make this translatable
-      dataMean2: 'No Data',
-      dataMeanDiff: 'No Data',
+      dataMean1: translation.twoMean.noData, // TODO(matthewmerrill): make this translatable
+      dataMean2: translation.twoMean.noData,
+      dataMeanDiff: translation.twoMean.noData,
     };
     if (data[0].length) {
       summary.dataMean1 = MathUtil.mean(data[0]);

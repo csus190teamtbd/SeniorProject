@@ -1,8 +1,10 @@
-import ChartModule from "./chartModule.js";
-import { cal } from "./calculation.js";
-
+---
+---
+import ChartModule from "{{base}}./chartModule.js";
+import { cal } from "{{base}}./calculation.js";
+import translation from "{{base}}../util/translate.js";
 export class OneProportion {
-  constructor() {
+  constructor(ele) {
     this.initState = () => {
       return {
         noOfCoin: 5,
@@ -41,9 +43,10 @@ export class OneProportion {
       meanDisplay: document.getElementById("meanDisplay"),
       stdDisplay: document.getElementById("stdDisplay")
     };
-    this.state = this.initState();
-    this.chart = new ChartModule(this.ele.chart);
 
+    this.state = this.initState();
+    this.translationData = translation.oneProportion;
+    this.chart = new ChartModule(this.ele.chart, this.translationData);
     this.reset = e => {
       this.state = this.initState();
       this.updateView(this.state, this.ele);

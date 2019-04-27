@@ -3,54 +3,55 @@ layout: default
 title: One Proportion
 ---
 
-<link rel="stylesheet" href="./oneProportion.css">
+<link rel="stylesheet" href="{{base}}./oneProportion.css">
 <div id="one-proportion">
-  <h1> One Proportion</h1>
+  <h1> {% include translate.html key="oneProportion.title" %}</h1>
+  </p>
     <div class="chart-input-form">
     <div id="control" class="container">
       <form>
         <div class="form-group">
           <label for="probability"
-            >Probability of head: <span id="probDisplay">0.5</span
+            >{% include translate.html key="oneProportion.probHeads" %} <span id="probDisplay">0.5</span
           ></label>
           <input type="range" min="0" max="1" step="0.01" class="slider" id="probability" />
         </div>
         <div class="form-group">
           <label for="coins"
-            ># of tosses: </label>
+            >{% include translate.html key="oneProportion.tosses1" %} </label>
           <input type="number" min="1" max ="500" id="coins" value = "5"/>
         </div>
         <button type="reset" value="reset" class="btn" id="resetBtn">
-          Reset
+          {% include translate.html key="oneProportion.reset" %}
         </button>
         <hr />
         <div class="form-group">
-          <label for="draws">Add samples:</label>
+          <label for="draws">{% include translate.html key="oneProportion.addSamples" %}</label>
           <input type="number" min="1" id="draws" value = "1"/>
         </div>
 
         <button type="submit" value="sample" class="btn" id="sampleBtn">
-          Draw Samples
+          {% include translate.html key="oneProportion.drawSamples" %}
         </button>
         <hr />
         <div class="form-group">
-          <label>Total samples: <span id="totalSamples">0</span></label>
-          <label>Mean # of heads: <span id="meanDisplay">NaN</span></label>
-          <label>(Standard deviation: <br><span id="stdDisplay">NaN</span>)</label>
+          <label>{% include translate.html key="oneProportion.totalSamples" %}<span id="totalSamples">0</span></label>
+          <label>{% include translate.html key="oneProportion.meanNoOfHeads" %}<span id="meanDisplay">NaN</span></label>
+          <label>({% include translate.html key="oneProportion.standardDeviation" %} <br><span id="stdDisplay">NaN</span>)</label>
           <br />
-          <label for="lowerBound">Select interval for # of heads in <span id="tossesDisplay">5</span> tosses: </label>
+          <label for="lowerBound">{% include translate.html key="oneProportion.selectInterval" %} <span id="tossesDisplay">5</span> {% include translate.html key="oneProportion.tosses" %}: </label>
           <label for="probability"
-            >Min # of heads: <span id="lowerDisplay">0</span
+            >{% include translate.html key="oneProportion.minHead"%} <span id="lowerDisplay">0</span
           ></label>
           <input type="range" min="0" max="500" step="1" id="lowerSelectedRange" class="slider" value="0"/>
           <label for="probability"
-            >Max # of head: <span id="upperDisplay">0</span
+            >{% include translate.html key="oneProportion.maxHead"%} <span id="upperDisplay">0</span
           ></label>
           <input type="range" min="0" max="500" step="1" id="upperSelectedRange" class="slider" value="0"/>
           <label
-            ># of samples in interval: <br><span id="sampleInRangeDisplay">0</span></label
+            >{% include translate.html key="oneProportion.samplesInterval" %} <br><span id="sampleInRangeDisplay">0</span></label
           >
-          <label>Proportion: <br><span id="proportionDisplay">0 / 0 = NaN</span></label>
+          <label>{% include translate.html key="oneProportion.proportion" %} <br><span id="proportionDisplay">0 / 0 = NaN</span></label>
         </div>
         <hr />
       </form>
@@ -60,25 +61,22 @@ title: One Proportion
       <div id="remarks">
         <table>
           <tr>
-            <td>Remarks:</td>
+            <td>{% include translate.html key="oneProportion.remarkTitle" %}</td>
             <td>
-              1. Double click the graph to zoom in/out if # of tosses >= 50
+              {% include translate.html key="oneProportion.remark1" %}
             </td>
           </tr>
           <tr>
             <td></td>
-            <td>2. Click the legend to hide/show corresponding info in graph</td>
+            <td>{% include translate.html key="oneProportion.remark2" %}</td>
           </tr>
         </table>
       </div>
     </div>
     </div>
 </div>
-<script src="../lib/Chart.bundle.min.js"></script>
-<script type="module" src="./oneProportion.js"></script>
+<script src="{{base}}../lib/Chart.bundle.min.js"></script>
 <script type="module">
-  import { OneProportion } from "./oneProportion.js";
-  window.oneProportion = new OneProportion(
-    document.getElementById("one-proportion")
-  );
+  import {OneProportion} from '{{base}}./oneProportion.js';
+  window.oneProportion = new OneProportion(document.getElementById('one-proportion'));
 </script>

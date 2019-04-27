@@ -1,11 +1,14 @@
+---
+---
 import {
   dropTextFileOnTextArea,
   parseCSVtoSingleArray,
   readLocalFile
-} from "../util/csv.js";
-import StackedDotChart from "../util/stackeddotchart.js";
-import { randomSubset, splitByPredicate } from "../util/sampling.js";
-import * as MathUtil from "/util/math.js";
+} from "{{base}}../util/csv.js";
+import StackedDotChart from "{{base}}../util/stackeddotchart.js";
+import { randomSubset, splitByPredicate } from "{{base}}../util/sampling.js";
+import * as MathUtil from "{{base}}../util/math.js";
+import translation from "{{base}}../util/translate.js";
 
 export class OneMean {
   constructor(OneMeanDiv) {
@@ -16,7 +19,9 @@ export class OneMean {
     this.mostRecentDraw = [];
     this.sampleMeans = [];
     this.sampleSize = undefined;
+    this.translationData = undefined;
     this.tailDiection = null;
+    this.translationData = translation.oneMean;
     this.sampleData = {
       // has to hardcode if not using server
       "Select Sample Data": null,
@@ -54,15 +59,35 @@ export class OneMean {
       oneMeanDiv: OneMeanDiv,
       runSimErrorMsg: OneMeanDiv.querySelector("#run-sim-error-msg"),
       sampleDataDropDown: OneMeanDiv.querySelector("#sample-data"),
-      resetBtn: OneMeanDiv.querySelector("#reset-btn")
+      resetBtn: OneMeanDiv.querySelector("#reset-btn"),
+      translationData: OneMeanDiv.querySelector("#translation-data")
     };
 
+    // this.readTranlationData();
+
+    console.log(this.translationData);
     this.datasets = [
-      { label: "Original", backgroundColor: "orange", data: [] },
-      { label: "Hypothetical Population", backgroundColor: "orange", data: [] },
-      { label: "Most Recent Drawn", backgroundColor: "blue", data: [] },
+      {
+        label: this.translationData.original,
+        backgroundColor: "orange",
+        data: []
+      },
+      {
+        label: this.translationData.hypotheticalPopulation,
+        backgroundColor: "orange",
+        data: []
+      },
+      {
+        label: this.translationData.mostRecentDrawn,
+        backgroundColor: "blue",
+        data: []
+      },
       [
-        { label: "Samples", backgroundColor: "green", data: [] },
+        {
+          label: this.translationData.Samples,
+          backgroundColor: "green",
+          data: []
+        },
         { label: "N/A", backgroundColor: "red", data: [] }
       ]
     ];
@@ -149,7 +174,7 @@ export class OneMean {
     // if (this.populationData.length === 0) return;
     const newMeanSamples = [];
     try {
-      if (!this.populationData.length) throw "ERROR: No Population Data";
+      if (!this.populationData.length) throw this.translationData.errorNoPopulation;
       for (let i = 0; i < noOfSample; i++) {
         const { chosen, unchoosen } = randomSubset(
           this.populationData,
@@ -198,10 +223,20 @@ export class OneMean {
     });
   }
 
+  async readTranlationData() {
+    try {
+      let r = await fetch("../translationSource/translationData.csv");
+      let t = await r.text();
+      this.translationData = t;
+    } catch (err) {
+      console.log("cannot load csv");
+    }
+  }
+
   sampleListListener() {
     this.ele.sampleDataDropDown.addEventListener("change", () => {
       const sampleName = this.ele.sampleDataDropDown.value;
-      if (sampleName != "Select Sample Data") {
+      if (sampleName != this.translationData.selectData) {
         readLocalFile(this.sampleData[sampleName]).then(
           text => (this.ele.csvTextArea.value = text)
         );
@@ -322,7 +357,7 @@ export class OneMean {
     //update mean output
     const mean = data.length
       ? MathUtil.roundToPlaces(MathUtil.mean(valuesArr), 2)
-      : "No Data";
+      : this.translationData.noData;
     meanEle.innerText = mean;
     if (dataName === this.dataName.orginalData && !isNaN(mean)) {
       this.ele.tailValueInput.value = mean;
@@ -331,12 +366,12 @@ export class OneMean {
     if (dataName !== this.dataName.sampleMeans) {
       textAreaEle.value = data.reduce(
         (acc, x) => acc + `${x.id}\t${x.value}\n`,
-        `ID\tValue\n`
+        `${this.translationData.id}\t${this.translationData.value}\n`
       );
     } else {
       textAreaEle.value = data.reduce(
         (acc, x, index) => acc + `${index + 1}\t${x}\n`,
-        `Sample#\tMean\n`
+        `${this.translationData.sampleNo}\t${this.translationData.mean2}\n`
       );
     }
   }
@@ -369,23 +404,24 @@ export class OneMean {
   }
 
   updateSampleMeansChartLabels(tailDirection, tailInput, mean) {
+    const sampleName = this.translationData.samples;
     if (tailDirection === "null") {
-      this.dataChart4.updateLabelName(0, "samples");
+      this.dataChart4.updateLabelName(0, "${sampleName}");
       this.dataChart4.updateLabelName(1, "N/A");
     } else if (tailDirection === "oneTailRight") {
-      this.dataChart4.updateLabelName(0, `samples < ${tailInput}`);
-      this.dataChart4.updateLabelName(1, `samples >= ${tailInput}`);
+      this.dataChart4.updateLabelName(0, `${sampleName} < ${tailInput}`);
+      this.dataChart4.updateLabelName(1, `${sampleName} >= ${tailInput}`);
     } else if (tailDirection === "oneTailLeft") {
-      this.dataChart4.updateLabelName(0, `samples > ${tailInput}`);
-      this.dataChart4.updateLabelName(1, `samples <= ${tailInput}`);
+      this.dataChart4.updateLabelName(0, `${sampleName} > ${tailInput}`);
+      this.dataChart4.updateLabelName(1, `${sampleName} <= ${tailInput}`);
     } else {
       const distance = MathUtil.roundToPlaces(Math.abs(mean - tailInput), 2);
       const left = mean - distance;
       const right = mean + distance;
-      this.dataChart4.updateLabelName(0, `${left} < samples < ${right}`);
+      this.dataChart4.updateLabelName(0, `${left} < ${sampleName} < ${right}`);
       this.dataChart4.updateLabelName(
         1,
-        `samples <= ${left} or samples >= ${right}`
+        `${sampleName} <= ${left} or ${sampleName} >= ${right}`
       );
     }
   }

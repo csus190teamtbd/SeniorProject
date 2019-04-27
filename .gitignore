@@ -1,6 +1,8 @@
 node_modules
 dist
 _site/
+_site_en/
+_site_es/
 .vs/
 Gemfile.lock
 .vscode/
