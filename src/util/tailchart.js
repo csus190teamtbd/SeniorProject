@@ -17,7 +17,7 @@ export default class TailChart {
 
     this.tailDirection = null;
     this.tailInput = 0;
-    this.whatAreWeRecording = whatAreWeRecording || 'Samples';
+    this.whatAreWeRecording = whatAreWeRecording || translation.twoMean.Samples;
     this.dom = { chartElement };
     this.chart = new StackedDotChart(
       chartElement,

@@ -174,7 +174,7 @@ export class OneMean {
     // if (this.populationData.length === 0) return;
     const newMeanSamples = [];
     try {
-      if (!this.populationData.length) throw "ERROR: No Population Data";
+      if (!this.populationData.length) throw this.translationData.errorNoPopulation;
       for (let i = 0; i < noOfSample; i++) {
         const { chosen, unchoosen } = randomSubset(
           this.populationData,
@@ -236,7 +236,7 @@ export class OneMean {
   sampleListListener() {
     this.ele.sampleDataDropDown.addEventListener("change", () => {
       const sampleName = this.ele.sampleDataDropDown.value;
-      if (sampleName != "Select Sample Data") {
+      if (sampleName != this.translationData.selectData) {
         readLocalFile(this.sampleData[sampleName]).then(
           text => (this.ele.csvTextArea.value = text)
         );

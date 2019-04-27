@@ -25,6 +25,7 @@ en:
     chartTitle4: Sampling Distribution of Means
     drawSample: Draw Sample
     enterData: 'Enter Data:'
+    errorNoPopulation: 'ERROR: No Population Data(MISSING)'
     extremeSamples: Sample means at least as extreme as
     hypotheticalPopulation: Hypothetical Population
     id: ID
@@ -78,8 +79,8 @@ en:
     selectInterval: 'Select interval for # of heads in'
     selected: Selected
     standardDeviation: 'Standard Deviation:'
-    title: 'One Proportion '
-    tosses1: 'tosses:'
+    title: One Proportion
+    tosses1: 'Tosses:'
     tosses2: tosses
     totalSamples: 'Total samples:'
   site:
@@ -119,8 +120,33 @@ en:
     subTitle3: Sampling Distribution of Difference of Means
     title: Two Means
     totalSamples: 'Total samples:'
-  twoProportion:
+  twoProportions:
+    alertAtLeastOne: Group A and Group B must both have at least one element.
+    diffOfProp: Difference of Proportions (A – B)
+    differences: Differences
+    enterData: 'Enter Data:'
+    failures: Failures
+    groupA: Group A
+    groupB: Group B
+    loadData: Load Data
+    meanOfSampleDiff: Mean of Sample Differences
+    noData: No Data
+    noOfSelected: '# Samples Selected'
+    noOfSims: '# of Simulations'
+    noSim: No Simulations
+    oriDatasetDiff: Original Dataset Difference of Means
+    propGroupA: Proportion of Group A
+    propGroupB: Proportion of Group B
+    propOfRandomA: Proportion of Sample Randomized to Group A
+    propOfRandomB: Proportion of Sample Randomized to Group B
+    propSamplesSelected: Proportion Samples Selected
+    runSims: Run Simulations
+    selectAllExtreme: Select all as extreme as
+    std: '(Standard Deviation):'
+    subTitle3: Sampling Distribution of Difference of Proportions
+    successes: Successes
     title: Two Proportions
+    totalSamples: 'Total samples:'
   userManual:
     title: User Manual
 es:
@@ -150,6 +176,7 @@ es:
     chartTitle4: Distribucón de las medias
     drawSample: Obtenga la Muestra
     enterData: Teclee los Datos
+    errorNoPopulation: 'ERROR: No Population Data(MISSING)'
     extremeSamples: Medias igual o más extremas que
     hypotheticalPopulation: Poblacíon Hipotética
     id: '#'
@@ -204,7 +231,7 @@ es:
     selected: Seleccionadas
     standardDeviation: 'Desviación Estándar:'
     title: Una Proporción
-    tosses1: 'lanzamientos:'
+    tosses1: 'Lanzamientos:'
     tosses2: lanzamientos
     totalSamples: Total de muestras
   site:
@@ -245,7 +272,32 @@ es:
     subTitle3: Sampling Distribution of Difference of Means (MISSING)
     title: Dos Medias
     totalSamples: Total de muestras
-  twoProportion:
+  twoProportions:
+    alertAtLeastOne: Group A and Group B must both have at least one element. (MISSING)
+    diffOfProp: Differencias de Proporciones (A – B)
+    differences: 'Diferencias '
+    enterData: Teclee los Datos
+    failures: Fracasos
+    groupA: Grupo A
+    groupB: Grupo B
+    loadData: Subir Datos
+    meanOfSampleDiff: Media de las Diferencias de Medias
+    noData: No Data(MISSING)
+    noOfSelected: '# de muestras seleccionadas'
+    noOfSims: '# Simulaciones'
+    noSim: No Simulations(MISSING)
+    oriDatasetDiff: Differencia de Medias en Datos Originales
+    propGroupA: Proporción de Grupo A
+    propGroupB: Proporción de Grupo B
+    propOfRandomA: Proporción de Muestra Randomizada al Grupo A
+    propOfRandomB: Proporción de Muestra Randomizada al Grupo B
+    propSamplesSelected: Proporción de muestras seleccionadas
+    runSims: Correr Simulaciones
+    selectAllExtreme: Select all as extreme as(MISSING)
+    std: (Desviación Estándar)
+    subTitle3: Distribución de las Differencias de Proporciones
+    successes: Exitos
     title: Dos Proporciones
+    totalSamples: 'Total # de muestras:'
   userManual:
     title: Manual de Usuario

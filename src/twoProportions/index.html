@@ -5,45 +5,45 @@ title: Two Proportions
 
 <link rel="stylesheet" href="{{base}}./twoProportions.css">
 <div id="two-proportions">
-  <h1>Two Proportions</h1>
-  <h2>1. Enter Data</h2>
+  <h1>{% include translate.html key="twoProportions.title" %}</h1>
+  <h2>1. {% include translate.html key="twoProportions.enterData" %}</h2>
   <div id="input-section" class="section">
     <div class="lhs">
       <table>
         <thead>
           <tr>
             <td></td>
-            <td class="desc">Group A</td>
-            <td class="desc">Group B</td>
+            <td class="desc">{% include translate.html key="twoProportions.groupA" %}</td>
+            <td class="desc">{% include translate.html key="twoProportions.groupB" %}</td>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td class="desc">Successes</td>
+            <td class="desc">{% include translate.html key="twoProportions.successes" %}</td>
             <td><input type="number" id="a-success" value="0" min="0" step="1"></td>
             <td><input type="number" id="b-success" value="0" min="0" step="1"></td>
           </tr>
           <tr>
-            <td class="desc">Failures</td>
+            <td class="desc">{% include translate.html key="twoProportions.failures" %}</td>
             <td><input type="number" id="a-failure" value="0" min="0" step="1"></td>
             <td><input type="number" id="b-failure" value="0" min="0" step="1"></td>
           </tr>
         </tbody>
       </table>
       <br>
-      <button class="btn" onclick="twoProportions.loadData()">Load Data</button>
+      <button class="btn" onclick="twoProportions.loadData()">{% include translate.html key="twoProportions.loadData" %}</button>
       <hr>
       <div class="stats">
         <div>
-          <span>Proportion of Group A</span>
+          <span>{% include translate.html key="twoProportions.propGroupA" %}</span>
           <span summary="proportionA"></span>
         </div>
         <div>
-          <span>Proportion of Group B</span>
+          <span>{% include translate.html key="twoProportions.propGroupB" %}</span>
           <span summary="proportionB"></span>
         </div>
         <div>
-          <span>Difference of Proportions (A - B)</span>
+          <span>{% include translate.html key="twoProportions.diffOfProp" %}</span>
           <span summary="proportionDiff"></span>
         </div>
       </div>
@@ -51,93 +51,93 @@ title: Two Proportions
     <div class="rhs">
       <table style="margin-left: 3em">
         <tr>
-          <td style="text-align: right"><span summary="numAFailure"></span> Failures</td>
+          <td style="text-align: right"><span summary="numAFailure"></span> {% include translate.html key="twoProportions.failures" %}</td>
           <td rowspan="2" colspan="2">
             <div class="chart-wrap"><canvas id="input-bars"></canvas></div>
           </td>
-          <td><span summary="numBFailure"></span> Failures</td>
+          <td><span summary="numBFailure"></span> {% include translate.html key="twoProportions.failures" %}</td>
         </tr>
         <tr>
-          <td style="text-align: right"><span summary="numASuccess"></span> Successes</td>
-          <td><span summary="numBSuccess"></span> Successes</td>
+          <td style="text-align: right"><span summary="numASuccess"></span> {% include translate.html key="twoProportions.successes" %}</td>
+          <td><span summary="numBSuccess"></span> {% include translate.html key="twoProportions.successes" %}</td>
         </tr>
       </table>
     </div>
   </div>
 
-  <h2>2. Run Simulation</h2>
+  <h2>2. {% include translate.html key="twoProportions.runSims" %}</h2>
   <div class="section">
     <div class="lhs">
-      <label># of Simulations:
+      <label>{% include translate.html key="twoProportions.noOfSims" %}:
         <input id="num-simulations" type="number" min="1" value="1" max="1000" disabled="need-data"/>
       </label>
-      <button class="btn" disabled="need-data" onclick="twoProportions.runSimulations()">Run Simulations</button>
+      <button class="btn" disabled="need-data" onclick="twoProportions.runSimulations()">{% include translate.html key="twoProportions.runSims" %}</button>
       <div class="stats">
         <div>
-          <span>Proportion of Sample Group A:</span>
-          <span summary="sampleProportionA">No Simulations</span>
+          <span>{% include translate.html key="twoProportions.propOfRandomA" %}</span>
+          <span summary="sampleProportionA">{% include translate.html key="twoProportions.noSim" %}</span>
         </div>
         <div>
-          <span>Proportion of Sample Group B:</span>
-          <span summary="sampleProportionB">No Simulations</span>
+          <span>{% include translate.html key="twoProportions.propOfRandomB" %}</span>
+          <span summary="sampleProportionB">{% include translate.html key="twoProportions.noSim" %}</span>
         </div>
         <div>
-          <span>Difference of Proportions:</span>
-          <span summary="sampleProportionDiff">No Simulations</span>
+          <span>{% include translate.html key="twoProportions.diffOfProp" %}</span>
+          <span summary="sampleProportionDiff">{% include translate.html key="twoProportions.noSim" %}</span>
         </div>
       </div>
     </div>
     <div class="rhs">
       <table style="margin-left: 3em">
         <tr>
-          <td style="text-align: right"><span summary="sampleAFailure"></span> Failures</td>
+          <td style="text-align: right"><span summary="sampleAFailure"></span> {% include translate.html key="twoProportions.failures" %}</td>
           <td rowspan="2" colspan="2">
             <div class="chart-wrap"><canvas id="last-sim-bars"></canvas></div>
           </td>
-          <td><span summary="sampleBFailure"></span> Failures</td>
+          <td><span summary="sampleBFailure"></span> {% include translate.html key="twoProportions.failures" %}</td>
         </tr>
         <tr>
-          <td style="text-align: right"><span summary="sampleASuccess"></span> Successes</td>
-          <td><span summary="sampleBSuccess"></span> Successes</td>
+          <td style="text-align: right"><span summary="sampleASuccess"></span> {% include translate.html key="twoProportions.successes" %}</td>
+          <td><span summary="sampleBSuccess"></span> {% include translate.html key="twoProportions.successes" %}</td>
         </tr>
       </table>
     </div>
   </div>
 
-  <h2>3. Sampling Distribution of Difference of Proportions</h2>
+  <h2>3. {% include translate.html key="twoProportions.subTitle3" %}</h2>
   <div class="section flex-row">
     <div class="lhs">
       <select id="tail-direction" disabled="need-results">
         {% include tailChartDirectionOptions.html %}
       </select>
-      <span>Select all as extreme as</span>
+      <span>{% include translate.html key="twoProportions.selectAllExtreme" %}</span>
       <input type="number" id="tail-input" value="0" step="any" disabled="need-results">
       <hr>
       <div class="stats">
         <div>
-          <span>Dataset Difference of Proportions:</span>
+          <span>{% include translate.html key="twoProportions.oriDatasetDiff" %}</span>
           <span id="diff-of-data" class="stat"></span>
         </div>
         <div>
-          <span>Mean of Sample Differences:</span>
+          <span>{% include translate.html key="twoProportions.meanOfSampleDiff" %}</span>
           <span id="mean-sample-diffs" class="stat" summary="mean"></span>
         </div>
         <div>
-          <span>(Standard Deviation):</span>
+          <span>{% include translate.html key="twoProportions.std" %}</span>
           <span id="stddev-sample-diffs" class="stat" summary="stddev"></span>
         </div>
         <br>
         <div>
-          <span>Total Samples:</span>
-          <span id="total-samples" class="stat" summary="total">No Data</span>
+          <span>{% include translate.html key="twoProportions.totalSamples" %}</span>
+          <span id="total-samples" class="stat" summary="total">{% include translate.html key="twoProportions.noData" %}</span>
         </div>
         <div>
-          <span># Selected:</span>
-          <span id="chosen-count" class="stat" summary="chosen">No Data</span>
+          <span>{% include translate.html key="twoProportions.noOfSelected" %}</span>
+          <span id="chosen-count" class="stat" summary="chosen">{% include translate.html key="twoProportions.noData" %}</span>
         </div>
         <div>
-          <span>Proportion Selected:</span>
-          <span id="proportion" class="stat" summary="proportion">No Data</span>
+          <span>{% include translate.html key="twoProportions.propSamplesSelected" %}</span>
+          <span id="proportion" class="stat" summary="proportion">{% include translate.html key="twoProportions.noData" %}</span>
         </div>
       </div>
     </div>
