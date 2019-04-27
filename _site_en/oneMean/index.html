@@ -1,0 +1,143 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>SAVIS | One Means</title>
+    <link rel="stylesheet" href="./../css/base.css"></link>
+  </head>
+  <body>
+    <nav id="navbar">
+      <h1 class="logo"><span class="text-primary">SAVIS</span></h1>
+      <ul>
+        <li><a href="./../index.html">Home
+</a></li>
+        <li><a href="./../about/index.html">About
+</a></li>
+        <li><a href="./../#">Download
+</a></li>
+        <li><a href="./../#">User Manual
+</a></li>
+      </ul>
+    </nav>
+    <div id="main-content"><link rel="stylesheet" href="./oneMean.css">
+<div id="one-mean">
+  <h1> One Mean
+</h1>
+  <h3>1. Enter Data:
+<input type="checkbox" class='toggle-box' checked="checked"></h3>
+  <div class="chart-input-form">
+    <div class="data-form">
+      <select id="sample-data">
+      </select>
+      <textarea rows="8" id="csv-input" placeholder="Please enter data or drop columns from cvs file here (no column titles - see sample data)
+"></textarea>
+      <button class="btn" id="load-data-btn">Load Data
+</button>
+      <button class="btn" id="reset-btn">Reset
+</button>
+    </div>
+    <div class="data-form">
+      <textarea rows="10" id="original-data-display" readonly></textarea>
+      <p>Mean:
+ <span id ="original-mean"></span></p>
+    </div>
+    <div class="chart-wrap"><canvas id="original-data-chart"></canvas></div>
+  </div>
+  <hr> 
+
+  <h3>2. Generate Hypothetical Population
+<input type="checkbox" class='toggle-box' checked="checked"></h3>
+  <div class="chart-input-form">
+    <div class="data-form">
+      <label for="shiftMeanInput"> Shift mean
+</label>
+      <input type="number" step="0.1" id="shiftMeanInput" value="0"/>
+      <label for="mul-factor">Increase data
+ <span id="mul-factor-display">0</span
+          > times
+</label>
+      <input type="range" min="0" max="50" step="1" id="mul-factor" value="1"/>
+    </div>  
+    <div class="data-form">
+      <textarea rows="10" readonly id="population-data-display"></textarea>
+      <p>Mean:
+ <span id ="population-mean"></span></p>
+    </div>
+    <div class="chart-wrap"><canvas id="population-data-chart"></canvas></div>
+  </div>
+  <hr>
+
+  <h3>3. Draw Sample
+<input type="checkbox" class='toggle-box' checked="checked"></h3>  
+  <div class="chart-input-form">
+    <div class="data-form">
+      <label for="sample-size"> Sample size:
+</label>
+      <input type="number" min="1" step="1" id="sample-size" value="10"/>
+      <label for="no-of-sample"> # of samples
+</label>
+      <input type="number" min="1" step="1" id="no-of-sample" value="1"/>
+      <button class="btn" id="run-sim-btn">Run Simulation
+</button>
+      <p id ="run-sim-error-msg"></p>
+    </div>
+    <div class="data-form">
+      <textarea rows="10" readonly id="most-recent-sample-display"></textarea>
+      <p>Mean:
+ <span id ="sample-mean"></span></p>
+    </div>
+    <div class="chart-wrap"><canvas id="sample-data-chart"></canvas></div>
+  </div>
+  <hr>
+
+  <h3>4. Sampling Distribution of Means
+ <input type="checkbox" class='toggle-box' checked="checked"></h3>  
+  <div class="chart-input-form">
+    <div class="data-form">
+      <select id="tailDirection">
+        <option value=null>Please select
+</option>
+        <option value="oneTailRight">One Tail Right
+</option>
+        <option value="oneTailLeft">One Tail Left
+</option>
+        <option value="TwoTail">Two Tails
+</option>
+      </select>
+      <br>
+      <p>Total samples:
+<span id="total-samples"></span></p>
+      <label for="tailValue"> Sample means at least as extreme as
+</label>
+      <input type="number" id="tailValue"/>
+      <p>= <span id="total-selected-samples">0</span> samples
+</p>
+      <p>Proportion
+<br><span id="proportion"></span></p>
+    </div>
+    <div class="data-form">
+      <textarea rows="10" readonly id="samples-mean-display"></textarea>
+      <p>Mean of sample means: 
+ <br><span id ="samples-mean"></span></p>
+    </div>
+    <div class="chart-wrap"><canvas id="statistic-data-chart"></canvas></div>
+  </div>
+  <hr>
+</div>
+
+<script src="../lib/Chart.bundle.min.js"></script>
+<script type="module">
+  import {OneMean} from './oneMean.js';
+  window.oneMean = new OneMean(document.getElementById('one-mean'));
+</script>
+
+</div>
+    <footer id="main-footer" class="bg-dark text-center py-1">
+      <div class="container">
+        <p>Copyright ©2019 CSUS. All Rights Reserved.</p>
+      </div>
+    </footer>
+  </body>
+</html>

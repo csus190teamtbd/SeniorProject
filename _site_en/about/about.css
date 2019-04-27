@@ -1,0 +1,8 @@
+.paragraph {
+  max-width: 1080px;
+  margin: auto; }
+  .paragraph h3 {
+    margin-top: 5px;
+    text-align: center; }
+  .paragraph ul {
+    list-style-type: none; }
