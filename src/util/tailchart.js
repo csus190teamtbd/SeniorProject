@@ -4,6 +4,7 @@ import StackedDotChart from "{{base}}../util/stackeddotchart.js";
 import * as MathUtil from "{{base}}../util/math.js";
 import * as Summaries from "{{base}}../util/summaries.js";
 import { randomSubset, splitByPredicate } from "{{base}}../util/sampling.js";
+import translation from "{{base}}../util/translate.js";
 
 export default class TailChart {
 

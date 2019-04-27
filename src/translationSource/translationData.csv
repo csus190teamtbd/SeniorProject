@@ -9,7 +9,7 @@ One Mean	Una Media	oneMean.title
 Two Means	Dos Medias	twoMean.title
 About	Acerca de SAVIS	about.title
 Contact	Contact(MISSING)	about.contact
-Contributors	Contributors	about.contributors
+Contributors	Contributors(MISSING)	about.contributors
 Statistical Analysis Visualizations for Introductory Statistics (SAVIS) was conceived as part of a collaborative research project on statistical education between the Department of Mathematics and Statistics at  California State University Sacramento (CSUS) and the School of Mathematics of the Universidad Autónoma de Yucatán (UADY). SAVIS is an educational tool to help to intuitively understand concepts of tests of statistical hypotheses using visualizations based on resampling and randomization techniques. SAVIS has an online and a stand-alone version (both freely available) in English and Spanish.	Statistical Analysis Visualizations for Introductory Statistics (SAVIS) fue concebido como parte de un proyecto de investigación en educación de la estadística realizado por el Departamento de Matemáticas y Estadística de la Universidad Estatal de California Sacramento y la Universidad Autónoma de Yucatán. SAVIS es una herramienta educativa que ayuda entender conceptos de pruebas de hipótesis estadísticas a través de visualizaciones basadas en técnicas de aleatorización y re-muestreo. SAVIS tiene una versión autónoma y otra en línea, ambas gratis, en inlglés y en español.	about.content1
 SAVIS was created in the Spring of 2019 by the following group of graduating seniors from the Department of Computer Science at CSUS under the direction of Rafael E. Diaz Escamilla, a professor in the Department of Mathematics and Statistics at CSUS:	SAVIS fue creado como un proyecto de titulación por los siguientes estudiantes del Departamento de Ciencias de la Computación de la Universidad Estatal de California Sacramento bajo la dirección de Rafael E. Diaz Escamilla, profesor del Departamento de Matemáticas y Estadística de esta misma universidad:	about.content2
 tosses:	lanzamientos:	oneProportion.tosses1
@@ -35,7 +35,7 @@ Probability of Heads p:	Probabilidad de Agulas p:	oneProportion.probHeads
 Add samples	Add samples(MISSING):	oneProportion.addSamples
 Select interval for # of heads in	Select interval for # of heads in(MISSING)	oneProportion.selectInterval
 Enter Data:	Teclee los Datos	oneMean.enterData
-Select Sample Data	Seleccione Datos Muestra	oneMean.slectData
+Select Sample Data	Seleccione Datos Muestra	oneMean.selectData
 Sample XXX	Muestra XXX	oneMean.sample
 Please enter data or drop columns from cvs file here (no column titles - see sample data)	Teclee datos aquí o pegue selección de columnas de archivo csv (sin títulos de columna - ver datos muestra)	oneMean.textAreaPlaceHolder
 Load Data	Cargar Datos	oneMean.loadData
@@ -55,7 +55,7 @@ Sampling Distribution of Means	Distribucón de las medias	oneMean.chartTitle4
 Please select	Seleccione	oneMean.pleaseSelect
 One Tail Right	Una cola (derecha)	oneMean.oneTailRight
 One Tail Left	Una cola (izquierda)	oneMean.oneTailLeft
-Two Tail	Dos colas	oneMean.twoTail
+Two Tails	Dos colas	oneMean.twoTail
 Total # of samples:	Total # de muestras	oneMean.totalNoOfSamples
 Sample means at least as extreme as	Medias igual o más extremas que	oneMean.extremeSamples
 samples	muestras	oneMean.samples
@@ -69,3 +69,37 @@ Hypothetical Population	Poblacíon Hipotética	oneMean.hypotheticalPopulation
 Most Recent Drawn	Ultima Muestra	oneMean.mostRecentDrawn
 No Data	No Data(MISSING)	oneMean.noData
 Total samples:	Total de muestras	oneMean.totalSamples
+Two Means	Dos Medias	twoMean.title
+Enter Data	Teclee los Datos	twoMean.enterData
+Enter or Drop CSV with first column as group number (1 or 2) and second column as variable. No colunm names (see sample data)	Teclee datos aquí o pegue selección de columnas de archivo csv: primera columa para codigo de grupos (1 o 2), segunda colunmna para la variable (sin títulos de columna - ver datos muestra)	twoMean.placeholder
+Load Data	Subir Datos	twoMean.loadData
+Reset	Reinicio	twoMean.reset
+Mean of Group 1:	Media Grupo 1:	twoMean.gp1Mean
+Mean of Group 2:	Media Grupo 2:	twoMean.gp2Mean
+Run Simulations	Correr Simulaciones	twoMean.runSims
+Mean of Randomized Sample to Group 1	Media de la Muestra Randomizada al Grupo 1	twoMean.randomMean1
+Mean of Randomized Sample to Group 2	Media de la Muestra Randomizada al Grupo 2	twoMean.randomMean2
+Select Sample Data	Seleccione Datos Muestra	twoMean.selectData
+Load Data	Cargar Datos	twoMean.loadData
+No Data	No Data(MISSING)	twoMean.noData
+Difference of Means (Group 1 - Group 2):	Difference of Means (Group 1 - Group 2):(MISSING)	twoMean.diffOfMean
+Run Simulation	Correr Simulacón	twoMean.runSim
+# Simulations	# Simulaciones	twoMean.numSim
+Difference of Randomized Sample Means:	Difference of Randomized Sample Means:(MISSING)	twoMean.diffOfSampleMean
+Sampling Distribution of Difference of Means	Sampling Distribution of Difference of Means (MISSING)	twoMean.subTitle3
+Please select	Seleccione	tailChart.pleaseSelect
+One Tail Right	Una cola (derecha)	tailChart.oneTailRight
+One Tail Left	Una cola (izquierda)	tailChart.oneTailLeft
+Two Tails	Dos colas	tailChart.twoTail
+No Data	No Data(MISSING)	twoMean.noData
+Group 1	Grupo 1	twoMean.group1
+Group 2	Grupo 2	twoMean.group2
+Differences	Diferencias 	twoMean.differences
+Select all as extreme as	Select all as extreme as(MISSING)	twoMean.selectAllExtreme
+Samples	Muestras	twoMean.Samples
+Total samples:	Total de muestras	twoMean.totalSamples
+# Selected:	# Seleccionadas:	twoMean.numSelected
+Original Dataset Difference of Means:	Original Dataset Difference of Means:(MISSING)	twoMean.oriDiffOfMean
+Mean of Sample Differences:	Mean of Sample Differences:(MISSING)	twoMean.meanSampleDiff
+StdDev of Sample Differences:	StdDev of Sample Differences:(MISSING)	twoMean.stdSampleDiff
+Proportion Selected:	Proportion Selected:(MISSING)	twoMean.proportionSelcted

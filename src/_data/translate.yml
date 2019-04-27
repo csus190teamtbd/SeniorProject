@@ -47,15 +47,15 @@ en:
     sampleNo: 'sample #'
     sampleSize: 'Sample size:'
     samples: samples
+    selectData: Select Sample Data
     shiftMean: Shift mean
-    slectData: Select Sample Data
     textAreaPlaceHolder: Please enter data or drop columns from cvs file here (no
       column titles - see sample data)
     times: times
     title: One Mean
     totalNoOfSamples: 'Total # of samples:'
     totalSamples: 'Total samples:'
-    twoTail: Two Tail
+    twoTail: Two Tails
     value: Value
   oneProportion:
     Samples: Samples
@@ -84,8 +84,41 @@ en:
     totalSamples: 'Total samples:'
   site:
     title: 'Statistical Analysis Vizualizions for Introtuctory Statistics '
+  tailChart:
+    oneTailLeft: One Tail Left
+    oneTailRight: One Tail Right
+    pleaseSelect: Please select
+    twoTail: Two Tails
   twoMean:
+    Samples: Samples
+    diffOfMean: 'Difference of Means (Group 1 - Group 2):'
+    diffOfSampleMean: 'Difference of Randomized Sample Means:'
+    differences: Differences
+    enterData: Enter Data
+    gp1Mean: 'Mean of Group 1:'
+    gp2Mean: 'Mean of Group 2:'
+    group1: Group 1
+    group2: Group 2
+    loadData: Load Data
+    meanSampleDiff: 'Mean of Sample Differences:'
+    noData: No Data
+    numSelected: '# Selected:'
+    numSim: '# Simulations'
+    oriDiffOfMean: 'Original Dataset Difference of Means:'
+    placeholder: Enter or Drop CSV with first column as group number (1 or 2) and
+      second column as variable. No colunm names (see sample data)
+    proportionSelcted: 'Proportion Selected:'
+    randomMean1: Mean of Randomized Sample to Group 1
+    randomMean2: Mean of Randomized Sample to Group 2
+    reset: Reset
+    runSim: Run Simulation
+    runSims: Run Simulations
+    selectAllExtreme: Select all as extreme as
+    selectData: Select Sample Data
+    stdSampleDiff: 'StdDev of Sample Differences:'
+    subTitle3: Sampling Distribution of Difference of Means
     title: Two Means
+    totalSamples: 'Total samples:'
   twoProportion:
     title: Two Proportions
   userManual:
@@ -105,7 +138,7 @@ es:
       estudiantes del Departamento de Ciencias de la Computación de la Universidad
       Estatal de California Sacramento bajo la dirección de Rafael E. Diaz Escamilla,
       profesor del Departamento de Matemáticas y Estadística de esta misma universidad:'
-    contributors: Contributors
+    contributors: Contributors(MISSING)
     title: Acerca de SAVIS
   download:
     title: Bajar Archivo
@@ -139,8 +172,8 @@ es:
     sampleNo: Número de muestra
     sampleSize: Tamaño de muestra
     samples: muestras
+    selectData: Seleccione Datos Muestra
     shiftMean: Desplace la media
-    slectData: Seleccione Datos Muestra
     textAreaPlaceHolder: Teclee datos aquí o pegue selección de columnas de archivo
       csv (sin títulos de columna - ver datos muestra)
     times: veces
@@ -176,8 +209,42 @@ es:
     totalSamples: Total de muestras
   site:
     title: Statistical Analysis and Visualization for Introductory Statistics
+  tailChart:
+    oneTailLeft: Una cola (izquierda)
+    oneTailRight: Una cola (derecha)
+    pleaseSelect: Seleccione
+    twoTail: Dos colas
   twoMean:
+    Samples: Muestras
+    diffOfMean: Difference of Means (Group 1 - Group 2):(MISSING)
+    diffOfSampleMean: Difference of Randomized Sample Means:(MISSING)
+    differences: 'Diferencias '
+    enterData: Teclee los Datos
+    gp1Mean: 'Media Grupo 1:'
+    gp2Mean: 'Media Grupo 2:'
+    group1: Grupo 1
+    group2: Grupo 2
+    loadData: Cargar Datos
+    meanSampleDiff: Mean of Sample Differences:(MISSING)
+    noData: No Data(MISSING)
+    numSelected: '# Seleccionadas:'
+    numSim: '# Simulaciones'
+    oriDiffOfMean: Original Dataset Difference of Means:(MISSING)
+    placeholder: 'Teclee datos aquí o pegue selección de columnas de archivo csv:
+      primera columa para codigo de grupos (1 o 2), segunda colunmna para la variable
+      (sin títulos de columna - ver datos muestra)'
+    proportionSelcted: Proportion Selected:(MISSING)
+    randomMean1: Media de la Muestra Randomizada al Grupo 1
+    randomMean2: Media de la Muestra Randomizada al Grupo 2
+    reset: Reinicio
+    runSim: Correr Simulacón
+    runSims: Correr Simulaciones
+    selectAllExtreme: Select all as extreme as(MISSING)
+    selectData: Seleccione Datos Muestra
+    stdSampleDiff: StdDev of Sample Differences:(MISSING)
+    subTitle3: Sampling Distribution of Difference of Means (MISSING)
     title: Dos Medias
+    totalSamples: Total de muestras
   twoProportion:
     title: Dos Proporciones
   userManual:
