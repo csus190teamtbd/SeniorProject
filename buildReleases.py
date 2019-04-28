@@ -38,9 +38,9 @@ def buildWebRelease():
   subprocess.run('zip -r ./dist/site_es.zip ./_site_es/', shell=True)
 
 def main(args):    
-  inputFile = os.path.abspath(args.input_csv_file)
-  outputFile = os.path.abspath(args.output_yml_file)
-  generateYMLfromCSV(inputFile, outputFile)
+  # inputFile = os.path.abspath(args.input_csv_file)
+  # outputFile = os.path.abspath(args.output_yml_file)
+  # generateYMLfromCSV(inputFile, outputFile)
   buildWebRelease()
   # to be done --- Add electron build release
   
