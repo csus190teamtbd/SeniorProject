@@ -105,6 +105,7 @@ export class OneMean {
       OneMeanDiv.querySelector("#sample-data-chart"),
       [this.datasets[2]]
     );
+    this.dataChart3.setAnimationDuration(0);
     this.dataChart4 = new StackedDotChart(
       OneMeanDiv.querySelector("#statistic-data-chart"),
       this.datasets[3]
@@ -342,8 +343,8 @@ export class OneMean {
         chart.setDataFromRaw([unchosen, chosen]);
         pointRadius = 2;
       }
-      if (data.length > 500) chart.setAnimationDuration(0);
-      else chart.setAnimationDuration(1000);
+      // if (data.length > 500) chart.setAnimationDuration(0);
+      // else chart.setAnimationDuration(1000);
       chart.changeDotAppearance(pointRadius, undefined);
       let min = MathUtil.minInArray(valuesArr);
       let max = MathUtil.maxInArray(valuesArr);
