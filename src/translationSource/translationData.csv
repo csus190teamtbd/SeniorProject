@@ -59,8 +59,9 @@ Sample means at least as extreme as	Medias igual o más extremas que	oneMean.ext
 samples	muestras	oneMean.samples
 Samples	Muestras	oneMean.Samples
 Proportion	Proporción	oneMean.proportion
-sample #	Número de muestra	oneMean.sampleNo
+#	#	oneMean.sampleNo
 Mean	Media	oneMean.mean2
+Standard Deviation:	Desviación Estándar	oneMean.std
 Mean of sample means: 	Media de las medias:	oneMean.meanOfsamplesMeans
 Original	Original	oneMean.original
 Hypothetical Population	Poblacíon Hipotética	oneMean.hypotheticalPopulation
@@ -70,7 +71,7 @@ Total samples:	Total de muestras	oneMean.totalSamples
 ERROR: No Population Data(MISSING)	ERROR: No Population Data(MISSING)	oneMean.errorNoPopulation
 Two Means	Dos Medias	twoMean.title
 Enter Data	Teclee los Datos	twoMean.enterData
-Enter or Drop CSV with first column as group number (1 or 2) and second column as variable. No colunm names (see sample data)	Teclee datos aquí o pegue selección de columnas de archivo csv: primera columa para codigo de grupos (1 o 2), segunda colunmna para la variable (sin títulos de columna - ver datos muestra)	twoMean.placeholder
+Enter or Drop CSV with first column as group number (1 or 2) and second column as variable. No colunm names (see sample data in dropdown)	Teclee datos aquí o pegue selección de columnas de archivo csv: primera columa para codigo de grupos (1 o 2), segunda colunmna para la variable (sin títulos de columna - ver datos muestra)	twoMean.placeholder
 Load Data	Subir Datos	twoMean.loadData
 Reset	Reinicio	twoMean.reset
 Mean of Group 1:	Media Grupo 1:	twoMean.gp1Mean
