@@ -56,7 +56,10 @@ export function parseCSVtoSingleArray(rawData) {
   return rawData
     .split(/[\r\n]+/)
     .filter(x => numRegex.test(x))
-    .map((x, index) => ({ id: index, value: Number(x.match(numRegex)[0]) }));
+    .map((x, index) => ({
+      id: index + 1,
+      value: Number(x.match(numRegex)[0])
+    }));
 }
 
 //return promise

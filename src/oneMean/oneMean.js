@@ -15,6 +15,7 @@ export class OneMean {
     this.shiftMean = 0;
     this.mulFactor = 0;
     this.populationData = [];
+    this.populationMean=undefined;
     this.originalData = [];
     this.mostRecentDraw = [];
     this.sampleMeans = [];
@@ -60,7 +61,9 @@ export class OneMean {
       runSimErrorMsg: OneMeanDiv.querySelector("#run-sim-error-msg"),
       sampleDataDropDown: OneMeanDiv.querySelector("#sample-data"),
       resetBtn: OneMeanDiv.querySelector("#reset-btn"),
-      translationData: OneMeanDiv.querySelector("#translation-data")
+      translationData: OneMeanDiv.querySelector("#translation-data"),
+      originalStd: OneMeanDiv.querySelector("#original-std"),
+      sampleMeansStd: OneMeanDiv.querySelector("#samplemeans-std")
     };
 
     // this.readTranlationData();
@@ -100,14 +103,17 @@ export class OneMean {
       OneMeanDiv.querySelector("#population-data-chart"),
       [this.datasets[1]]
     );
+    this.dataChart2.setAnimationDuration(0);
     this.dataChart3 = new StackedDotChart(
       OneMeanDiv.querySelector("#sample-data-chart"),
       [this.datasets[2]]
     );
+    this.dataChart3.setAnimationDuration(0);
     this.dataChart4 = new StackedDotChart(
       OneMeanDiv.querySelector("#statistic-data-chart"),
       this.datasets[3]
     );
+    this.dataChart4.setAnimationDuration(0);
     this.dataName = {
       orginalData: "orginalData",
       populationData: "populationData",
@@ -205,7 +211,6 @@ export class OneMean {
 
   resetBtnListener() {
     this.ele.resetBtn.addEventListener("click", e => {
-      console.log("reset");
       this.clearResult();
       this.ele.csvTextArea.value = "";
       this.originalData = [];
@@ -223,15 +228,6 @@ export class OneMean {
     });
   }
 
-  async readTranlationData() {
-    try {
-      let r = await fetch("../translationSource/translationData.csv");
-      let t = await r.text();
-      this.translationData = t;
-    } catch (err) {
-      console.log("cannot load csv");
-    }
-  }
 
   sampleListListener() {
     this.ele.sampleDataDropDown.addEventListener("change", () => {
@@ -268,19 +264,20 @@ export class OneMean {
     });
   }
 
-  updatedPopulationData(orginalData, shift, mulFactor) {
+  updatedPopulationData(originalData, shift, mulFactor) {
     this.shiftMean = shift;
     this.ele.shiftMeanInput.value = shift;
     this.mulFactor = mulFactor;
     this.populationData = [];
-    for (let i = 0; i < mulFactor + 1; i++) {
-      this.populationData = this.populationData.concat(
-        orginalData.map(x => ({
-          id: x.id + i * orginalData.length,
+    originalData.forEach(x => {
+      for (let i = 0; i <= mulFactor; i++){
+        this.populationData.push({
+          id: (x.id-1)*(mulFactor+1)+i+1,
           value: MathUtil.roundToPlaces(x.value + shift, 4)
-        }))
-      );
-    }
+        })
+      }
+    })
+    this.populationMean = MathUtil.roundToPlaces(MathUtil.mean(this.populationData.map(x => x.value)), 2);
     this.updateData(this.dataName.populationData);
   }
 
@@ -304,6 +301,7 @@ export class OneMean {
       data = this.originalData;
       meanEle = this.ele.originalMean;
       textAreaEle = this.ele.originalDataDisplay;
+      this.ele.originalStd.innerText = MathUtil.roundToPlaces(MathUtil.stddev(data.map(x => x.value)), 2);
     } else if (dataName === this.dataName.populationData) {
       chart = this.dataChart2;
       data = this.populationData;
@@ -319,6 +317,7 @@ export class OneMean {
       data = this.sampleMeans;
       meanEle = this.ele.samplesMean;
       textAreaEle = this.ele.sampleMeansDisplay;
+      this.ele.sampleMeansStd.innerText = MathUtil.roundToPlaces(MathUtil.stddev(data), 2);
     }
     // update chart
     let valuesArr = null;
@@ -331,7 +330,7 @@ export class OneMean {
         valuesArr = data;
         const tailDirection = this.ele.tailDirectionInput.value;
         const tailInput = Number(this.ele.tailValueInput.value);
-        const mean = MathUtil.roundToPlaces(MathUtil.mean(this.sampleMeans), 2);
+        const mean = this.populationMean;
         const { chosen, unchosen } = splitByPredicate(
           valuesArr,
           this.predicateForTail(tailDirection, tailInput, mean)
@@ -342,8 +341,8 @@ export class OneMean {
         chart.setDataFromRaw([unchosen, chosen]);
         pointRadius = 2;
       }
-      if (data.length > 500) chart.setAnimationDuration(0);
-      else chart.setAnimationDuration(1000);
+      // if (data.length > 500) chart.setAnimationDuration(0);
+      // else chart.setAnimationDuration(1000);
       chart.changeDotAppearance(pointRadius, undefined);
       let min = MathUtil.minInArray(valuesArr);
       let max = MathUtil.maxInArray(valuesArr);
@@ -404,9 +403,9 @@ export class OneMean {
   }
 
   updateSampleMeansChartLabels(tailDirection, tailInput, mean) {
-    const sampleName = this.translationData.samples;
+    const sampleName = this.translationData.Samples;
     if (tailDirection === "null") {
-      this.dataChart4.updateLabelName(0, "${sampleName}");
+      this.dataChart4.updateLabelName(0, `${sampleName}`);
       this.dataChart4.updateLabelName(1, "N/A");
     } else if (tailDirection === "oneTailRight") {
       this.dataChart4.updateLabelName(0, `${sampleName} < ${tailInput}`);

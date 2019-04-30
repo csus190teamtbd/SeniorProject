@@ -45,11 +45,12 @@ en:
     reset: Reset
     runSim: Run Simulation
     sample: Sample XXX
-    sampleNo: 'sample #'
+    sampleNo: '#'
     sampleSize: 'Sample size:'
     samples: samples
     selectData: Select Sample Data
     shiftMean: Shift mean
+    std: 'Standard Deviation:'
     textAreaPlaceHolder: Please enter data or drop columns from cvs file here (no
       column titles - see sample data)
     times: times
@@ -107,7 +108,7 @@ en:
     numSim: '# Simulations'
     oriDiffOfMean: 'Original Dataset Difference of Means:'
     placeholder: Enter or Drop CSV with first column as group number (1 or 2) and
-      second column as variable. No colunm names (see sample data)
+      second column as variable. No colunm names (see sample data in dropdown)
     proportionSelcted: 'Proportion Selected:'
     randomMean1: Mean of Randomized Sample to Group 1
     randomMean2: Mean of Randomized Sample to Group 2
@@ -196,11 +197,12 @@ es:
     reset: Reinicio
     runSim: Correr Simulacón
     sample: Muestra XXX
-    sampleNo: Número de muestra
+    sampleNo: '#'
     sampleSize: Tamaño de muestra
     samples: muestras
     selectData: Seleccione Datos Muestra
     shiftMean: Desplace la media
+    std: Desviación Estándar
     textAreaPlaceHolder: Teclee datos aquí o pegue selección de columnas de archivo
       csv (sin títulos de columna - ver datos muestra)
     times: veces
