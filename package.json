@@ -22,9 +22,9 @@
     "test": "mocha --require babel-core/register",
     "test-all": "mocha --require babel-core/register --timeout=30000 test/**/*.test.js",
     "start": "electron .",
-    "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --prune=true --out=dist",
-    "package-win": "electron-packager . savis --overwrite --asar --platform=win32 --arch=ia32 --prune=true --out=dist --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"SAVIS\"",
-    "package-linux": "electron-packager . savis --overwrite --asar=true --platform=linux --arch=x64 --prune=true --out=dist"
+    "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --prune=true --out=dist_electron",
+    "package-win": "electron-packager . savis --overwrite --asar --platform=win32 --arch=ia32 --prune=true --out=dist_electron --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"SAVIS\"",
+    "package-linux": "electron-packager . savis --overwrite --asar=true --platform=linux --arch=x64 --prune=true --out=dist_electron"
   },
   "repository": {
     "type": "git",

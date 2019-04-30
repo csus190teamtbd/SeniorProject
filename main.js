@@ -11,14 +11,14 @@ const express = require("express");
 
 function createWindow() {
   let app = express();
-  app.use(express.static(path.join(__dirname, "")));
+  app.use(express.static(path.join(__dirname, "./dist/")));
   server = app.listen();
   console.log(server.address());
 
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1024,
+    height: 768,
     webPreferences: {
       nodeIntegration: true
     }
