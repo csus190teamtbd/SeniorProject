@@ -2,8 +2,12 @@
 ---
 
 #one-mean {
-  .toggle-box {
-    margin-left: 1ch;
+  h3 {
+    margin-top: 1ch;
+    width: 100%;
+    .toggle-box {
+      float: right;
+    }
   }
   .chart-input-form {
     display: flex;
