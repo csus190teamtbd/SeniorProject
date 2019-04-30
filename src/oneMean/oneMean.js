@@ -15,6 +15,7 @@ export class OneMean {
     this.shiftMean = 0;
     this.mulFactor = 0;
     this.populationData = [];
+    this.populationMean='';
     this.originalData = [];
     this.mostRecentDraw = [];
     this.sampleMeans = [];
@@ -223,15 +224,6 @@ export class OneMean {
     });
   }
 
-  async readTranlationData() {
-    try {
-      let r = await fetch("../translationSource/translationData.csv");
-      let t = await r.text();
-      this.translationData = t;
-    } catch (err) {
-      console.log("cannot load csv");
-    }
-  }
 
   sampleListListener() {
     this.ele.sampleDataDropDown.addEventListener("change", () => {
@@ -273,14 +265,22 @@ export class OneMean {
     this.ele.shiftMeanInput.value = shift;
     this.mulFactor = mulFactor;
     this.populationData = [];
-    for (let i = 0; i < mulFactor + 1; i++) {
-      this.populationData = this.populationData.concat(
-        orginalData.map(x => ({
-          id: x.id + i * orginalData.length,
+    // for (let i = 0; i < mulFactor + 1; i++) {
+    //   this.populationData = this.populationData.concat(
+    //     orginalData.map(x => ({
+    //       id: x.id + i * orginalData.length,
+    //       value: MathUtil.roundToPlaces(x.value + shift, 4)
+    //     }))
+    //   );
+    // }
+    this.originalData.forEach(x => {
+      for (let i = 0; i <= mulFactor; i++){
+        this.populationData.push({
+          id: (x.id-1)*(mulFactor+1)+i+1,
           value: MathUtil.roundToPlaces(x.value + shift, 4)
-        }))
-      );
-    }
+        })
+      }
+    })
     this.updateData(this.dataName.populationData);
   }
 
