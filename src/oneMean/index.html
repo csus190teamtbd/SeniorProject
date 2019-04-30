@@ -17,7 +17,9 @@ title: One Means
     </div>
     <div class="data-form">
       <textarea rows="10" id="original-data-display" readonly></textarea>
-      <p>{% include translate.html key="oneMean.mean1" %} <span id ="original-mean"></span></p>
+      <p>{% include translate.html key="oneMean.mean1" %} <span class = 'right-num' id ="original-mean"></span></p>
+      <p>{% include translate.html key="oneMean.std" %} </p>
+      <p class = 'right-num' id="original-std" ></p>
     </div>
     <div class="chart-wrap"><canvas id="original-data-chart"></canvas></div>
   </div>
@@ -34,7 +36,7 @@ title: One Means
     </div>  
     <div class="data-form">
       <textarea rows="10" readonly id="population-data-display"></textarea>
-      <p>{% include translate.html key="oneMean.mean1" %} <span id ="population-mean"></span></p>
+      <p>{% include translate.html key="oneMean.mean1" %} <span class = 'right-num' id ="population-mean"></span></p>
     </div>
     <div class="chart-wrap"><canvas id="population-data-chart"></canvas></div>
   </div>
@@ -52,7 +54,7 @@ title: One Means
     </div>
     <div class="data-form">
       <textarea rows="10" readonly id="most-recent-sample-display"></textarea>
-      <p>{% include translate.html key="oneMean.mean1" %} <span id ="sample-mean"></span></p>
+      <p>{% include translate.html key="oneMean.mean1" %} <span class = 'right-num' id ="sample-mean"></span></p>
     </div>
     <div class="chart-wrap"><canvas id="sample-data-chart"></canvas></div>
   </div>
@@ -76,7 +78,10 @@ title: One Means
     </div>
     <div class="data-form">
       <textarea rows="10" readonly id="samples-mean-display"></textarea>
-      <p>{% include translate.html key="oneMean.meanOfsamplesMeans" %} <br><span id ="samples-mean"></span></p>
+      <p>{% include translate.html key="oneMean.meanOfsamplesMeans" %}</p>
+      <p class = "right-num" id ="samples-mean"></p>
+      <p>{% include translate.html key="oneMean.std" %}</p>
+      <p class = "right-num" id ="samplemeans-std"></p>
     </div>
     <div class="chart-wrap"><canvas id="statistic-data-chart"></canvas></div>
   </div>

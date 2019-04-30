@@ -20,6 +20,14 @@
       padding: 5px;
       margin-bottom: 10px;
       text-align: justify;
+      p {
+        margin-top: 1px;
+        margin-bottom: 1px;
+      }
+      .right-num {
+        text-align: right;
+        float: right;
+      }
     }
     .chart-wrap {
       flex: 8;

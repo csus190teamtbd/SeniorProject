@@ -59,8 +59,9 @@ Sample means at least as extreme as	Medias igual o más extremas que	oneMean.ext
 samples	muestras	oneMean.samples
 Samples	Muestras	oneMean.Samples
 Proportion	Proporción	oneMean.proportion
-sample #	Número de muestra	oneMean.sampleNo
+#	#	oneMean.sampleNo
 Mean	Media	oneMean.mean2
+Standard Deviation:	Desviación Estándar	oneMean.std
 Mean of sample means: 	Media de las medias:	oneMean.meanOfsamplesMeans
 Original	Original	oneMean.original
 Hypothetical Population	Poblacíon Hipotética	oneMean.hypotheticalPopulation

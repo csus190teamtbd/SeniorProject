@@ -61,7 +61,9 @@ export class OneMean {
       runSimErrorMsg: OneMeanDiv.querySelector("#run-sim-error-msg"),
       sampleDataDropDown: OneMeanDiv.querySelector("#sample-data"),
       resetBtn: OneMeanDiv.querySelector("#reset-btn"),
-      translationData: OneMeanDiv.querySelector("#translation-data")
+      translationData: OneMeanDiv.querySelector("#translation-data"),
+      originalStd: OneMeanDiv.querySelector("#original-std"),
+      sampleMeansStd: OneMeanDiv.querySelector("#samplemeans-std")
     };
 
     // this.readTranlationData();
@@ -101,6 +103,7 @@ export class OneMean {
       OneMeanDiv.querySelector("#population-data-chart"),
       [this.datasets[1]]
     );
+    this.dataChart2.setAnimationDuration(0);
     this.dataChart3 = new StackedDotChart(
       OneMeanDiv.querySelector("#sample-data-chart"),
       [this.datasets[2]]
@@ -110,6 +113,7 @@ export class OneMean {
       OneMeanDiv.querySelector("#statistic-data-chart"),
       this.datasets[3]
     );
+    this.dataChart4.setAnimationDuration(0);
     this.dataName = {
       orginalData: "orginalData",
       populationData: "populationData",
@@ -203,12 +207,10 @@ export class OneMean {
     }
     this.updateData(this.dataName.mostRecentDraw);
     this.updateData(this.dataName.sampleMeans);
-    console.log(this.populationMean)
   }
 
   resetBtnListener() {
     this.ele.resetBtn.addEventListener("click", e => {
-      console.log("reset");
       this.clearResult();
       this.ele.csvTextArea.value = "";
       this.originalData = [];
@@ -299,6 +301,7 @@ export class OneMean {
       data = this.originalData;
       meanEle = this.ele.originalMean;
       textAreaEle = this.ele.originalDataDisplay;
+      this.ele.originalStd.innerText = MathUtil.roundToPlaces(MathUtil.stddev(data.map(x => x.value)), 2);
     } else if (dataName === this.dataName.populationData) {
       chart = this.dataChart2;
       data = this.populationData;
@@ -314,6 +317,7 @@ export class OneMean {
       data = this.sampleMeans;
       meanEle = this.ele.samplesMean;
       textAreaEle = this.ele.sampleMeansDisplay;
+      this.ele.sampleMeansStd.innerText = MathUtil.roundToPlaces(MathUtil.stddev(data), 2);
     }
     // update chart
     let valuesArr = null;
@@ -411,7 +415,6 @@ export class OneMean {
       this.dataChart4.updateLabelName(1, `${sampleName} <= ${tailInput}`);
     } else {
       const distance = MathUtil.roundToPlaces(Math.abs(mean - tailInput), 2);
-      console.log(mean, distance)
       const left = mean - distance;
       const right = mean + distance;
       this.dataChart4.updateLabelName(0, `${left} < ${sampleName} < ${right}`);
