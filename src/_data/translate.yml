@@ -107,7 +107,7 @@ en:
     numSim: '# Simulations'
     oriDiffOfMean: 'Original Dataset Difference of Means:'
     placeholder: Enter or Drop CSV with first column as group number (1 or 2) and
-      second column as variable. No colunm names (see sample data)
+      second column as variable. No colunm names (see sample data in dropdown)
     proportionSelcted: 'Proportion Selected:'
     randomMean1: Mean of Randomized Sample to Group 1
     randomMean2: Mean of Randomized Sample to Group 2
