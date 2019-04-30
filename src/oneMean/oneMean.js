@@ -15,7 +15,7 @@ export class OneMean {
     this.shiftMean = 0;
     this.mulFactor = 0;
     this.populationData = [];
-    this.populationMean='';
+    this.populationMean=undefined;
     this.originalData = [];
     this.mostRecentDraw = [];
     this.sampleMeans = [];
@@ -203,6 +203,7 @@ export class OneMean {
     }
     this.updateData(this.dataName.mostRecentDraw);
     this.updateData(this.dataName.sampleMeans);
+    console.log(this.populationMean)
   }
 
   resetBtnListener() {
@@ -261,20 +262,12 @@ export class OneMean {
     });
   }
 
-  updatedPopulationData(orginalData, shift, mulFactor) {
+  updatedPopulationData(originalData, shift, mulFactor) {
     this.shiftMean = shift;
     this.ele.shiftMeanInput.value = shift;
     this.mulFactor = mulFactor;
     this.populationData = [];
-    // for (let i = 0; i < mulFactor + 1; i++) {
-    //   this.populationData = this.populationData.concat(
-    //     orginalData.map(x => ({
-    //       id: x.id + i * orginalData.length,
-    //       value: MathUtil.roundToPlaces(x.value + shift, 4)
-    //     }))
-    //   );
-    // }
-    this.originalData.forEach(x => {
+    originalData.forEach(x => {
       for (let i = 0; i <= mulFactor; i++){
         this.populationData.push({
           id: (x.id-1)*(mulFactor+1)+i+1,
@@ -282,6 +275,7 @@ export class OneMean {
         })
       }
     })
+    this.populationMean = MathUtil.roundToPlaces(MathUtil.mean(this.populationData.map(x => x.value)), 2);
     this.updateData(this.dataName.populationData);
   }
 
@@ -332,7 +326,7 @@ export class OneMean {
         valuesArr = data;
         const tailDirection = this.ele.tailDirectionInput.value;
         const tailInput = Number(this.ele.tailValueInput.value);
-        const mean = MathUtil.roundToPlaces(MathUtil.mean(this.sampleMeans), 2);
+        const mean = this.populationMean;
         const { chosen, unchosen } = splitByPredicate(
           valuesArr,
           this.predicateForTail(tailDirection, tailInput, mean)
@@ -405,9 +399,9 @@ export class OneMean {
   }
 
   updateSampleMeansChartLabels(tailDirection, tailInput, mean) {
-    const sampleName = this.translationData.samples;
+    const sampleName = this.translationData.Samples;
     if (tailDirection === "null") {
-      this.dataChart4.updateLabelName(0, "${sampleName}");
+      this.dataChart4.updateLabelName(0, `${sampleName}`);
       this.dataChart4.updateLabelName(1, "N/A");
     } else if (tailDirection === "oneTailRight") {
       this.dataChart4.updateLabelName(0, `${sampleName} < ${tailInput}`);
@@ -417,6 +411,7 @@ export class OneMean {
       this.dataChart4.updateLabelName(1, `${sampleName} <= ${tailInput}`);
     } else {
       const distance = MathUtil.roundToPlaces(Math.abs(mean - tailInput), 2);
+      console.log(mean, distance)
       const left = mean - distance;
       const right = mean + distance;
       this.dataChart4.updateLabelName(0, `${left} < ${sampleName} < ${right}`);
