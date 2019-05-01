@@ -17,6 +17,9 @@ export function updateSummaryElements(summaryElements, state) {
     let elems = summaryElements[key];
     if (elems) {
       for (let summaryElem of elems) {
+        if (typeof value === 'number') {
+          value = value.toFixed(4);
+        }
         summaryElem.innerText = value + '';
       }
     }

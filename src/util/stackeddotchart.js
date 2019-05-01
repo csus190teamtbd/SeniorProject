@@ -2,7 +2,7 @@
 //import Chart from "chart.js";
 
 export default class StackedDotChart {
-  constructor(domElement, datasets) {
+  constructor(domElement, datasets, options) {
     this.domElement = domElement;
     this.datasets = [];
     for (let dataset of datasets) {
@@ -33,6 +33,35 @@ export default class StackedDotChart {
         maintainAspectRatio: false
       }
     });
+    options = options || {};
+    this.options = {
+      autoBuckets: options.autoBuckets !== undefined ? options.autoBuckets : true,
+      bucketWidth: options.bucketWidth,
+    };
+  }
+
+  round(x, bucketSize) {
+    if (bucketSize == undefined) {
+      if (this.options.autoBuckets) {
+        let scale = this.chart.scales['x-axis-1'];
+        let inScaleWidth = scale.options.ticks.max - scale.options.ticks.min;
+        let chartWidth = this.chart.width;
+        let pointRadius = this.chart.data.datasets[0].pointRadius;
+        bucketSize = 2 * pointRadius * (inScaleWidth / chartWidth);
+      }
+      else if (this.options.bucketWidth) {
+        bucketSize = this.bucketWidth;
+      }
+    }
+    if (bucketSize) {
+      console.log(bucketSize);
+      let r = Math.floor(x / bucketSize) * bucketSize;
+      console.log(x, r);
+      return r;
+    }
+    else {
+      return x;
+    }
   }
 
   rawToScatter(arrs) {
@@ -41,6 +70,7 @@ export default class StackedDotChart {
     for (let arr of arrs) {
       let scatter = [];
       for (let item of arr) {
+        item = this.round(item);
         let y = (counts[item] = (counts[item] || 0) + 1);
         scatter.push({ x: item, y: y });
       }
