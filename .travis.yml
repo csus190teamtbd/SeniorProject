@@ -3,7 +3,7 @@ language: ruby
 before_install:
   - sudo apt-get update
   - sudo apt-get install python3
-  - python3 -m pip install pyyaml
+  - pip3 install pyyaml
   - npm i
 
 script: python3 buildReleases.py && npm run test-all
