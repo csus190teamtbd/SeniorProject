@@ -1,4 +1,4 @@
 language: ruby
 
-script: buildReleases.py && npm run test-all
+script: python buildReleases.py && npm run test-all
 
