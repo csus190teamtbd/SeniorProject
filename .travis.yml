@@ -1,7 +1,7 @@
 language: ruby
 
 before_script:
-  - pip3 install pyyaml
+  - python3 -m pip install pyyaml
   - npm i
 
 script: python3 buildReleases.py && npm run test-all
