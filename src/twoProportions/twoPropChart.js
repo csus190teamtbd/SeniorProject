@@ -18,12 +18,12 @@ export default class TwoPropChart {
         labels: [translation.twoProportions.groupA, translation.twoProportions.groupB],
         datasets: [
           {
-            label: translation.twoProportions.successes,
+            label: '% ' + translation.twoProportions.successes,
             backgroundColor: 'green',
             data: [0, 0],
           },
           {
-            label: translation.twoProportions.failures,
+            label: '% ' + translation.twoProportions.failures,
             backgroundColor: 'red',
             data: [0, 0],
           },

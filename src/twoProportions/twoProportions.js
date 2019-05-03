@@ -54,7 +54,7 @@ export class TwoProportions {
     let numBSuccess = this.dom.bSuccess.value * 1;
     let numBFailure = this.dom.bFailure.value * 1;
     if (numASuccess + numAFailure === 0 || numBSuccess + numBFailure === 0) {
-      alert('Group A and Group B must both have at least one element.');
+      alert(translation.twoProportions.alertAtLeastOne);
     }
     else {
       let summary = {
@@ -79,6 +79,9 @@ export class TwoProportions {
       for (let elem of this.dom.needResults) {
         elem.setAttribute('disabled', true);  
       }
+      this.dom.tailInputElement.value = summary.proportionDiff;
+      this.charts.tailChart.setTailInput(this.dom.tailInputElement.value * 1);
+      this.charts.tailChart.updateChart();
     }
   }
 
