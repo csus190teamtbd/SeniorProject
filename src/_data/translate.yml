@@ -73,9 +73,8 @@ en:
     noOfSamples: '# of samples'
     probHeads: 'Probability of Heads p:'
     proportion: 'Proportion:'
-    remark1: '1. Double click the graph to zoom in/out if # of tosses >= 50'
-    remark2: 2. Click the legend to hide/show corresponding info in graph  (changed
-      Remark 2)
+    remark1: '1. Double click the graph to zoom in/out if # of tosses >= 50.'
+    remark2: 2. Click the legend to hide/show corresponding info in graph.
     remarkTitle: 'Remarks:        '
     reset: Reset
     samplesInterval: '# of samples in interval: '

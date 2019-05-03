@@ -21,8 +21,8 @@ Samples	Muestras	oneProportion.Samples
 Binomial	Binomial	oneProportion.binomial
 Selected	Seleccionadas	oneProportion.selected
 Remarks:        	Notas: 	oneProportion.remarkTitle
-1. Double click the graph to zoom in/out if # of tosses >= 50	1. Haga dos clics en al gráfica para agrandarla o disminuirla si el · de lanzamientos es >= 50	oneProportion.remark1
-2. Click the legend to hide/show corresponding info in graph  (changed Remark 2)	2. Haga un clic en las leyendas para mostrar/esconder infromación correspondiente	oneProportion.remark2
+1. Double click the graph to zoom in/out if # of tosses >= 50.	1. Haga dos clics en al gráfica para agrandarla o disminuirla si el · de lanzamientos es >= 50	oneProportion.remark1
+2. Click the legend to hide/show corresponding info in graph.	2. Haga un clic en las leyendas para mostrar/esconder infromación correspondiente	oneProportion.remark2
 Reset	Reinicio	oneProportion.reset
 Draw Samples	Obtener Muestras	oneProportion.drawSamples
 Total samples:	Total de muestras	oneProportion.totalSamples
