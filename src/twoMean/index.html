@@ -9,8 +9,11 @@ title: Two Means
   <div class="section">
     <div class="lhs">
       <div class="lhs">
-        <select disabled>
-          <option>{% include translate.html key="twoMean.selectData" %}</option>
+        <select id="sample-select">
+          <option disabled selected>{% include translate.html key="twoMean.selectData" %}</option>
+          <!-- TODO(matthewmerrill): translate this -->
+          <option value="sample1">Sample 1</option>
+          <option value="sample2">Sample 2</option>
         </select>
         <textarea id="csv-input" placeholder="{% include translate.html key="twoMean.placeholder" %}"></textarea>
         <button onclick="twoMean.loadData()" class="btn">{% include translate.html key="twoMean.loadData" %}</button>

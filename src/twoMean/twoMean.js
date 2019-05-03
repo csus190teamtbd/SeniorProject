@@ -23,6 +23,7 @@ export class TwoMean {
     this.summaryElements = Summaries.loadSummaryElements(twoMeanDiv);
 
     this.dom = {
+      sampleSelect: twoMeanDiv.querySelector('#sample-select'),
       tailDirectionElement: twoMeanDiv.querySelector('#tail-direction'),
       tailInputElement: twoMeanDiv.querySelector('#tail-input'),
     };
@@ -53,6 +54,31 @@ export class TwoMean {
     this.dom.tailInputElement.addEventListener('change', () => {
       this.charts.tailChart.setTailInput(this.dom.tailInputElement.value * 1);
       this.charts.tailChart.updateChart();
+    });
+    this.dom.sampleSelect.addEventListener('change', () => {
+      let sampleVal = this.dom.sampleSelect.value;
+      let sampleFile = null;
+      if (sampleVal === 'sample1') {
+        sampleFile = '../sampleData/twomean_sample1.csv';
+      }
+      else if (sampleVal === 'sample2') {
+        sampleFile = '../sampleData/twomean_sample2.csv';
+      }
+      if (sampleFile) {
+        fetch(sampleFile)
+          .then(res => {
+            if (!res.ok) {
+              throw new Error(res.status);
+            }
+            else {
+              return res.text();
+            }
+          })
+          .then(txt => {
+            this.csvInput.value = txt;
+          })
+          .catch(err => console.error('Could not fetch', sampleFile, err));
+      }
     });
     
     this.updateData([[], []]);
