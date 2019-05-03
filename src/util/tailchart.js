@@ -94,10 +94,15 @@ export default class TailChart {
       const left = mean - distance;
       const right = mean + distance;
       this.chart.updateLabelName(0, `${left} < ${word} < ${right}`);
-      this.chart.updateLabelName(
-        1,
-        `${word} <= ${left} or ${word} >= ${right}`
-      );
+      if (mean === 0) {
+        this.chart.updateLabelName(1, `|${word}| >= ${Math.abs(right)}`);
+      }
+      else {
+        this.chart.updateLabelName(
+          1,
+          `${word} <= ${left} or ${word} >= ${right}`
+        );
+      }
     }
   }
 
