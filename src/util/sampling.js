@@ -1,3 +1,6 @@
+---
+---
+import translation from "{{base}}../util/translate.js";
 export function randomInt(from, to) {
   return Math.floor((to - from) * Math.random()) + from;
 }
@@ -46,7 +49,7 @@ export function randomSubset(itr, n) {
     seen += 1;
   }
   if (seen < n) {
-    throw new Error("Not Enough Elements");
+    throw new Error(translation.oneMean.errorNotEnoughElements);
   }
   return { chosen: result, unchosen };
 }

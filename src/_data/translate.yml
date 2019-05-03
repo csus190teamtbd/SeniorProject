@@ -25,7 +25,8 @@ en:
     chartTitle4: Sampling Distribution of Means
     drawSample: Draw Sample
     enterData: 'Enter Data:'
-    errorNoPopulation: 'ERROR: No Population Data(MISSING)'
+    errorNoPopulation: 'ERROR: No Population Data'
+    errorNotEnoughElements: 'Error: Not Enough Elements'
     extremeSamples: Sample means at least as extreme as
     hypotheticalPopulation: Hypothetical Population
     id: ID
@@ -45,14 +46,15 @@ en:
     reset: Reset
     runSim: Run Simulation
     sample: Sample XXX
+    sampleMeans: sample means
     sampleNo: '#'
     sampleSize: 'Sample size:'
     samples: samples
     selectData: Select Sample Data
     shiftMean: Shift mean
-    std: 'Standard Deviation:'
+    std: Standard Deviation
     textAreaPlaceHolder: Please enter data or drop columns from cvs file here (no
-      column titles - see sample data)
+      column titles - see sample data on dropdown)
     times: times
     title: One Mean
     totalNoOfSamples: 'Total # of samples:'
@@ -178,6 +180,7 @@ es:
     drawSample: Obtenga la Muestra
     enterData: Teclee los Datos
     errorNoPopulation: 'ERROR: No Population Data(MISSING)'
+    errorNotEnoughElements: 'Error: Not Enough Elements(MISSING)'
     extremeSamples: Medias igual o más extremas que
     hypotheticalPopulation: Poblacíon Hipotética
     id: '#'
@@ -197,6 +200,7 @@ es:
     reset: Reinicio
     runSim: Correr Simulacón
     sample: Muestra XXX
+    sampleMeans: sample means(MISSING)
     sampleNo: '#'
     sampleSize: Tamaño de muestra
     samples: muestras
