@@ -26,6 +26,8 @@ export class TwoMean {
       sampleSelect: twoMeanDiv.querySelector('#sample-select'),
       tailDirectionElement: twoMeanDiv.querySelector('#tail-direction'),
       tailInputElement: twoMeanDiv.querySelector('#tail-input'),
+      needData: twoMeanDiv.querySelectorAll('[disabled=need-data]'),
+      needResults: twoMeanDiv.querySelectorAll('[disabled=need-results]'),
     };
 
     this.datasets = [
@@ -36,8 +38,10 @@ export class TwoMean {
     this.dataChart2 = new StackedDotChart(twoMeanDiv.querySelector('#data-chart-2'), [this.datasets[1]]);
     this.sampleChart1 = new StackedDotChart(twoMeanDiv.querySelector('#sample-chart-1'), this.datasets);
     this.sampleChart1.chart.options.legend.display = false;
+    this.sampleChart1.setAnimationDuration(0);
     this.sampleChart2 = new StackedDotChart(twoMeanDiv.querySelector('#sample-chart-2'), this.datasets);
     this.sampleChart2.chart.options.legend.display = false;
+    this.sampleChart2.setAnimationDuration(0);
     // TODO(matthewmerrill): move other charts into here
     this.charts = {
       tailChart: new TailChart({
@@ -98,6 +102,7 @@ export class TwoMean {
   parseData(dataText) {
     let items = dataText
       .split(/[\r\n]+/)
+      .filter(line => line.length)
       .map(line => {
         let [group, value] = line.split(',');
         return [group, value * 1.0]; // coerce value to number type
@@ -119,6 +124,7 @@ export class TwoMean {
     this.sampleDiffs = [];
 
     let dataValues = data[0].concat(data[1]);
+    console.log(dataValues);
     if (dataValues.length) {
       let min = Math.min.apply(undefined, dataValues);
       let max = Math.max.apply(undefined, dataValues);
@@ -126,6 +132,20 @@ export class TwoMean {
       this.dataChart2.setScale(min, max);
       this.sampleChart1.setScale(min, max);
       this.sampleChart2.setScale(min, max);
+      for (let elem of this.dom.needData) {
+        elem.removeAttribute('disabled');
+      }
+      for (let elem of this.dom.needResults) {
+        elem.setAttribute('disabled', true);  
+      }
+    }
+    else {
+      for (let elem of this.dom.needData) {
+        elem.setAttribute('disabled', true);
+      }
+      for (let elem of this.dom.needResults) {
+        elem.setAttribute('disabled', true);  
+      }
     }
 
     this.dataChart1.setDataFromRaw([data[0]]);
@@ -138,10 +158,10 @@ export class TwoMean {
     this.sampleChart1.scaleToStackDots();
     this.sampleChart2.scaleToStackDots();
 
-    this.dataChart1.chart.update();
-    this.dataChart2.chart.update();
-    this.sampleChart1.chart.update();
-    this.sampleChart2.chart.update();
+    this.dataChart1.chart.update(0);
+    this.dataChart2.chart.update(0);
+    this.sampleChart1.chart.update(0);
+    this.sampleChart2.chart.update(0);
     this.updateSimResults();
 
     let summary = {
@@ -157,6 +177,7 @@ export class TwoMean {
     }
     if (data[0].length && data[1].length) {
       summary.dataMeanDiff = summary.dataMean1 - summary.dataMean2;
+      this.dom.tailInputElement.value = summary.dataMeanDiff;
     }
     Summaries.updateSummaryElements(this.summaryElements, summary);
   }
@@ -240,6 +261,11 @@ export class TwoMean {
     }
     Summaries.updateSummaryElements(this.summaryElements, summary);
 
+    if (this.charts.tailChart.results.length) {
+      for (let elem of this.dom.needResults) {
+        elem.removeAttribute('disabled');  
+      }
+    }
     /*
     this.diffChart.updateChart();
     this.diffChart.setDataFromRaw([this.sampleDiffs]);

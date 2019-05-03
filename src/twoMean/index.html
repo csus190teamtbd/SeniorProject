@@ -43,8 +43,8 @@ title: Two Means
   <div class="section">
     <div class="lhs">
       <h3>{% include translate.html key="twoMean.numSim" %}</h3>
-      <input id="num-simulations" type="number" value="1" min="1" max="100" />
-      <button onclick="twoMean.runSim()" onclick="" class="btn">{% include translate.html key="twoMean.runSim" %}</button>
+      <input id="num-simulations" type="number" value="1" min="1" max="100" disabled="need-data" />
+      <button onclick="twoMean.runSim()" onclick="" class="btn" disabled="need-data">{% include translate.html key="twoMean.runSim" %}</button>
       <div class="stats">
         <div>
           <span>{% include translate.html key="twoMean.randomMean1" %}</span>
@@ -68,10 +68,10 @@ title: Two Means
   <h2>{% include translate.html key="twoMean.subTitle3" %}</h2>
   <div id="two-mean-diff" class="section">
     <div class="lhs">
-      <select id="tail-direction">
+      <select id="tail-direction" disabled="need-results">
         {% include tailChartDirectionOptions.html %}
       </select>
-      <span>{% include translate.html key="twoMean.selectAllExtreme" %}</span><input type="number" id="tail-input" value="0" step="any">
+      <span>{% include translate.html key="twoMean.selectAllExtreme" %}</span><input type="number" id="tail-input" value="0" step="any" disabled="need-results">
       <hr>
       <div class="stats">
         <div>
