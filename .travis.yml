@@ -1,0 +1,30 @@
+language: ruby
+dist: trusty
+
+addons:
+  chrome: stable
+  apt:
+    packages:
+      - python
+      - python-pip
+      - python3
+      - python3-pip
+      # This is required to run new chrome on old trusty
+      - libnss3
+
+cache:
+  directories:
+    - node_modules
+
+before_install:
+  - sudo -H pip install pyyaml
+  - sudo -H pip3 install pyyaml
+  - npm i
+  # https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md#running-puppeteer-on-travis-ci
+  # Enable user namespace cloning
+  - sudo sysctl kernel.unprivileged_userns_clone=1
+  # Launch XVFB
+  - export DISPLAY=:99.0
+  - sudo sh -e /etc/init.d/xvfb start
+
+script: bash buildRelease.sh && (cd dist && python3 -m http.server 4000) & (sleep 1 && npm run test-all) & wait -n && kill $(lsof -t -i :4000)
