@@ -54,9 +54,7 @@ export default class StackedDotChart {
       }
     }
     if (bucketSize) {
-      console.log(bucketSize);
       let r = Math.floor(x / bucketSize) * bucketSize;
-      console.log(x, r);
       return r;
     }
     else {
