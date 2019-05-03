@@ -80,7 +80,7 @@ en:
     samplesInterval: '# of samples in interval: '
     selectInterval: 'Select interval for # of heads in'
     selected: Selected
-    standardDeviation: 'Standard Deviation:'
+    standardDeviation: Standard Deviation
     title: One Proportion
     tosses1: 'Tosses:'
     tosses2: tosses
@@ -234,7 +234,7 @@ es:
     samplesInterval: '# de caras en intervalo'
     selectInterval: 'Select interval for # of heads in(MISSING)'
     selected: Seleccionadas
-    standardDeviation: 'Desviación Estándar:'
+    standardDeviation: Desviación Estándar
     title: Una Proporción
     tosses1: 'Lanzamientos:'
     tosses2: lanzamientos

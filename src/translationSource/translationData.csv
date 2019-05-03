@@ -27,7 +27,7 @@ Reset	Reinicio	oneProportion.reset
 Draw Samples	Obtener Muestras	oneProportion.drawSamples
 Total samples:	Total de muestras	oneProportion.totalSamples
 Mean # of heads:	Media # de caras	oneProportion.meanNoOfHeads
-Standard Deviation:	Desviación Estándar:	oneProportion.standardDeviation
+Standard Deviation	Desviación Estándar	oneProportion.standardDeviation
 Probability of Heads p:	Probabilidad de Agulas p:	oneProportion.probHeads
 Add samples	Add samples(MISSING):	oneProportion.addSamples
 Select interval for # of heads in	Select interval for # of heads in(MISSING)	oneProportion.selectInterval

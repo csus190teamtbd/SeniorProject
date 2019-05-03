@@ -4,6 +4,13 @@
 #one-proportion {
   .chart-input-form {
     display: flex;
+    .container {
+      .form-group {
+      }
+    }
+    label {
+      display: block;
+    }
   }
   table {
     margin: auto;
