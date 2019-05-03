@@ -301,7 +301,7 @@ export class OneMean {
       data = this.originalData;
       meanEle = this.ele.originalMean;
       textAreaEle = this.ele.originalDataDisplay;
-      this.ele.originalStd.innerText = MathUtil.roundToPlaces(MathUtil.stddev(data.map(x => x.value)), 2);
+      this.ele.originalStd.innerText = MathUtil.roundToPlaces(MathUtil.sampleStddev(data.map(x => x.value)), 2);
     } else if (dataName === this.dataName.populationData) {
       chart = this.dataChart2;
       data = this.populationData;
