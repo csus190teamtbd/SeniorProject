@@ -8,20 +8,8 @@ export function mean(itr) {
   return sum / count;
 }
 
-// Population Standard Deviation
 export function stddev(itr) {
   return Math.sqrt(variance(itr));
-}
-
-// Sample Standard Deviation
-export function sampleStddev(itr) {
-  const n = itr.length;
-  if (n <= 1) return NaN;
-  const sampleMean = mean(itr);
-  const devSquare = itr.reduce((acc, x) => {
-    return (x - sampleMean) * (x - sampleMean) + acc;
-  }, 0);
-  return Math.sqrt(devSquare / (n - 1));
 }
 
 export function variance(itr) {
@@ -69,7 +57,7 @@ export function maxInArray(arr) {
  */
 export function countWhere(itr, p) {
   if (itr === undefined || p === undefined) {
-    throw new Error("Missing parameter");
+    throw new Error('Missing parameter');
   }
   let res = 0;
   for (let item of itr) {
@@ -79,3 +67,4 @@ export function countWhere(itr, p) {
   }
   return res;
 }
+
