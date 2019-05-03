@@ -117,6 +117,8 @@ export default class TailChart {
 
   updateChart() {
     let valuesArr = this.results;
+    let min = Math.min.apply(undefined, valuesArr);
+    let max = Math.max.apply(undefined, valuesArr);
     const mean = MathUtil.roundToPlaces(MathUtil.mean(this.results), 2);
     const { chosen, unchosen } = splitByPredicate(
       valuesArr,
@@ -124,6 +126,7 @@ export default class TailChart {
     );
     // todo(matthewmerrill): if used for onemean, this isn't 0
     this.updateChartLabels(0);
+    this.chart.setScale(min, max);
     this.chart.setDataFromRaw([unchosen, chosen]);
     this.chart.scaleToStackDots();
     // update(0) disables animations. This prevents dots moving around confusingly.

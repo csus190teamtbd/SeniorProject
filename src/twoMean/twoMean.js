@@ -92,11 +92,6 @@ export class TwoMean {
     this.data[1] = this.data[1] || [];
     this.sampleDiffs = [];
 
-    this.dataChart1.setDataFromRaw([data[0]]);
-    this.dataChart2.setDataFromRaw([data[1]]);
-    this.sampleChart1.clear();
-    this.sampleChart2.clear();
-
     let dataValues = data[0].concat(data[1]);
     if (dataValues.length) {
       let min = Math.min.apply(undefined, dataValues);
@@ -105,11 +100,18 @@ export class TwoMean {
       this.dataChart2.setScale(min, max);
       this.sampleChart1.setScale(min, max);
       this.sampleChart2.setScale(min, max);
-      this.dataChart1.scaleToStackDots();
-      this.dataChart2.scaleToStackDots();
-      this.sampleChart1.scaleToStackDots();
-      this.sampleChart2.scaleToStackDots();
     }
+
+    this.dataChart1.setDataFromRaw([data[0]]);
+    this.dataChart2.setDataFromRaw([data[1]]);
+    this.sampleChart1.clear();
+    this.sampleChart2.clear();
+
+    this.dataChart1.scaleToStackDots();
+    this.dataChart2.scaleToStackDots();
+    this.sampleChart1.scaleToStackDots();
+    this.sampleChart2.scaleToStackDots();
+
     this.dataChart1.chart.update();
     this.dataChart2.chart.update();
     this.sampleChart1.chart.update();
