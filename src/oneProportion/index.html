@@ -35,25 +35,28 @@ title: One Proportion
         </button>
         <hr />
         <div class="form-group">
-          <label>{% include translate.html key="oneProportion.totalSamples" %}<span id="totalSamples">0</span></label>
-          <label>{% include translate.html key="oneProportion.meanNoOfHeads" %}<span id="meanDisplay">NaN</span></label>
-          <label>({% include translate.html key="oneProportion.standardDeviation" %} <br><span id="stdDisplay">NaN</span>)</label>
+          <label>{% include translate.html key="oneProportion.totalSamples" %}<span class ="right-num" id="totalSamples">0</span></label>
+          <label>{% include translate.html key="oneProportion.meanNoOfHeads" %}<span class ="right-num" id="meanDisplay">NaN</span></label>
+          <label>{% include translate.html key="oneProportion.standardDeviation" %} &sigma;:</label>
+          <label class ="right-num" id="stdDisplay">NaN</label>
+          <br />
           <br />
           <label for="lowerBound">{% include translate.html key="oneProportion.selectInterval" %} <span id="tossesDisplay">5</span> {% include translate.html key="oneProportion.tosses" %}: </label>
           <label for="probability"
-            >{% include translate.html key="oneProportion.minHead"%} <span id="lowerDisplay">0</span
+            >{% include translate.html key="oneProportion.minHead"%} <span class ="right-num" id="lowerDisplay">0</span
           ></label>
           <input type="range" min="0" max="500" step="1" id="lowerSelectedRange" class="slider" value="0"/>
           <label for="probability"
-            >{% include translate.html key="oneProportion.maxHead"%} <span id="upperDisplay">0</span
+            >{% include translate.html key="oneProportion.maxHead"%} <span class ="right-num" id="upperDisplay">0</span
           ></label>
           <input type="range" min="0" max="500" step="1" id="upperSelectedRange" class="slider" value="0"/>
-          <label
-            >{% include translate.html key="oneProportion.samplesInterval" %} <br><span id="sampleInRangeDisplay">0</span></label
-          >
-          <label>{% include translate.html key="oneProportion.proportion" %} <br><span id="proportionDisplay">0 / 0 = NaN</span></label>
+          <label>{% include translate.html key="oneProportion.samplesInterval" %} </label>
+          <label class ="right-num" id="sampleInRangeDisplay">0</label>
+          <br>
+          <label>{% include translate.html key="oneProportion.proportion" %} </label>
+          <label class ="right-num" id="proportionDisplay">0 / 0 = NaN</label>
         </div>
-        <hr />
+
       </form>
     </div>
     <div id="view">
