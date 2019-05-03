@@ -1,11 +1,15 @@
 language: ruby
 
+addons:
+  chrome: stable
+
 before_install:
   - sudo apt-get update
   - sudo apt-get install python python-pip python3 python3-pip
   - sudo -H pip install pyyaml
   - sudo -H pip3 install pyyaml
   - npm i
+  - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
 
 script: bash buildRelease.sh && npm run test-all
 
