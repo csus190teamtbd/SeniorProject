@@ -63,7 +63,8 @@ export class OneMean {
       resetBtn: OneMeanDiv.querySelector("#reset-btn"),
       translationData: OneMeanDiv.querySelector("#translation-data"),
       originalStd: OneMeanDiv.querySelector("#original-std"),
-      sampleMeansStd: OneMeanDiv.querySelector("#samplemeans-std")
+      sampleMeansStd: OneMeanDiv.querySelector("#samplemeans-std"),
+      populationStd: OneMeanDiv.querySelector("#population-std")
     };
 
     // this.readTranlationData();
@@ -278,6 +279,7 @@ export class OneMean {
       }
     })
     this.populationMean = MathUtil.roundToPlaces(MathUtil.mean(this.populationData.map(x => x.value)), 2);
+    this.ele.populationStd.innerText = MathUtil.roundToPlaces(MathUtil.stddev(this.populationData.map(x => x.value)), 2);
     this.updateData(this.dataName.populationData);
   }
 
