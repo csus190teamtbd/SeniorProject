@@ -87,7 +87,7 @@ export class OneMean {
       },
       [
         {
-          label: this.translationData.Samples,
+          label: this.translationData.sampleMeans,
           backgroundColor: "green",
           data: []
         },
@@ -403,7 +403,7 @@ export class OneMean {
   }
 
   updateSampleMeansChartLabels(tailDirection, tailInput, mean) {
-    const sampleName = this.translationData.Samples;
+    const sampleName = this.translationData.sampleMeans;
     if (tailDirection === "null") {
       this.dataChart4.updateLabelName(0, `${sampleName}`);
       this.dataChart4.updateLabelName(1, "N/A");
@@ -414,9 +414,9 @@ export class OneMean {
       this.dataChart4.updateLabelName(0, `${sampleName} > ${tailInput}`);
       this.dataChart4.updateLabelName(1, `${sampleName} <= ${tailInput}`);
     } else {
-      const distance = MathUtil.roundToPlaces(Math.abs(mean - tailInput), 2);
-      const left = mean - distance;
-      const right = mean + distance;
+      const distance = mean - tailInput;
+      const left = MathUtil.roundToPlaces((mean - distance),2);
+      const right = MathUtil.roundToPlaces((mean + distance),2);
       this.dataChart4.updateLabelName(0, `${left} < ${sampleName} < ${right}`);
       this.dataChart4.updateLabelName(
         1,
