@@ -1,22 +1,30 @@
 {
-  "name": "seniorproject",
+  "name": "savis",
+  "productName": "SAVIS",
   "version": "1.0.0",
-  "description": "1. setup jekyll",
-  "main": "index.js",
+  "description": "Statistical Analysis Vizualizions for Introtuctory Statistics",
+  "main": "main.js",
   "dependencies": {
-    "chai": "^4.2.0",
-    "puppeteer": "^1.14.0"
+    "express": "^4.16.4"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-plugin-transform-es2015-destructuring": "^6.23.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
-    "mocha": "^5.2.0"
+    "chai": "^4.2.0",
+    "electron": "^4.1.4",
+    "electron-packager": "^13.1.1",
+    "mocha": "^5.2.0",
+    "puppeteer": "^1.14.0"
   },
   "scripts": {
     "test": "mocha --require babel-core/register",
-    "test-all": "mocha --require babel-core/register --timeout=30000 test/**/*.test.js"
+    "test-all": "mocha --require babel-core/register --timeout=30000 test/**/*.test.js",
+    "start": "electron .",
+    "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --prune=true --out=dist_electron",
+    "package-win": "electron-packager . savis --overwrite --asar --platform=win32 --arch=ia32 --prune=true --out=dist_electron --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"SAVIS\"",
+    "package-linux": "electron-packager . savis --overwrite --asar=true --platform=linux --arch=x64 --prune=true --out=dist_electron"
   },
   "repository": {
     "type": "git",

@@ -63,7 +63,8 @@ export class OneMean {
       resetBtn: OneMeanDiv.querySelector("#reset-btn"),
       translationData: OneMeanDiv.querySelector("#translation-data"),
       originalStd: OneMeanDiv.querySelector("#original-std"),
-      sampleMeansStd: OneMeanDiv.querySelector("#samplemeans-std")
+      sampleMeansStd: OneMeanDiv.querySelector("#samplemeans-std"),
+      populationStd: OneMeanDiv.querySelector("#population-std")
     };
 
     // this.readTranlationData();
@@ -87,7 +88,7 @@ export class OneMean {
       },
       [
         {
-          label: this.translationData.Samples,
+          label: this.translationData.sampleMeans,
           backgroundColor: "green",
           data: []
         },
@@ -278,6 +279,7 @@ export class OneMean {
       }
     })
     this.populationMean = MathUtil.roundToPlaces(MathUtil.mean(this.populationData.map(x => x.value)), 2);
+    this.ele.populationStd.innerText = MathUtil.roundToPlaces(MathUtil.stddev(this.populationData.map(x => x.value)), 2);
     this.updateData(this.dataName.populationData);
   }
 
@@ -301,7 +303,7 @@ export class OneMean {
       data = this.originalData;
       meanEle = this.ele.originalMean;
       textAreaEle = this.ele.originalDataDisplay;
-      this.ele.originalStd.innerText = MathUtil.roundToPlaces(MathUtil.stddev(data.map(x => x.value)), 2);
+      this.ele.originalStd.innerText = MathUtil.roundToPlaces(MathUtil.sampleStddev(data.map(x => x.value)), 2);
     } else if (dataName === this.dataName.populationData) {
       chart = this.dataChart2;
       data = this.populationData;
@@ -403,7 +405,7 @@ export class OneMean {
   }
 
   updateSampleMeansChartLabels(tailDirection, tailInput, mean) {
-    const sampleName = this.translationData.Samples;
+    const sampleName = this.translationData.sampleMeans;
     if (tailDirection === "null") {
       this.dataChart4.updateLabelName(0, `${sampleName}`);
       this.dataChart4.updateLabelName(1, "N/A");
@@ -414,9 +416,9 @@ export class OneMean {
       this.dataChart4.updateLabelName(0, `${sampleName} > ${tailInput}`);
       this.dataChart4.updateLabelName(1, `${sampleName} <= ${tailInput}`);
     } else {
-      const distance = MathUtil.roundToPlaces(Math.abs(mean - tailInput), 2);
-      const left = mean - distance;
-      const right = mean + distance;
+      const distance = mean - tailInput;
+      const left = MathUtil.roundToPlaces((mean - distance),2);
+      const right = MathUtil.roundToPlaces((mean + distance),2);
       this.dataChart4.updateLabelName(0, `${left} < ${sampleName} < ${right}`);
       this.dataChart4.updateLabelName(
         1,
