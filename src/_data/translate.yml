@@ -46,7 +46,8 @@ en:
     reset: Reset
     runSim: Run Simulation
     sample: Sample XXX
-    sampleNo: 'sample #'
+    sampleMeans: sample means
+    sampleNo: '#'
     sampleSize: 'Sample size:'
     samples: samples
     selectData: Select Sample Data
@@ -198,7 +199,8 @@ es:
     reset: Reinicio
     runSim: Correr Simulacón
     sample: Muestra XXX
-    sampleNo: Número de muestra
+    sampleMeans: las medias
+    sampleNo: '#'
     sampleSize: Tamaño de muestra
     samples: muestras
     selectData: Seleccione Datos Muestra

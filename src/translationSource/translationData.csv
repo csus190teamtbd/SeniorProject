@@ -59,7 +59,8 @@ Sample means at least as extreme as:	Medias iguales a o más extremas que:	oneMe
 samples	muestras	oneMean.samples
 Samples	Muestras	oneMean.Samples
 Proportion:	Proporción:	oneMean.proportion
-sample #	Número de muestra	oneMean.sampleNo
+#	#	oneMean.sampleNo
+sample means	las medias	oneMean.sampleMeans
 Mean	Media	oneMean.mean2
 Mean of sample means:	Media de las medias:	oneMean.meanOfsamplesMeans
 Original	Original	oneMean.original
