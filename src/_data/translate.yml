@@ -3,7 +3,7 @@ en:
     contact: Contact
     content1: Statistical Analysis Visualizations for Introductory Statistics (SAVIS)
       was conceived as part of a collaborative research project on statistical education
-      between the Department of Mathematics and Statistics at  California State University
+      between the Department of Mathematics and Statistics at California State University
       Sacramento (CSUS) and the School of Mathematics of the Universidad Autónoma
       de Yucatán (UADY). SAVIS is an educational tool to help to intuitively understand
       concepts of tests of statistical hypotheses using visualizations based on resampling
@@ -25,106 +25,105 @@ en:
     chartTitle4: Sampling Distribution of Means
     drawSample: Draw Sample
     enterData: 'Enter Data:'
-    errorNoPopulation: 'ERROR: No Population Data'
-    errorNotEnoughElements: 'Error: Not Enough Elements'
-    extremeSamples: Sample means at least as extreme as
+    errorNoPopulation: No population data
+    errorNotEnoughElements: Sample exceeds population
+    extremeSamples: 'Sample means at least as extreme as:'
     hypotheticalPopulation: Hypothetical Population
     id: ID
     increaseData: Increase data
     loadData: Load Data
     mean1: 'Mean:'
     mean2: Mean
-    meanOfsamplesMeans: 'Mean of sample means: '
-    mostRecentDrawn: Most Recent Drawn
-    noData: No Data
+    meanOfsamplesMeans: 'Mean of sample means:'
+    mostRecentDrawn: Most Recent Draw
+    noData: NaN
     noOfSample: '# of samples'
     oneTailLeft: One Tail Left
     oneTailRight: One Tail Right
     original: Original
-    pleaseSelect: Please select
-    proportion: Proportion
+    pleaseSelect: Type of Test
+    proportion: 'Proportion:'
     reset: Reset
     runSim: Run Simulation
     sample: Sample XXX
-    sampleMeans: sample means
-    sampleNo: '#'
+    sampleNo: 'sample #'
     sampleSize: 'Sample size:'
     samples: samples
     selectData: Select Sample Data
     shiftMean: Shift mean
     std: Standard Deviation
     textAreaPlaceHolder: Please enter data or drop columns from cvs file here (no
-      column titles - see sample data on dropdown)
+      column titles - see sample data in drop down menu)
     times: times
     title: One Mean
     totalNoOfSamples: 'Total # of samples:'
-    totalSamples: 'Total samples:'
+    totalSamples: 'Total # samples'
     twoTail: Two Tails
     value: Value
   oneProportion:
     Samples: Samples
     addSamples: Add samples
-    binomial: Binomial
+    binomial: Binomial Prediction
     drawSamples: Draw Samples
     maxHead: 'Max # of head:'
     meanNoOfHeads: 'Mean # of heads:'
     minHead: 'Min # of heads:'
-    noOfHeads: '# of heads in '
+    noOfHeads: '# of heads in'
     noOfSamples: '# of samples'
     probHeads: 'Probability of Heads p:'
     proportion: 'Proportion:'
     remark1: '1. Double click the graph to zoom in/out if # of tosses >= 50.'
     remark2: 2. Click the legend to hide/show corresponding info in graph.
-    remarkTitle: 'Remarks:        '
+    remarkTitle: 'Remarks:'
     reset: Reset
-    samplesInterval: '# of samples in interval: '
-    selectInterval: 'Select interval for # of heads in'
+    samplesInterval: '# of samples in interval:'
+    selectInterval: 'Select interval for # of heads in:'
     selected: Selected
-    standardDeviation: Standard Deviation
+    standardDeviation: 'Standard Deviation:'
     title: One Proportion
     tosses1: 'Tosses:'
-    tosses2: tosses
+    tosses2: 'tosses:'
     totalSamples: 'Total samples:'
   site:
-    title: 'Statistical Analysis Vizualizions for Introtuctory Statistics '
+    title: Statistical Analysis Vizualizions for Introtuctory Statistics
   tailChart:
     oneTailLeft: One Tail Left
     oneTailRight: One Tail Right
-    pleaseSelect: Please select
+    pleaseSelect: Type of Test
     twoTail: Two Tails
   twoMean:
     Samples: Samples
-    diffOfMean: 'Difference of Means (Group 1 - Group 2):'
-    diffOfSampleMean: 'Difference of Randomized Sample Means:'
+    diffOfMean: 'Difference of Means (Mean 1 - Mean 2):'
+    diffOfSampleMean: 'Difference of Means (Randomized Samples):'
     differences: Differences
     enterData: Enter Data
-    gp1Mean: 'Mean of Group 1:'
-    gp2Mean: 'Mean of Group 2:'
+    gp1Mean: 'Mean 1 (Group 1):'
+    gp2Mean: 'Mean 2 (Group 2):'
     group1: Group 1
     group2: Group 2
     loadData: Load Data
     meanSampleDiff: 'Mean of Sample Differences:'
-    noData: No Data
-    numSelected: '# Selected:'
-    numSim: '# Simulations'
+    noData: NaN
+    numSelected: '# of Extreme Differences:'
+    numSim: '# of Simulations'
     oriDiffOfMean: 'Original Dataset Difference of Means:'
     placeholder: Enter or Drop CSV with first column as group number (1 or 2) and
-      second column as variable. No colunm names (see sample data in dropdown)
-    proportionSelcted: 'Proportion Selected:'
-    randomMean1: Mean of Randomized Sample to Group 1
-    randomMean2: Mean of Randomized Sample to Group 2
+      second column as variable. No colunm names (see sample data)
+    proportionSelcted: Proportion of Extreme Differences
+    randomMean1: 'Mean of Randomized Sample to Group 1:'
+    randomMean2: 'Mean of Randomized Sample to Group 2:'
     reset: Reset
     runSim: Run Simulation
     runSims: Run Simulations
-    selectAllExtreme: Select all as extreme as
+    selectAllExtreme: 'Select differences at least as extreme as:'
     selectData: Select Sample Data
-    stdSampleDiff: 'StdDev of Sample Differences:'
+    stdSampleDiff: 'Standard Deviation:'
     subTitle3: Sampling Distribution of Difference of Means
     title: Two Means
     totalSamples: 'Total samples:'
   twoProportions:
     alertAtLeastOne: Group A and Group B must both have at least one element.
-    diffOfProp: Difference of Proportions (A – B)
+    diffOfProp: Difference of Proportions
     differences: Differences
     enterData: 'Enter Data:'
     failures: Failures
@@ -132,28 +131,28 @@ en:
     groupB: Group B
     loadData: Load Data
     meanOfSampleDiff: Mean of Sample Differences
-    noData: No Data
-    noOfSelected: '# Samples Selected'
+    noData: NaN
+    noOfSelected: '# Extreme Differences:'
     noOfSims: '# of Simulations'
-    noSim: No Simulations
-    oriDatasetDiff: Original Dataset Difference of Means
+    noSim: N/A
+    oriDatasetDiff: Difference of Proportions in Original Data
     propGroupA: Proportion of Group A
     propGroupB: Proportion of Group B
-    propOfRandomA: Proportion of Sample Randomized to Group A
-    propOfRandomB: Proportion of Sample Randomized to Group B
-    propSamplesSelected: Proportion Samples Selected
+    propOfRandomA: Proportion of Successes Randomized to Group A
+    propOfRandomB: Proportion of Successes Randomized to Group B
+    propSamplesSelected: Proportion Extreme Differences
     runSims: Run Simulations
-    selectAllExtreme: Select all as extreme as
-    std: '(Standard Deviation):'
+    selectAllExtreme: 'Select differences as extreme as:'
+    std: 'Standard Deviation:'
     subTitle3: Sampling Distribution of Difference of Proportions
     successes: Successes
     title: Two Proportions
-    totalSamples: 'Total samples:'
+    totalSamples: 'Total # Samples:'
   userManual:
     title: User Manual
 es:
   about:
-    contact: Contact(MISSING)
+    contact: Contacto
     content1: Statistical Analysis Visualizations for Introductory Statistics (SAVIS)
       fue concebido como parte de un proyecto de investigación en educación de la
       estadística realizado por el Departamento de Matemáticas y Estadística de la
@@ -166,7 +165,7 @@ es:
       estudiantes del Departamento de Ciencias de la Computación de la Universidad
       Estatal de California Sacramento bajo la dirección de Rafael E. Diaz Escamilla,
       profesor del Departamento de Matemáticas y Estadística de esta misma universidad:'
-    contributors: Contributors(MISSING)
+    contributors: Contribuidores
     title: Acerca de SAVIS
   download:
     title: Bajar Archivo
@@ -178,9 +177,9 @@ es:
     chartTitle4: Distribucón de las medias
     drawSample: Obtenga la Muestra
     enterData: Teclee los Datos
-    errorNoPopulation: 'ERROR: No Population Data(MISSING)'
-    errorNotEnoughElements: 'Error: Not Enough Elements(MISSING)'
-    extremeSamples: Medias igual o más extremas que
+    errorNoPopulation: No hay población
+    errorNotEnoughElements: La muestra excede la población
+    extremeSamples: 'Medias iguales a o más extremas que:'
     hypotheticalPopulation: Poblacíon Hipotética
     id: '#'
     increaseData: Incremente la muestra
@@ -189,97 +188,96 @@ es:
     mean2: Media
     meanOfsamplesMeans: 'Media de las medias:'
     mostRecentDrawn: Ultima Muestra
-    noData: No Data(MISSING)
+    noData: NaN
     noOfSample: '# de muestras'
     oneTailLeft: Una cola (izquierda)
     oneTailRight: Una cola (derecha)
     original: Original
-    pleaseSelect: Seleccione
-    proportion: Proporción
+    pleaseSelect: Tipo de Prueba
+    proportion: 'Proporción:'
     reset: Reinicio
     runSim: Correr Simulacón
     sample: Muestra XXX
-    sampleMeans: sample means(MISSING)
-    sampleNo: '#'
+    sampleNo: Número de muestra
     sampleSize: Tamaño de muestra
     samples: muestras
     selectData: Seleccione Datos Muestra
     shiftMean: Desplace la media
     std: Desviación Estándar
-    textAreaPlaceHolder: Teclee datos aquí o pegue selección de columnas de archivo
-      csv (sin títulos de columna - ver datos muestra)
+    textAreaPlaceHolder: Teclee datos aquí o arrastre archivo csv (sin títulos de
+      columna - ver datos muestra en el menu de arriba)
     times: veces
     title: Una Media
     totalNoOfSamples: 'Total # de muestras'
-    totalSamples: Total de muestras
+    totalSamples: 'Total # muestras'
     twoTail: Dos colas
     value: Dato
   oneProportion:
     Samples: Muestras
-    addSamples: 'Add samples(MISSING):'
-    binomial: Binomial
+    addSamples: Agregar Muestras
+    binomial: Predicción Binomial
     drawSamples: Obtener Muestras
     maxHead: 'Max # de caras:'
     meanNoOfHeads: 'Media # de caras'
     minHead: 'Min # de caras:'
-    noOfHeads: '# de muestras en '
+    noOfHeads: '# de muestras en'
     noOfSamples: '# de muestras'
     probHeads: 'Probabilidad de Agulas p:'
     proportion: 'Proporción:'
     remark1: 1. Haga dos clics en al gráfica para agrandarla o disminuirla si el ·
-      de lanzamientos es >= 50
-    remark2: 2. Haga un clic en las leyendas para mostrar/esconder infromación correspondiente
-    remarkTitle: 'Notas: '
+      de lanzamientos es >= 50.
+    remark2: 2. Haga un clic en las leyendas para mostrar/esconder infromación correspondiente.
+    remarkTitle: 'Notas:'
     reset: Reinicio
-    samplesInterval: '# de caras en intervalo'
-    selectInterval: 'Select interval for # of heads in(MISSING)'
+    samplesInterval: '# de muestras en intervalo:'
+    selectInterval: 'Seleccione intervalo para el # de caras:'
     selected: Seleccionadas
-    standardDeviation: Desviación Estándar
+    standardDeviation: 'Desviación Estándar:'
     title: Una Proporción
     tosses1: 'Lanzamientos:'
-    tosses2: lanzamientos
+    tosses2: 'Lanzamientos:'
     totalSamples: Total de muestras
   site:
     title: Statistical Analysis and Visualization for Introductory Statistics
   tailChart:
     oneTailLeft: Una cola (izquierda)
     oneTailRight: Una cola (derecha)
-    pleaseSelect: Seleccione
+    pleaseSelect: Tipo de Prueba
     twoTail: Dos colas
   twoMean:
     Samples: Muestras
-    diffOfMean: Difference of Means (Group 1 - Group 2):(MISSING)
-    diffOfSampleMean: Difference of Randomized Sample Means:(MISSING)
-    differences: 'Diferencias '
+    diffOfMean: 'Diferencia entre Medias (Media 1 - Media 2):'
+    diffOfSampleMean: Differencia entre medias (de muestras aleatorizadas)
+    differences: Diferencias
     enterData: Teclee los Datos
-    gp1Mean: 'Media Grupo 1:'
-    gp2Mean: 'Media Grupo 2:'
+    gp1Mean: 'Media 1 (Grupo 1):'
+    gp2Mean: 'Media 2 (Grupo 2):'
     group1: Grupo 1
     group2: Grupo 2
     loadData: Cargar Datos
-    meanSampleDiff: Mean of Sample Differences:(MISSING)
-    noData: No Data(MISSING)
-    numSelected: '# Seleccionadas:'
-    numSim: '# Simulaciones'
-    oriDiffOfMean: Original Dataset Difference of Means:(MISSING)
-    placeholder: 'Teclee datos aquí o pegue selección de columnas de archivo csv:
-      primera columa para codigo de grupos (1 o 2), segunda colunmna para la variable
-      (sin títulos de columna - ver datos muestra)'
-    proportionSelcted: Proportion Selected:(MISSING)
-    randomMean1: Media de la Muestra Randomizada al Grupo 1
-    randomMean2: Media de la Muestra Randomizada al Grupo 2
+    meanSampleDiff: Media de las Diferencias
+    noData: NaN
+    numSelected: '# de Diferencias Extremas:'
+    numSim: '# de Simulaciones'
+    oriDiffOfMean: Diferencia de Medias en Datos Originales
+    placeholder: 'Teclee datos o arrastre aquí archivo csv: primera columa para codigo
+      de grupos (1 o 2), segunda colunmna para la variable (sin títulos de columna
+      - ver datos muestra)'
+    proportionSelcted: 'Proporción de Diferencias Extremas:'
+    randomMean1: 'Media de la Muestra Randomizada al Grupo 1:'
+    randomMean2: 'Media de la Muestra Randomizada al Grupo 2:'
     reset: Reinicio
     runSim: Correr Simulacón
     runSims: Correr Simulaciones
-    selectAllExtreme: Select all as extreme as(MISSING)
+    selectAllExtreme: 'Seleccionar las diferencias iguales a o más extremas que:'
     selectData: Seleccione Datos Muestra
-    stdSampleDiff: StdDev of Sample Differences:(MISSING)
-    subTitle3: Sampling Distribution of Difference of Means (MISSING)
+    stdSampleDiff: 'Desviación Estándar:'
+    subTitle3: Distribución de diferencias de medias
     title: Dos Medias
     totalSamples: Total de muestras
   twoProportions:
     alertAtLeastOne: Group A and Group B must both have at least one element. (MISSING)
-    diffOfProp: Differencias de Proporciones (A – B)
+    diffOfProp: Differencias de Proporciones
     differences: 'Diferencias '
     enterData: Teclee los Datos
     failures: Fracasos
@@ -287,22 +285,22 @@ es:
     groupB: Grupo B
     loadData: Subir Datos
     meanOfSampleDiff: Media de las Diferencias de Medias
-    noData: No Data(MISSING)
-    noOfSelected: '# de muestras seleccionadas'
+    noData: NaN
+    noOfSelected: '# Diferencias Extremas'
     noOfSims: '# Simulaciones'
-    noSim: No Simulations(MISSING)
+    noSim: N/A
     oriDatasetDiff: Differencia de Medias en Datos Originales
     propGroupA: Proporción de Grupo A
     propGroupB: Proporción de Grupo B
-    propOfRandomA: Proporción de Muestra Randomizada al Grupo A
-    propOfRandomB: Proporción de Muestra Randomizada al Grupo B
-    propSamplesSelected: Proporción de muestras seleccionadas
+    propOfRandomA: Proporción de Exitos Randomizados al Grupo A
+    propOfRandomB: Proporción de Exitos Randomizados al Grupo B
+    propSamplesSelected: Proporción de Diferencias Extremas
     runSims: Correr Simulaciones
-    selectAllExtreme: Select all as extreme as(MISSING)
-    std: (Desviación Estándar)
+    selectAllExtreme: 'Seleccionar las diferencias iguales a o más extremas que:'
+    std: Desviación Estándar
     subTitle3: Distribución de las Differencias de Proporciones
     successes: Exitos
     title: Dos Proporciones
-    totalSamples: 'Total # de muestras:'
+    totalSamples: 'Total # de Muestras:'
   userManual:
     title: Manual de Usuario

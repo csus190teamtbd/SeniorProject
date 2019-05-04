@@ -201,7 +201,12 @@ export class OneMean {
         this.sampleMeans = this.sampleMeans.concat(newMeanSamples);
       }
     } catch (err) {
-      this.ele.runSimErrorMsg.innerText = `${err}`;
+      let errMsg ="ERROR\n"
+      if (this.populationData.length)
+        errMsg += this.translationData.errorNotEnoughElements;
+      else
+        errMsg += this.translationData.errorNoPopulation;
+      this.ele.runSimErrorMsg.innerText= errMsg;
       setTimeout(() => {
         this.ele.runSimErrorMsg.innerText = "";
       }, 2000);
