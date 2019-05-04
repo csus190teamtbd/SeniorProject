@@ -49,7 +49,7 @@ export function randomSubset(itr, n) {
     seen += 1;
   }
   if (seen < n) {
-    throw new Error(translation.oneMean.errorNotEnoughElements);
+    throw new Error("not enought elements");
   }
   return { chosen: result, unchosen };
 }
