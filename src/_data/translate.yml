@@ -86,7 +86,7 @@ en:
     tosses2: 'tosses:'
     totalSamples: 'Total samples:'
   site:
-    title: Statistical Analysis Vizualizions for Introtuctory Statistics
+    title: Statistical Analysis Visualizations for Introductory Statistics
   tailChart:
     oneTailLeft: One Tail Left
     oneTailRight: One Tail Right
@@ -240,7 +240,7 @@ es:
     tosses2: 'Lanzamientos:'
     totalSamples: Total de muestras
   site:
-    title: Statistical Analysis and Visualization for Introductory Statistics
+    title: Statistical Analysis Visualizations for Introductory Statistics
   tailChart:
     oneTailLeft: Una cola (izquierda)
     oneTailRight: Una cola (derecha)
