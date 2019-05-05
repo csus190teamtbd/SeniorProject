@@ -1,5 +1,5 @@
 [build]
   base = "/"
-  publish = "_site/"
-  command = "jekyll build"
+  publish = "dist/"
+  command = "bash buildRelease.sh"
 
