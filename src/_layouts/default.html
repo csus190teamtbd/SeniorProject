@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8" content="application/javascript">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>{{site.title}} | {{page.title}}</title>
+    <title>{{site.title}} | {% if page.titlekey %}{%include translate.html key=page.titlekey%}{%else%}{{page.title}}{%endif%}</title>
     <link rel="stylesheet" href="{{base}}/css/base.css"></link>
   </head>
   <body>
