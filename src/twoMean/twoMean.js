@@ -68,6 +68,10 @@ export class TwoMean {
       else if (sampleVal === 'sample2') {
         sampleFile = '../sampleData/twomean_sample2.csv';
       }
+      else {
+        console.error('unknown sample value', sampleVal);
+        return;
+      }
       if (sampleFile) {
         fetch(sampleFile)
           .then(res => {
@@ -167,7 +171,7 @@ export class TwoMean {
     this.updateSimResults();
 
     let summary = {
-      dataMean1: translation.twoMean.noData, // TODO(matthewmerrill): make this translatable
+      dataMean1: translation.twoMean.noData,
       dataMean2: translation.twoMean.noData,
       dataMeanDiff: translation.twoMean.noData,
     };
@@ -179,7 +183,8 @@ export class TwoMean {
     }
     if (data[0].length && data[1].length) {
       summary.dataMeanDiff = summary.dataMean1 - summary.dataMean2;
-      this.dom.tailInputElement.value = summary.dataMeanDiff;
+      this.dom.tailInputElement.value = MathUtil.roundToPlaces(summary.dataMeanDiff, 4);
+      this.dom.tailInputElement.dispatchEvent(new Event('change'));
     }
     Summaries.updateSummaryElements(this.summaryElements, summary);
   }

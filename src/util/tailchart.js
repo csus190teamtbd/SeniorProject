@@ -28,6 +28,7 @@ export default class TailChart {
     );
     this.summaryElements = summaryElements;
     this.results = [];
+    this.updateChartLabels();
   }
 
   reset() {
@@ -80,7 +81,7 @@ export default class TailChart {
 
   updateChartLabels(mean) {
     let word = this.whatAreWeRecording;
-    if (this.tailDirection === "null") {
+    if (this.tailDirection == null || this.tailDirection == 'null') {
       this.chart.updateLabelName(0, word);
       this.chart.updateLabelName(1, "N/A");
     } else if (this.tailDirection === "oneTailRight") {
@@ -108,7 +109,7 @@ export default class TailChart {
 
   predicateForTail(mean) {
     let tailInput = this.tailInput;
-    if (this.tailDirection === "null") {
+    if (this.tailDirection == null || this.tailDirection == 'null') {
       return null;
     } else if (this.tailDirection === "oneTailRight") {
       return x => x >= tailInput;

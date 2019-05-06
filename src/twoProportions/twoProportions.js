@@ -1,7 +1,7 @@
 ---
 ---
 
-import {countWhere} from "{{base}}../util/math.js";
+import {countWhere, roundToPlaces} from "{{base}}../util/math.js";
 import {randomInt, shuffle} from "{{base}}../util/sampling.js";
 import StackedDotChart from "../util/stackeddotchart.js";
 import * as Summaries from "{{base}}../util/summaries.js";
@@ -79,7 +79,8 @@ export class TwoProportions {
       for (let elem of this.dom.needResults) {
         elem.setAttribute('disabled', true);  
       }
-      this.dom.tailInputElement.value = summary.proportionDiff;
+      this.dom.tailInputElement.value = roundToPlaces(summary.proportionDiff, 4);
+      this.dom.tailInputElement.dispatchEvent(new Event('change'));
       this.charts.tailChart.setTailInput(this.dom.tailInputElement.value * 1);
       this.charts.tailChart.updateChart();
     }
