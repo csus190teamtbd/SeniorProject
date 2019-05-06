@@ -3,3 +3,11 @@ source: src/
 
 sass:
   sass_dir: _sass
+
+downloadLink: 'https://www.csus.edu/faculty/d/rdiaz/'
+manualLink: 'https://www.csus.edu/faculty/d/rdiaz/'
+
+# Default Configuration
+distribution: 'web'
+language: 'en'
+
