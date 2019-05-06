@@ -162,6 +162,8 @@ export class TwoMean {
     this.dataChart2.chart.update(0);
     this.sampleChart1.chart.update(0);
     this.sampleChart2.chart.update(0);
+
+    this.charts.tailChart.reset();
     this.updateSimResults();
 
     let summary = {
