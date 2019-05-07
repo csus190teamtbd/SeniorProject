@@ -46,6 +46,7 @@ export class OneProportion {
 
     this.state = this.initState();
     this.translationData = translation.oneProportion;
+    console.log('one',this.translationData)
     this.chart = new ChartModule(this.ele.chart, this.translationData);
     this.reset = e => {
       this.state = this.initState();
