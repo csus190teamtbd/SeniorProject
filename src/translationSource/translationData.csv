@@ -27,10 +27,10 @@ Reset	Reinicio	oneProportion.reset
 Draw Samples	Obtener Muestras:	oneProportion.drawSamples
 Total samples:	Total # de muestras:	oneProportion.totalSamples
 Mean # of heads:	Media # de caras:	oneProportion.meanNoOfHeads
-Standard Deviation:	Desviación Estándar:	oneProportion.standardDeviation
+Standard Deviation	Desviación Estándar	oneProportion.standardDeviation
 Probability of Heads p:	Probabilidad de Caras p:	oneProportion.probHeads
 Add samples	Agregar Muestras	oneProportion.addSamples
-Select interval for # of heads in:	Seleccione intervalo para el # de caras en:	oneProportion.selectInterval
+Select interval for # of heads in	Seleccione intervalo para el # de caras en	oneProportion.selectInterval
 One Mean	Una Media	oneMean.title
 Enter Data:	Teclee los Datos	oneMean.enterData
 Select Sample Data	Seleccione Datos Muestra	oneMean.selectData
