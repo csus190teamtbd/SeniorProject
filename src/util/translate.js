@@ -1,6 +1,6 @@
 ---
 ---
-{%   if jekyll.environment == "es"
+{%   if site.language == "es"
 %}{%   assign lang="es"
 %}{% else
 %}{%   assign lang="en"

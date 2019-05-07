@@ -2,7 +2,7 @@ Statistical Analysis Visualizations for Introductory Statistics	Statistical Anal
 Home	Inicio	home.title
 About	Acerca de SAVIS	about.title
 Download	Bajar Archivo	download.title
-User Manual	Manual de Usuario	userManual.title
+User Manual	Manual del Usuario	userManual.title
 About	Acerca de SAVIS	about.title
 Contact	Contacto	about.contact
 Contributors	Contribuidores	about.contributors
@@ -16,21 +16,21 @@ Max # of head:	Max # de caras:	oneProportion.maxHead
 Proportion:	Proporción:	oneProportion.proportion
 # of samples	# de muestras	oneProportion.noOfSamples
 # of heads in	# de muestras en	oneProportion.noOfHeads
-tosses:	Lanzamientos:	oneProportion.tosses2
+tosses:	lanzamientos:	oneProportion.tosses2
 Samples	Muestras	oneProportion.Samples
 Binomial Prediction	Predicción Binomial	oneProportion.binomial
 Selected	Seleccionadas	oneProportion.selected
 Remarks:	Notas:	oneProportion.remarkTitle
-1. Double click the graph to zoom in/out if # of tosses >= 50.	1. Haga dos clics en al gráfica para agrandarla o disminuirla si el · de lanzamientos es >= 50.	oneProportion.remark1
+1. Double click the graph to zoom in/out if # of tosses >= 50.	1. Haga dos clics en al gráfica para agrandarla o disminuirla si el # de lanzamientos es >= 50.	oneProportion.remark1
 2. Click the legend to hide/show corresponding info in graph.	2. Haga un clic en las leyendas para mostrar/esconder infromación correspondiente.	oneProportion.remark2
 Reset	Reinicio	oneProportion.reset
-Draw Samples	Obtener Muestras	oneProportion.drawSamples
-Total samples:	Total de muestras	oneProportion.totalSamples
-Mean # of heads:	Media # de caras	oneProportion.meanNoOfHeads
+Draw Samples	Obtener Muestras:	oneProportion.drawSamples
+Total samples:	Total # de muestras:	oneProportion.totalSamples
+Mean # of heads:	Media # de caras:	oneProportion.meanNoOfHeads
 Standard Deviation:	Desviación Estándar:	oneProportion.standardDeviation
-Probability of Heads p:	Probabilidad de Agulas p:	oneProportion.probHeads
+Probability of Heads p:	Probabilidad de Caras p:	oneProportion.probHeads
 Add samples	Agregar Muestras	oneProportion.addSamples
-Select interval for # of heads in:	Seleccione intervalo para el # de caras:	oneProportion.selectInterval
+Select interval for # of heads in:	Seleccione intervalo para el # de caras en:	oneProportion.selectInterval
 One Mean	Una Media	oneMean.title
 Enter Data:	Teclee los Datos	oneMean.enterData
 Select Sample Data	Seleccione Datos Muestra	oneMean.selectData
@@ -48,26 +48,26 @@ times	veces	oneMean.times
 Draw Sample	Obtenga la Muestra	oneMean.drawSample
 Sample size:	Tamaño de muestra	oneMean.sampleSize
 # of samples	# de muestras	oneMean.noOfSample
-Run Simulation	Correr Simulacón	oneMean.runSim
-Sampling Distribution of Means	Distribucón de las medias	oneMean.chartTitle4
+Run Simulation	Correr Simulación	oneMean.runSim
+Sampling Distribution of Means	Distribucón de las Medias	oneMean.chartTitle4
 Type of Test	Tipo de Prueba	oneMean.pleaseSelect
 One Tail Right	Una cola (derecha)	oneMean.oneTailRight
 One Tail Left	Una cola (izquierda)	oneMean.oneTailLeft
 Two Tails	Dos colas	oneMean.twoTail
-Total # of samples:	Total # de muestras	oneMean.totalNoOfSamples
-Sample means at least as extreme as:	Medias iguales a o más extremas que:	oneMean.extremeSamples
+Total # of samples:	Total # de muestras:	oneMean.totalNoOfSamples
+Sample means at least as extreme as	Medias iguales a o más extremas que	oneMean.extremeSamples
 samples	muestras	oneMean.samples
 Samples	Muestras	oneMean.Samples
 Proportion:	Proporción:	oneMean.proportion
 #	#	oneMean.sampleNo
-sample means	las medias	oneMean.sampleMeans
+sample means	medias	oneMean.sampleMeans
 Mean	Media	oneMean.mean2
 Mean of sample means:	Media de las medias:	oneMean.meanOfsamplesMeans
-Original	Original	oneMean.original
+Original Dataset	Datos Originales	oneMean.original
 Hypothetical Population	Poblacíon Hipotética	oneMean.hypotheticalPopulation
-Most Recent Draw	Ultima Muestra	oneMean.mostRecentDrawn
+Most Recent Draw	Ultima Muestra	oneMean.mostRecentDraw
 NaN	NaN	oneMean.noData
-Total # samples	Total # muestras	oneMean.totalSamples
+Total # samples:	Total # muestras:	oneMean.totalSamples
 No population data	No hay población	oneMean.errorNoPopulation
 Standard Deviation	Desviación Estándar	oneMean.std
 Sample exceeds population	La muestra excede la población	oneMean.errorNotEnoughElements
@@ -87,7 +87,7 @@ NaN	NaN	twoMean.noData
 Difference of Means (Mean 1 - Mean 2):	Diferencia entre Medias (Media 1 - Media 2):	twoMean.diffOfMean
 Run Simulation	Correr Simulacón	twoMean.runSim
 # of Simulations	# de Simulaciones	twoMean.numSim
-Difference of Means (Randomized Samples):	Differencia entre medias (de muestras aleatorizadas)	twoMean.diffOfSampleMean
+Difference of Means (Randomized Samples):	Differencia entre medias (de muestras aleatorizadas):	twoMean.diffOfSampleMean
 Sampling Distribution of Difference of Means	Distribución de diferencias de medias	twoMean.subTitle3
 Type of Test	Tipo de Prueba	tailChart.pleaseSelect
 One Tail Right	Una cola (derecha)	tailChart.oneTailRight
@@ -97,12 +97,12 @@ NaN	NaN	twoMean.noData
 Group 1	Grupo 1	twoMean.group1
 Group 2	Grupo 2	twoMean.group2
 Differences	Diferencias	twoMean.differences
-Select differences at least as extreme as:	Seleccionar las diferencias iguales a o más extremas que:	twoMean.selectAllExtreme
+Select differences at least as extreme as	Seleccionar las diferencias iguales a o más extremas que:	twoMean.selectAllExtreme
 Samples	Muestras	twoMean.Samples
-Total samples:	Total de muestras	twoMean.totalSamples
+Total # samples:	Total # de muestras:	twoMean.totalSamples
 # of Extreme Differences:	# de Diferencias Extremas:	twoMean.numSelected
-Original Dataset Difference of Means:	Diferencia de Medias en Datos Originales	twoMean.oriDiffOfMean
-Mean of Sample Differences:	Media de las Diferencias	twoMean.meanSampleDiff
+Original Dataset Difference of Means:	Diferencia de Medias en Datos Originales:	twoMean.oriDiffOfMean
+Mean of Sample Differences:	Media de las Diferencias:	twoMean.meanSampleDiff
 Standard Deviation:	Desviación Estándar:	twoMean.stdSampleDiff
 Proportion of Extreme Differences	Proporción de Diferencias Extremas:	twoMean.proportionSelcted
 Two Proportions	Dos Proporciones	twoProportions.title
@@ -114,23 +114,23 @@ Failures	Fracasos	twoProportions.failures
 Load Data	Subir Datos	twoProportions.loadData
 Run Simulations	Correr Simulaciones	twoProportions.runSims
 # of Simulations	# Simulaciones	twoProportions.noOfSims
-Proportion of Group A	Proporción de Grupo A	twoProportions.propGroupA
-Proportion of Group B	Proporción de Grupo B	twoProportions.propGroupB
+Proportion of Succeses in Group A	Proporción de Exitos en Grupo A	twoProportions.propGroupA
+Proportion of Successes in Group B	Proporción de Exitos en Grupo B	twoProportions.propGroupB
 Difference of Proportions	Differencias de Proporciones	twoProportions.diffOfProp
 Proportion of Successes Randomized to Group A	Proporción de Exitos Randomizados al Grupo A	twoProportions.propOfRandomA
 Proportion of Successes Randomized to Group B	Proporción de Exitos Randomizados al Grupo B	twoProportions.propOfRandomB
 Sampling Distribution of Difference of Proportions	Distribución de las Differencias de Proporciones	twoProportions.subTitle3
 Select differences as extreme as:	Selecionar las differencias iguales a o más extremas que:	twoProportions.selectAllExtreme
-Difference of Proportions in Original Data	Differencia de Medias en Datos Originales	twoProportions.oriDatasetDiff
-Mean of Sample Differences	Media de las Diferencias de Medias	twoProportions.meanOfSampleDiff
-Standard Deviation:	Desviación Estándar	twoProportions.std
+Difference of Proportions in Original Data:	Differencia de Proporciones en Datos Originales:	twoProportions.oriDatasetDiff
+Mean of Sample Differences:	Media de las Diferencias de Proporciones:	twoProportions.meanOfSampleDiff
+Standard Deviation:	Desviación Estándar:	twoProportions.std
 Total # Samples:	Total # de Muestras:	twoProportions.totalSamples
-# Extreme Differences:	# Diferencias Extremas	twoProportions.noOfSelected
-Proportion Extreme Differences	Proporción de Diferencias Extremas	twoProportions.propSamplesSelected
+# Extreme Differences:	# Diferencias Extremas:	twoProportions.noOfSelected
+Proportion Extreme Differences:	Proporción de Diferencias Extremas	twoProportions.propSamplesSelected
 N/A	N/A	twoProportions.noSim
 Select differences as extreme as:	Seleccionar las diferencias iguales a o más extremas que:	twoProportions.selectAllExtreme
 NaN	NaN	twoProportions.noData
 Differences	Diferencias	twoProportions.differences
 Group A and Group B must both have at least one element.	Grupo A y Grupo B tienen que tener ambos al menos un elemento.	twoProportions.alertAtLeastOne
-Differences	Diferencias 	twoProportions.differences
-Group A and Group B must both have at least one element.	Group A and Group B must both have at least one element. (MISSING)	twoProportions.alertAtLeastOne
+Differences	Diferencias	twoProportions.differences
+Most Recent Draw	Ultima Muestra	twoProportions.mostRecentDraw

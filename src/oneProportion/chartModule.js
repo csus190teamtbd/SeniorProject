@@ -10,7 +10,7 @@ export default class ChartModule {
       invisible: "rgba(0,255,0,0.0)"
     };
     this.translationData = translation;
-    console.log(this.translationData);
+    // console.log(this.translationData);
     this.dataFromCalculation = {
       theoryMean: 0,
       noOfSelected: 0
