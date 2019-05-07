@@ -371,13 +371,13 @@ export class OneMean {
     // update text area output
     if (dataName !== this.dataName.sampleMeans) {
       textAreaEle.value = data.reduce(
-        (acc, x) => acc + `${x.id}\t${x.value}\n`,
-        `${this.translationData.id}\t${this.translationData.value}\n`
+        (acc, x) => acc + `${x.id}`.padEnd(8, ' ' ) + `${x.value}\n`,
+        `${this.translationData.id}`.padEnd(8, ' ') + `${this.translationData.value}\n`
       );
     } else {
       textAreaEle.value = data.reduce(
-        (acc, x, index) => acc + `${index + 1}\t${x}\n`,
-        `${this.translationData.sampleNo}\t${this.translationData.mean2}\n`
+        (acc, x, index) => acc + `${index + 1}`.padEnd(8, ' ') + `${x}\n`,
+        `${this.translationData.sampleNo}`.padEnd(8, ' ') + `${this.translationData.mean2}\n`
       );
     }
   }
@@ -430,5 +430,6 @@ export class OneMean {
         `${sampleName} <= ${left} or ${sampleName} >= ${right}`
       );
     }
+
   }
 }
