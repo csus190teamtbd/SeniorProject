@@ -2,14 +2,21 @@
 ---
 
 #one-proportion {
+  p {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  h4 {
+    margin-top: 3px;
+  }
   .chart-input-form {
     display: flex;
-    .container {
-      .form-group {
-      }
+    #control {
+      width: 100ch;
     }
     label {
       display: block;
+      font-size: 12px;
     }
   }
   table {
@@ -18,6 +25,6 @@
   }
   .right-num {
     text-align: right;
-    float: right;
+    // float: right;
   }
 }

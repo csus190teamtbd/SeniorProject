@@ -78,9 +78,9 @@ en:
     remarkTitle: 'Remarks:'
     reset: Reset
     samplesInterval: '# of samples in interval:'
-    selectInterval: 'Select interval for # of heads in:'
+    selectInterval: 'Select interval for # of heads in'
     selected: Selected
-    standardDeviation: 'Standard Deviation:'
+    standardDeviation: Standard Deviation
     title: One Proportion
     tosses1: 'Tosses:'
     tosses2: 'tosses:'
@@ -233,9 +233,9 @@ es:
     remarkTitle: 'Notas:'
     reset: Reinicio
     samplesInterval: '# de muestras en intervalo:'
-    selectInterval: 'Seleccione intervalo para el # de caras en:'
+    selectInterval: 'Seleccione intervalo para el # de caras en'
     selected: Seleccionadas
-    standardDeviation: 'Desviación Estándar:'
+    standardDeviation: Desviación Estándar
     title: Una Proporción
     tosses1: 'Lanzamientos:'
     tosses2: 'lanzamientos:'
