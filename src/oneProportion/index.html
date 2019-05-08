@@ -78,4 +78,8 @@ titlekey: oneProportion.title
     </div>
 </div>
 <script src="{{base}}../lib/Chart.bundle.min.js"></script>
-<script src="./oneProportion.bundle.js"></script>
+{% if jekyll.environment == 'development' %}
+<script src="./oneProportionEntry.js" type="module"></script>
+{% else %}
+<script src="./oneMean.bundle.js"></script>
+{% endif %}

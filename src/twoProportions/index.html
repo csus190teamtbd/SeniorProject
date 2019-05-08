@@ -148,5 +148,9 @@ titlekey: twoProportions.title
 </div>
 
 <script src="{{base}}../lib/Chart.bundle.min.js"></script>
+{% if jekyll.environment == 'development' %}
+<script src="./twoProportionsEntry.js" type="module"></script>
+{% else %}
 <script src="./twoProportions.bundle.js"></script>
+{% endif %}
 
