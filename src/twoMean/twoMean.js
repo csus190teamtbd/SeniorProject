@@ -102,7 +102,12 @@ export class TwoMean {
 
   loadData() {
     let rawData = this.parseData(this.csvInput.value.trim());
-    this.updateData(rawData);
+    if (!rawData[0] || !rawData[0].length || !rawData[1] || !rawData[1].length) {
+      alert(translation.twoMean.alertAtLeastOne);
+    }
+    else {
+      this.updateData(rawData);
+    }
   }
 
   parseData(dataText) {
@@ -130,7 +135,6 @@ export class TwoMean {
     this.sampleDiffs = [];
 
     let dataValues = data[0].concat(data[1]);
-    console.log(dataValues);
     if (dataValues.length) {
       let min = Math.min.apply(undefined, dataValues);
       let max = Math.max.apply(undefined, dataValues);
