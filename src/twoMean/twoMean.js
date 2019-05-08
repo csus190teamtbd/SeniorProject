@@ -95,6 +95,8 @@ export class TwoMean {
 
   reset() {
     this.csvInput.value = '';
+    this.dom.sampleSelect.value = null;
+    this.dom.sampleSelect.selectedIndex = 0;
     this.loadData();
   }
 
