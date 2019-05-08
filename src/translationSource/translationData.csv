@@ -105,6 +105,7 @@ Original Dataset Difference of Means:	Diferencia de Medias en Datos Originales:	
 Mean of Sample Differences:	Media de las Diferencias:	twoMean.meanSampleDiff
 Standard Deviation:	Desviación Estándar:	twoMean.stdSampleDiff
 Proportion of Extreme Differences	Proporción de Diferencias Extremas:	twoMean.proportionSelcted
+Group 1 and Group 2 must both have at least one element.	Grupo 1 y Grupo 2 tienen que tener ambos al menos un elemento.	twoMean.alertAtLeastOne
 Two Proportions	Dos Proporciones	twoProportions.title
 Enter Data:	Teclee los Datos	twoProportions.enterData
 Group A	Grupo A	twoProportions.groupA

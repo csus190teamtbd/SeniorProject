@@ -94,6 +94,7 @@ en:
     twoTail: Two Tails
   twoMean:
     Samples: Samples
+    alertAtLeastOne: Group 1 and Group 2 must both have at least one element.
     diffOfMean: 'Difference of Means (Mean 1 - Mean 2):'
     diffOfSampleMean: 'Difference of Means (Randomized Samples):'
     differences: Differences
@@ -249,6 +250,7 @@ es:
     twoTail: Dos colas
   twoMean:
     Samples: Muestras
+    alertAtLeastOne: Grupo 1 y Grupo 2 tienen que tener ambos al menos un elemento.
     diffOfMean: 'Diferencia entre Medias (Media 1 - Media 2):'
     diffOfSampleMean: 'Differencia entre medias (de muestras aleatorizadas):'
     differences: Diferencias
