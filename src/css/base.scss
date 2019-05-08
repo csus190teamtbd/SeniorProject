@@ -285,6 +285,9 @@ button.btn {
     flex-flow: row nowrap;
     align-items: flex-start;
   }
+  input:not(:checked) + .section {
+    display: none;
+  }
   .lhs, .rhs {
     display: flex;
     flex-flow: column nowrap;
