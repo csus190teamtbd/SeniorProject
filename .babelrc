@@ -1,4 +1,18 @@
 {
-  "presets": ["es2015"],
-  "plugins": ["transform-es2015-destructuring", "transform-object-rest-spread"]
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "chrome": "60",
+          "ie": 9
+        },
+        "useBuiltIns": "false",
+        "corejs": "2"
+      }
+    ]
+  ],
+  "ignore": [
+    "node_modules"
+  ]
 }
