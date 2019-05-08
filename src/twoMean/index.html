@@ -108,5 +108,9 @@ titlekey: twoMean.title
 </div>
 
 <script src="{{base}}../lib/Chart.bundle.min.js"></script>
+{% if jekyll.environment == 'development' %}
+<script src="./twoMeanEntry.js" type="module"></script>
+{% else %}
 <script src="./twoMean.bundle.js"></script>
+{% endif %}
 

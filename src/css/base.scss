@@ -98,6 +98,8 @@ textarea[disabled], input[disabled], select[disabled] {
   padding: 0.5rem 2rem;
   border: none;
   border-radius: 5px;
+}
+button.btn {
   transition-property: background-color color;
   transition-duration: $transition-duration;
 }
