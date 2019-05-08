@@ -135,3 +135,4 @@ Differences	Diferencias	twoProportions.differences
 Group A and Group B must both have at least one element.	Grupo A y Grupo B tienen que tener ambos al menos un elemento.	twoProportions.alertAtLeastOne
 Differences	Diferencias	twoProportions.differences
 Most Recent Draw	Ultima Muestra	twoProportions.mostRecentDraw
+Most Recent Draw	Ultima Muestra	twoMean.mostRecentDraw

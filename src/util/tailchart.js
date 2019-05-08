@@ -81,28 +81,27 @@ export default class TailChart {
 
   updateChartLabels(mean) {
     let word = this.whatAreWeRecording;
+    let roundedInput = MathUtil.roundToPlaces(this.tailInput, 4);
     if (this.tailDirection == null || this.tailDirection == 'null') {
       this.chart.updateLabelName(0, word);
       this.chart.updateLabelName(1, "N/A");
     } else if (this.tailDirection === "oneTailRight") {
-      this.chart.updateLabelName(0, `${word} < ${this.tailInput}`);
-      this.chart.updateLabelName(1, `${word} >= ${this.tailInput}`);
+      this.chart.updateLabelName(0, `${word} < ${roundedInput}`);
+      this.chart.updateLabelName(1, `${word} >= ${roundedInput}`);
     } else if (this.tailDirection === "oneTailLeft") {
-      this.chart.updateLabelName(0, `${word} > ${this.tailInput}`);
-      this.chart.updateLabelName(1, `${word} <= ${this.tailInput}`);
+      this.chart.updateLabelName(0, `${word} > ${roundedInput}`);
+      this.chart.updateLabelName(1, `${word} <= ${roundedInput}`);
     } else {
       const distance = MathUtil.roundToPlaces(Math.abs(mean - this.tailInput), 2);
-      const left = mean - distance;
-      const right = mean + distance;
-      this.chart.updateLabelName(0, `${left} < ${word} < ${right}`);
+      const left = MathUtil.roundToPlaces(mean - distance, 4);
+      const right = MathUtil.roundToPlaces(mean + distance, 4);
       if (mean === 0) {
+        this.chart.updateLabelName(0, `|${word}| < ${Math.abs(right)}`);
         this.chart.updateLabelName(1, `|${word}| >= ${Math.abs(right)}`);
       }
       else {
-        this.chart.updateLabelName(
-          1,
-          `${word} <= ${left} or ${word} >= ${right}`
-        );
+        this.chart.updateLabelName(0, `${left} < ${word} < ${right}`);
+        this.chart.updateLabelName(1, `${word} <= ${left} or ${word} >= ${right}`);
       }
     }
   }
