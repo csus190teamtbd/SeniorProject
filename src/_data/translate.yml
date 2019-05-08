@@ -105,6 +105,7 @@ en:
     group2: Group 2
     loadData: Load Data
     meanSampleDiff: 'Mean of Sample Differences:'
+    mostRecentDraw: Most Recent Draw
     noData: NaN
     numSelected: '# of Extreme Differences:'
     numSim: '# of Simulations'
@@ -261,6 +262,7 @@ es:
     group2: Grupo 2
     loadData: Cargar Datos
     meanSampleDiff: 'Media de las Diferencias:'
+    mostRecentDraw: Ultima Muestra
     noData: NaN
     numSelected: '# de Diferencias Extremas:'
     numSim: '# de Simulaciones'
